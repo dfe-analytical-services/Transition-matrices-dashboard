@@ -54,15 +54,17 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 h3("Context and purpose"),
-                p("To use the transition matrices the dashboard tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box.Figures are presented in the form of a table and chart. All underlying data can be downloaded in csv format here:"),                                          
+                p("To use the transition matrices the dashboard tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box.Figures are presented in the form of a table and chart. All underlying data can be downloaded in csv format from the Key stage 4 data catalogue."),                                          
                 #p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
                 #p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")), 
                 
-                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
+              
                 
                 h3("All supporting files"),
                 p("All supporting files from this release are listed for individual download below:"),
-                  
+                br(),
+                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
+                br(),
                  a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
                br(),
                  a(href = "https://content.explore-education-statistics.service.gov.uk/api/releases/1c01df43-72e6-4ee4-a64e-2805f5e44d2d/files/dd9db45d-7f81-41a4-b147-08d88fd28587", "Key stage 4 GCSE Subject group composition ", .noWS = c("after")),
