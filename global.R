@@ -26,82 +26,198 @@ shhh(library(DT))
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
-
-# cs_num ----------------------------------------------------------------------------
-# Comma separating function
-
-cs_num <- function(value) {
-  format(value, big.mark = ",", trim = TRUE)
-}
-
-# tidy_code_function -------------------------------------------------------------------------------
-# Code to tidy up the scripts.
-
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, test_scripts)
-  return(script_changes)
-}
-
-# Source scripts ---------------------------------------------------------------------------------
-
-# Source any scripts here. Scripts may be needed to process data before it gets to the server file.
-# It's best to do this here instead of the server file, to improve performance.
-
-# source("R/filename.r")
+library(dplyr)
+library(ggplot2)
+library(purrr)
 
 
-# appLoadingCSS ----------------------------------------------------------------------------
-# Set up loading screen
 
-appLoadingCSS <- "
-#loading-content {
-  position: absolute;
-  background: #000000;
-  opacity: 0.9;
-  z-index: 100;
-  left: 0;
-  right: 0;
-  height: 100%;
-  text-align: center;
-  color: #FFFFFF;
-}
-"
 
-site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
-site_overflow <- "https://department-for-education.shinyapps.io/dfe-shiny-template-overflow/"
+# -----------------------------------------------------------------------------------------------------------------------------
+# ---- Reading in the data ----
+# -----------------------------------------------------------------------------------------------------------------------------
 
-source("R/support_links.R")
-source("R/read_data.R")
+subject_data <- read.csv("data/2021_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+cs_data <- read.csv("data/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+attainment_data <- read.csv("data/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
-# Read in the data
-dfRevBal <- read_revenue_data()
-# Get geographical levels from data
-dfAreas <- dfRevBal %>%
-  select(
-    geographic_level, country_name, country_code,
-    region_name, region_code,
-    la_name, old_la_code, new_la_code
-  ) %>%
+
+
+
+# -----------------------------------------------------------------------------------------------------------------------------
+# ---- Creating drop down lists ----
+# -----------------------------------------------------------------------------------------------------------------------------
+
+subject_dropdown <- subject_data %>% 
+  select(subjects) %>% 
+  distinct() %>% 
+  add_row(subjects = "Combined Science") %>%
+  arrange(subjects)
+
+
+
+characteristic_dropdown <- subject_data %>% 
+  select(characteristic_type) %>% 
   distinct()
 
-choicesLAs <- dfAreas %>%
-  filter(geographic_level == "Local authority") %>%
-  select(geographic_level, area_name = la_name) %>%
-  arrange(area_name)
 
-choicesAreas <- dfAreas %>%
-  filter(geographic_level == "National") %>%
-  select(geographic_level, area_name = country_name) %>%
-  rbind(dfAreas %>% filter(geographic_level == "Regional") %>% select(geographic_level, area_name = region_name)) %>%
-  rbind(choicesLAs)
+num_perc_dropdown <- c('Number of pupils', 'Percentage of pupils achieving')
 
-choicesYears <- unique(dfRevBal$time_period)
 
-choicesPhase <- unique(dfRevBal$school_phase)
+attainment_dropdown <- c('EBacc Entry', 'EBacc Achievement 9-4', 'EBacc Achievement 9-5',
+                         'English & Mathematics Achievement 9-4', 'English & Mathematics Achievement 9-5')
+
+
+
+
+# KS2_dropdown <- c('Less than 80', '80 - 89.5', '90 - 95.5', '96 - 99.5',
+# '100 - 102', '102.5 - 104.5', '105 - 107', '107.5 - 109.5',
+# '110 - 112', '112.5 - 114.5', '115 - 117', '117.5 - 120')
+
+
+KS2_dropdown_attainment <- attainment_data %>%
+  select(KS2_Prior) %>%
+  distinct() %>%
+  # arrange(KS2_Prior)%>% 
+  unlist(use.names = FALSE)
+
+
+
+# -----------------------------------------------------------------------------------------------------------------------------
+# ---- Subjects Table created from the tidy data csv file ----
+# -----------------------------------------------------------------------------------------------------------------------------
+
+## function to select the correct number / perc columns based on the user selection type
+subject_col_selection = function(data, num_perc){
+  
+  if(num_perc == "Number of pupils"){
+    data %>% 
+      select(KS2_Prior, characteristic_value, starts_with("num_"), "All Grades" = "All_Grades") %>% 
+      rename_at(vars(starts_with("num_")), list(~sub("num_", "", .))) 
+  }
+  else{
+    data %>% 
+      select(KS2_Prior, characteristic_value, starts_with("perc_")) %>% 
+      rename_at(vars(starts_with("perc_")), list(~sub("perc_", "% ", .))) 
+  }
+}
+
+
+# # Returns a table from the 9-1 subjects tidy data CSV
+subject_table = function(subj, char, num_perc){
+  
+  if(subj == "Combined Science"){
+    
+    table = cs_data %>%
+      filter(characteristic_type == char) %>%
+      subject_col_selection(., num_perc)
+  }
+  
+  else{
+    
+    table = subject_data %>%
+      filter(subjects == subj, 
+             characteristic_type == char) %>%
+      subject_col_selection(., num_perc)
+  }
+  
+  return(table)
+}
+
+#test <- subject_table('French', 'Male Pupils', 'Percent')
+
+
+# -----------------------------------------------------------------------------------------------------------------------------
+# ---- Attainment Table created from the tidy data csv file ----
+# -----------------------------------------------------------------------------------------------------------------------------
+
+
+## function to select the correct attainment columns based on the chosen attainment type
+attainment_col_selection = function(data, att_type){
+  data %>%
+    select(KS2_Prior, characteristic_value, starts_with(att_type)) 
+  
+}
+
+## function to re-format the column names to make them more reader friendly in the app
+attainment_col_format = function(data, att_type){
+  data %>%
+    rename_at(vars(starts_with(att_type)), list(~sub(att_type, "", .))) %>%
+    rename_at(vars(starts_with("perc_")), list(~sub("perc_", "% ", .))) %>%
+    rename_all(function(x) gsub("_", " ", x)) %>% 
+    rename(characteristic_value = `characteristic value`)
+}
+
+
+## returns a table from the attainment tidy data CSV
+attainment_table = function(att, char){
+  
+  table = attainment_data %>%
+    filter(characteristic_type == char)
+  
+  
+  if(att == "EBacc Entry"){
+    table = table %>% 
+      attainment_col_selection(., "EBacc_all_") %>% 
+      attainment_col_format(., "EBacc_all_")
+  }
+  
+  else if(att == "EBacc Achievement 9-4"){
+    table = table %>% 
+      attainment_col_selection(., "EBacc_9.4_") %>% 
+      attainment_col_format(., "EBacc_9.4_")
+  }
+  
+  else if(att == "EBacc Achievement 9-5"){
+    table = table %>% 
+      attainment_col_selection(., "EBacc_9.5_") %>% 
+      attainment_col_format(., "EBacc_9.5_")
+  }
+  
+  else if(att == "English & Mathematics Achievement 9-4"){
+    table = table %>% 
+      attainment_col_selection(., "Basics_9.4_") %>% 
+      attainment_col_format(., "Basics_9.4_")
+  }
+  
+  else if(att == "English & Mathematics Achievement 9-5"){
+    table = table %>% 
+      attainment_col_selection(., "Basics_9.5_") %>% 
+      attainment_col_format(., "Basics_9.5_")
+  }
+  
+  return(table)
+}
+
+
+#test <- attainment_table('EBacc Achievement 9-4', 'Male Pupils') 
+
+
+
+
+# -----------------------------------------------------------------------------------------------------------------------------
+# ---- Example Tables ----
+# -----------------------------------------------------------------------------------------------------------------------------
+
+example_data <- subject_table('French', 'All Pupils', 'Number of pupils')  %>%
+  rename('KS2 Attainment' = KS2_Prior)
+
+
+# extract the value for example
+example_value <- example_data %>%
+  filter(`KS2 Attainment` == '110 - 113') %>%
+  pull('6')
+
+
+example_data_perc <- subject_table('French', 'All Pupils', 'Percentage of pupils')  %>%
+  rename('KS2 Attainment' = KS2_Prior)
+
+
+# extract the value for example
+example_value_perc <- example_data_perc %>%
+  filter(`KS2 Attainment` == '110 - 113') %>%
+  pull('% 6')
+
+
+
+
