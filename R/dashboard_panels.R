@@ -29,7 +29,7 @@ homepage_panel <- function() {
                   h3("Introduction"),
                   p("This app demonstrates the KS4 Transition Matrices data dashboard."),
                   p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements found here:"),
-                  p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices dashboard")),
+                  p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices dashboard")), 
                  # p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices: KS4 headline measures (Academic year 2022)")),
                  # p("You need to add an observeEvent() function to the server.R script for any link that navigates within your App.")
                 ),
@@ -54,11 +54,20 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 h3("Context and purpose"),
-                p("To use the transition matrices choose a category found on the left panel, then select one option from each dropdown box.Figures are presented in the form of a table. All underlying data can be downloaded in csv format from the download data tab."),                                          
-                #p("DfE teams using this template should avoid changing the styling and layout, keeping the header, footer and side navigation list formats."),
-                p(" For example some useful links to your EES publication, data sources and other relevant resources."),
-                h3("Guidance sources (h3)"),
-                p("For example, here we'll add some of the key resources we draw on to guide styling and vizualisation...")
+                p("To use the transition matrices the dashboard tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box.Figures are presented in the form of a table and chart. All underlying data can be downloaded in csv format here:"),                                          
+                #p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
+                #p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")), 
+                
+                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
+                
+                h3("All supporting files"),
+                p("All supporting files from this release are listed for individual download below:"),
+                  
+                 a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
+               br(),
+                 a(href = "https://content.explore-education-statistics.service.gov.uk/api/releases/1c01df43-72e6-4ee4-a64e-2805f5e44d2d/files/dd9db45d-7f81-41a4-b147-08d88fd28587", "Key stage 4 GCSE Subject group composition ", .noWS = c("after")),
+                
+                
               )
             )
           )
@@ -140,7 +149,7 @@ dashboard_panel <- function() {
               column(
                 width=12,
                 h2("Summary"),
-                p("The following data is based on KS2 prior attainment scores and KS4 achievements in GCSE subjects’ grades 9-1. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
+                p("The following data is based on KS2 prior attainment scores and KS4 achievements in GCSE subjects’ grades 9-1 for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
                            Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
                 
                 column(
@@ -214,7 +223,7 @@ dashboard_panel <- function() {
             column(
               width=12,
           h2("Summary"),
-          p("The following data is based on KS2 prior attainment scores and KS4 achievements in EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5),English and maths (9-4), English and maths (9-5).
+          p("The following data is based on KS2 prior attainment scores and KS4 achievements in EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5),English and maths (9-4), English and maths (9-5) for the 2021/2022 academic year.
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). 
             Figures are available at national (England) level only.
             Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
