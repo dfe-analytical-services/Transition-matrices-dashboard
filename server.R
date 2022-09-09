@@ -17,7 +17,7 @@
 #    http://shiny.rstudio.com/
 #
 # ---------------------------------------------------------
-
+library(cowplot)
 
 server <- function(input, output, session) {
   

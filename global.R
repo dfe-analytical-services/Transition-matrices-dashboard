@@ -6,8 +6,8 @@
 # whereas the server and UI files are constantly interacting and responsive to user input.
 #
 # ---------------------------------------------------------
-
-
+#renv::status() 
+install.packages("cowplot")
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
 shhh(library(shiny))
@@ -23,12 +23,14 @@ shhh(library(ggplot2))
 shhh(library(plotly))
 shhh(library(DT))
 
+
 # Functions ---------------------------------------------------------------------------------
 
 # Here's an example function for simplifying the code needed to commas separate numbers:
 library(dplyr)
 library(ggplot2)
 library(purrr)
+library(cowplot)
 
 
 

@@ -54,7 +54,8 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 h3("Context and purpose"),
-                p("To use the transition matrices the dashboard tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box.Figures are presented in the form of a table and chart. All underlying data can be downloaded in csv format from the Key stage 4 data catalogue."),                                          
+                p("To use the transition matrices the dashboard tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in the form of a table and chart. 
+                   All underlying data can be downloaded in csv format from the Key stage 4 data catalogue."),                                          
                 #p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
                 #p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")), 
                 
@@ -62,7 +63,6 @@ homepage_panel <- function() {
                 
                 h3("All supporting files"),
                 p("All supporting files from this release are listed for individual download below:"),
-                br(),
                 a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
                 br(),
                  a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
@@ -186,16 +186,18 @@ dashboard_panel <- function() {
                   ,
                   
                 
-                column (12,
-                        uiOutput("number_table")),
                 
-                  #dataTableOutput('number_table')),
               
                   column(
                     width=12,
                     box(
                       width=12,
-                        plotOutput('subjects_chart'),
+                        plotOutput('subjects_chart')),
+                      
+                      column (12,
+                              uiOutput("number_table"),
+                      
+                      #dataTableOutput('number_table')),
                   ))))),
          
         
@@ -260,15 +262,17 @@ dashboard_panel <- function() {
           )
           ,
           
-          column (12,
-                  uiOutput("attainment_table")),
-          
+         
           
           column(
             width=12,
             box(
               width=12,
-              plotOutput("attainment_chart"),
+              plotOutput("attainment_chart")),
+              
+              column (12,
+                      uiOutput("attainment_table"),
+                      
             )))))))
  
  
