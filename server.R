@@ -157,7 +157,7 @@ server <- function(input, output, session) {
   # ---- Creating output charts ----
   # -----------------------------------------------------------------------------------------------------------------------------
   
-  output$subjects_chart = renderPlot({
+  output$subjects_chart = renderPlotly({
     
     chart_data <- numbers_data() %>%
       filter(KS2_Prior == input$KS2_dropdown_attainment_subject) %>% 
@@ -176,14 +176,18 @@ server <- function(input, output, session) {
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
       xlab('Grades') +
       scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 prior attainment', sep = " "),
-                         expand = c(0, 0)) + 
+                         expand = c(0, 0),
+                         breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
+                        limits = function (x) {c(0, (max (x) +1) *1.1)}) +
+      
+      
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=15, vjust=0.5),
-        axis.text.y=element_text(size=15, vjust=0.5),
+        axis.text.x=element_text(size=14, vjust=0.5),
+        axis.text.y=element_text(size=14, vjust=0.5),
         # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size=15, vjust=-0.5),
-        axis.title.y = element_text(size=15, vjust=2.0),
+        axis.title.x = element_text(size=14, vjust=-0.5),
+        axis.title.y = element_text(size=14, vjust=2.0),
         # sorting out the background colour, grid lines, and axis lines
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -191,12 +195,12 @@ server <- function(input, output, session) {
         plot.background = element_rect(fill = 'White', color = NA),
         axis.line = element_line(colour = 'black')
       )
-  },
-  bg = 'transparent'
+  }#,
+  #bg = 'transparent'
   )
   
   
-  output$attainment_chart = renderPlot({
+  output$attainment_chart = renderPlotly({
     
     num_chart_data <- attainment_data() %>%
       filter(`KS2 Prior` == input$KS2_att_select) %>%
@@ -221,14 +225,17 @@ server <- function(input, output, session) {
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
       xlab(' ') +
       scale_y_continuous(name = paste(input$attainment_select, 'numbers', "\n", 'with ', input$KS2_att_select, 'KS2 prior attainment', sep = " "),
-                         expand = c(0, 0)) + 
+                         expand = c(0, 0) ,
+                         breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
+                         limits = function (x) {c(0, (max (x) +1) *1.1)}) +
+      
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=15, vjust=0.5),
-        axis.text.y=element_text(size=15, vjust=0.5),
+        axis.text.x=element_text(size=14, vjust=0.5),
+        axis.text.y=element_text(size=14, vjust=0.5),
         # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size=15, vjust=-0.5),
-        axis.title.y = element_text(size=15, vjust=2.0),
+        axis.title.x = element_text(size=14, vjust=-0.5),
+        axis.title.y = element_text(size=14, vjust=2.0),
         # sorting out the background colour, grid lines, and axis lines
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -260,8 +267,8 @@ server <- function(input, output, session) {
     
     plot_grid(number_plot, perc_plot, labels = " ")
     
-  },
-  bg = 'transparent'
+  }#,
+ # bg = 'transparent'
   )
   
   # -----------------------------------------------------------------------------------------------------------------------------
@@ -296,7 +303,7 @@ server <- function(input, output, session) {
       write.csv(numbers_data(), file, row.names = FALSE)
     })  
   
- output$download_user_attainment_table <- downloadHandler(
+ output$download_user_attainments_table <- downloadHandler(
     filename = "attainment_data.csv",
     content = function(file) {
       write.csv(attainment_data(), file, row.names = FALSE)
