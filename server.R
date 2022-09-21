@@ -249,7 +249,10 @@ server <- function(input, output, session) {
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
       xlab(' ') +
       scale_y_continuous(name = paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 prior attainment', sep = " "),
-                         expand = c(0, 0)) + 
+                         expand = c(0, 0) ,
+                         breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
+                         limits = function (x) {c(0, (max (x) +1) *1.1)}) +
+      
       theme(
         # set size and spacing of axis tick labels
         axis.text.x=element_text(size=15, vjust=0.5),
