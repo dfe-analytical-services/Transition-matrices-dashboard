@@ -105,38 +105,7 @@ dashboard_panel <- function() {
             style = "min-height: 100%; height: 1000%; overflow-y: visible",
             h2("Dashboard") #added
            
-        
-        ##SUBJECTS FILTER
-          #     fluidRow(
-           # column(
-            #  width=6,
-             # selectizeInput("selectPhase",
-              #      "1.Select one format",
-               #     choices = choicesPhase
-                #    )),
-        #column(#
-         # width=6,
-          #selectizeInput(
-           # inputId = "selectArea",
-            #label = "2.Select one pupil characteristics",
-            #choices = choicesAreas$area_name
-            
-            #column(
-             # width=6,
-              #selectizeInput(
-               # inputId = "selectArea",
-                #label = "3.",
-              #  choices = choicesAreas$area_name
-              #)),
-            
-            #column(
-             # width=6,
-              #selectizeInput(
-               # inputId = "selectArea",
-                #label = "4.",
-                #choices = choicesAreas$area_name
-        #)
-        #))
+
           )
         ),
         
@@ -185,25 +154,19 @@ dashboard_panel <- function() {
                     )
                   ,
                   
-                
-                
-              
+
                   column(
                     width=12,
                     box(
                       width=12,
-                        plotOutput('subjects_chart')),
+                        plotlyOutput('subjects_chart')),
                       
                       column (12,
                               uiOutput("number_table"),
                       
-                      #dataTableOutput('number_table')),
                   ))))),
          
         
- 
-           
-  
 
   
                   # fluidRow(
@@ -268,12 +231,12 @@ dashboard_panel <- function() {
             width=12,
             box(
               width=12,
-              plotOutput("attainment_chart")),
+              plotlyOutput('attainment_chart')),
               
               column (12,
-                      uiOutput("attainment_table"),
+                      uiOutput('attainment_table'),
                       
-            )))))))
+            ))),))))
  
  
  
