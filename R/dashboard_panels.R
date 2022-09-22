@@ -231,7 +231,14 @@ dashboard_panel <- function() {
             width=12,
             box(
               width=12,
-              plotlyOutput('attainment_chart')),
+              radioGroupButtons('num_perc',
+                                label = 'Choose numer or percntage',
+                                choices = c('Number', 'Percentage')),
+              conditionalPanel("input.num_perc == 'Number'",
+                               plotlyOutput('attainment_chart_num')),
+              conditionalPanel("input.num_perc == 'Percentage'",
+                               plotlyOutput('attainment_chart_perc')),
+              ),
               
               column (12,
                       uiOutput('attainment_table'),

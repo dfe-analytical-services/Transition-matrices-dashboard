@@ -200,7 +200,7 @@ server <- function(input, output, session) {
   )
   
   
-  output$attainment_chart = renderPlotly({
+  output$attainment_chart_num = renderPlotly({
     
     num_chart_data <- attainment_data() %>%
       filter(`KS2 Prior` == input$KS2_att_select) %>%
@@ -209,16 +209,6 @@ server <- function(input, output, session) {
     
     
     num_chart_data <- reshape2::melt(num_chart_data)
-    
-    
-    perc_chart_data <- attainment_data() %>%
-      filter(`KS2 Prior` == input$KS2_att_select) %>%
-      select(`KS2 Prior`, characteristic_value, starts_with("% ")) %>% 
-      rename(Characteristic = characteristic_value)
-    
-    perc_chart_data <- reshape2::melt(perc_chart_data)
-    
-    
     
     number_plot <- ggplot(num_chart_data, aes(x = variable, y = value, fill = Characteristic, group = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
@@ -244,6 +234,18 @@ server <- function(input, output, session) {
         axis.line = element_line(colour = 'black')
       )
     
+  }
+  )
+  
+  output$attainment_chart_perc = renderPlotly({
+    
+    perc_chart_data <- attainment_data() %>%
+      filter(`KS2 Prior` == input$KS2_att_select) %>%
+      select(`KS2 Prior`, characteristic_value, starts_with("% ")) %>% 
+      rename(Characteristic = characteristic_value)
+    
+    perc_chart_data <- reshape2::melt(perc_chart_data)
+    
     perc_plot <- ggplot(perc_chart_data, aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
@@ -268,10 +270,7 @@ server <- function(input, output, session) {
         axis.line = element_line(colour = 'black')
       )
     
-    plot_grid(number_plot, perc_plot, labels = " ")
-    
-  }#,
- # bg = 'transparent'
+  }
   )
   
   # -----------------------------------------------------------------------------------------------------------------------------
