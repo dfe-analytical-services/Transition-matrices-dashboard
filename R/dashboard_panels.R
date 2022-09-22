@@ -232,7 +232,7 @@ dashboard_panel <- function() {
             box(
               width=12,
               radioGroupButtons('num_perc',
-                                label = 'Choose numer or percntage',
+                                label = 'View this chart by either number or percentage',
                                 choices = c('Number', 'Percentage')),
               conditionalPanel("input.num_perc == 'Number'",
                                plotlyOutput('attainment_chart_num')),

@@ -170,7 +170,7 @@ server <- function(input, output, session) {
     
     
     chart_data <- reshape2::melt(chart_data)
-    ggplot(chart_data) +
+    subjects_chart <- ggplot(chart_data) +
       (aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
@@ -195,6 +195,8 @@ server <- function(input, output, session) {
         plot.background = element_rect(fill = 'White', color = NA),
         axis.line = element_line(colour = 'black')
       )
+    
+    ggplotly(subjects_chart) %>% config(displayModeBar = F)
   }#,
   #bg = 'transparent'
   )
@@ -234,6 +236,8 @@ server <- function(input, output, session) {
         axis.line = element_line(colour = 'black')
       )
     
+    ggplotly(number_plot) %>% config(displayModeBar = F)
+    
   }
   )
   
@@ -269,6 +273,8 @@ server <- function(input, output, session) {
         plot.background = element_rect(fill = 'White', color = NA),
         axis.line = element_line(colour = 'black')
       )
+    
+    ggplotly(perc_plot) %>% config(displayModeBar = F)
     
   }
   )
