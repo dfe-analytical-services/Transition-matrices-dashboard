@@ -170,7 +170,7 @@ server <- function(input, output, session) {
     
     
     chart_data <- reshape2::melt(chart_data)
-    ggplot(chart_data) +
+    subjects_chart <- ggplot(chart_data) +
       (aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
@@ -195,12 +195,14 @@ server <- function(input, output, session) {
         plot.background = element_rect(fill = 'White', color = NA),
         axis.line = element_line(colour = 'black')
       )
+    
+    ggplotly(subjects_chart) %>% config(displayModeBar = F)
   }#,
   #bg = 'transparent'
   )
   
   
-  output$attainment_chart = renderPlotly({
+  output$attainment_chart_num = renderPlotly({
     
     num_chart_data <- attainment_data() %>%
       filter(`KS2 Prior` == input$KS2_att_select) %>%
@@ -209,16 +211,6 @@ server <- function(input, output, session) {
     
     
     num_chart_data <- reshape2::melt(num_chart_data)
-    
-    
-    perc_chart_data <- attainment_data() %>%
-      filter(`KS2 Prior` == input$KS2_att_select) %>%
-      select(`KS2 Prior`, characteristic_value, starts_with("% ")) %>% 
-      rename(Characteristic = characteristic_value)
-    
-    perc_chart_data <- reshape2::melt(perc_chart_data)
-    
-    
     
     number_plot <- ggplot(num_chart_data, aes(x = variable, y = value, fill = Characteristic, group = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
@@ -244,6 +236,20 @@ server <- function(input, output, session) {
         axis.line = element_line(colour = 'black')
       )
     
+    ggplotly(number_plot) %>% config(displayModeBar = F)
+    
+  }
+  )
+  
+  output$attainment_chart_perc = renderPlotly({
+    
+    perc_chart_data <- attainment_data() %>%
+      filter(`KS2 Prior` == input$KS2_att_select) %>%
+      select(`KS2 Prior`, characteristic_value, starts_with("% ")) %>% 
+      rename(Characteristic = characteristic_value)
+    
+    perc_chart_data <- reshape2::melt(perc_chart_data)
+    
     perc_plot <- ggplot(perc_chart_data, aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
@@ -268,10 +274,9 @@ server <- function(input, output, session) {
         axis.line = element_line(colour = 'black')
       )
     
-    plot_grid(number_plot, perc_plot, labels = " ")
+    ggplotly(perc_plot) %>% config(displayModeBar = F)
     
-  }#,
- # bg = 'transparent'
+  }
   )
   
   # -----------------------------------------------------------------------------------------------------------------------------
