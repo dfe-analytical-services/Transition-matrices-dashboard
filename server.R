@@ -171,16 +171,18 @@ server <- function(input, output, session) {
     
     chart_data <- reshape2::melt(chart_data)
     subjects_chart <- ggplot(chart_data) +
+    
       (aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
-      scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
-      xlab('Grades') +
-      scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 prior attainment', sep = " "),
+      scale_fill_manual(values = c('#12436D', '#28A197')) +
+      xlab('GCSE Grades') +
+      ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
+      scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
                          expand = c(0, 0),
+             
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                         limits = function (x) {c(0, (max (x) +1) *1.1)}) +
-      
-      
+ 
       theme(
         # set size and spacing of axis tick labels
         axis.text.x=element_text(size=14, vjust=0.5),
@@ -214,9 +216,10 @@ server <- function(input, output, session) {
     
     number_plot <- ggplot(num_chart_data, aes(x = variable, y = value, fill = Characteristic, group = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
-      scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
+      scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
-      scale_y_continuous(name = paste(input$attainment_select, 'numbers', "\n", 'with ', input$KS2_att_select, 'KS2 prior attainment', sep = " "),
+      ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+      scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                          limits = function (x) {c(0, (max (x) +1) *1.1)}) +
@@ -254,7 +257,8 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
       xlab(' ') +
-      scale_y_continuous(name = paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 prior attainment', sep = " "),
+      scale_y_continuous(name = paste(input$KS2_att_select, 'KS2 attainment', sep = " "),
+                         paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 prior attainment', sep = " "),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                          limits = function (x) {c(0, (max (x) +1) *1.1)}) +
