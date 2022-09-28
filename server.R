@@ -210,7 +210,7 @@ server <- function(input, output, session) {
       filter(`KS2 Prior` == input$KS2_att_select) %>%
       select(-starts_with("% ")) %>% 
       rename(Characteristic = characteristic_value)
-    
+
     
     num_chart_data <- reshape2::melt(num_chart_data)
     
@@ -250,15 +250,16 @@ server <- function(input, output, session) {
       filter(`KS2 Prior` == input$KS2_att_select) %>%
       select(`KS2 Prior`, characteristic_value, starts_with("% ")) %>% 
       rename(Characteristic = characteristic_value)
-    
+  
     perc_chart_data <- reshape2::melt(perc_chart_data)
     
     perc_plot <- ggplot(perc_chart_data, aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = 'identity', position = 'dodge') +
-      scale_fill_manual(values = c('#9FB9C8', '#A89CBD')) +
+      scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
+      ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
       scale_y_continuous(name = paste(input$KS2_att_select, 'KS2 attainment', sep = " "),
-                         paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 prior attainment', sep = " "),
+                         paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 attainment', sep = " "),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                          limits = function (x) {c(0, (max (x) +1) *1.1)}) +
