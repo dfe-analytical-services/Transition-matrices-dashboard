@@ -7,7 +7,6 @@
 #
 # ---------------------------------------------------------
 #renv::status() 
-install.packages("cowplot")
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
 shhh(library(shiny))
@@ -30,7 +29,6 @@ shhh(library(DT))
 library(dplyr)
 library(ggplot2)
 library(purrr)
-library(cowplot)
 
 
 
