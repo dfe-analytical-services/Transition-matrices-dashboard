@@ -175,7 +175,7 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab('GCSE Grades') +
-      ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
+      #ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
       scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
                          expand = c(0, 0),
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
@@ -218,7 +218,7 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
-      ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+      #ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
       scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
@@ -259,7 +259,7 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
-      ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+      #ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
       scale_y_continuous(name = paste(input$KS2_att_select, 'KS2 attainment', sep = " "),
                          paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 attainment', sep = " "),
                          expand = c(0, 0) ,

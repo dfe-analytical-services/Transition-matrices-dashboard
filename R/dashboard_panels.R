@@ -159,6 +159,7 @@ dashboard_panel <- function() {
                     width=12,
                     box(
                       width=12,
+                      p("Key stage 2 to Key stage 4 pupil progress in GCSE subjects", style = "font-size:20px;"),
                         plotlyOutput('subjects_chart')),
                       
                       column (12,
@@ -234,6 +235,7 @@ dashboard_panel <- function() {
               radioGroupButtons('num_perc',
                                 label = 'View this chart by either number or percentage',
                                 choices = c('Number', 'Percentage')),
+              p("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures", style = "font-size:20px;"),
               conditionalPanel("input.num_perc == 'Number'",
                                plotlyOutput('attainment_chart_num')),
               conditionalPanel("input.num_perc == 'Percentage'",
