@@ -60,7 +60,7 @@ ui <- function(input, output, session) {
     #use_tota11y(),
       title = tags$head(tags$link(rel="shortcut icon",
                                   href="dfefavicon.png"),
-                        tags$title("Key stage 4 Transition Matrices")),
+                        tags$title("KS4 Transition Matrices")),
       tags$html(lang="en"),
     shinyjs::useShinyjs(),
     useShinydashboard(),
