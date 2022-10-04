@@ -21,6 +21,7 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(plotly))
 shhh(library(DT))
+shhh(library(metathis))
 
 
 # Functions ---------------------------------------------------------------------------------
