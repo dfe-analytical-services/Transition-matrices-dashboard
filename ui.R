@@ -61,7 +61,7 @@ ui <- function(input, output, session) {
       title = tags$head(tags$link(rel="shortcut icon",
                                   href="dfefavicon.png"),
                         tags$title("Key stage 4 Transition Matrices")),
-    
+      tags$html(lang="en"),
     shinyjs::useShinyjs(),
     useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
