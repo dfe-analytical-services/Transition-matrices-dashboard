@@ -247,19 +247,6 @@
       "Hash": "2ba81b120c1655ab696c935ef33ea716",
       "Requirements": []
     },
-    "cowplot": {
-      "Package": "cowplot",
-      "Version": "1.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "b418e8423699d11c7f2087c2bfd07da2",
-      "Requirements": [
-        "ggplot2",
-        "gtable",
-        "rlang",
-        "scales"
-      ]
-    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.4.2",
@@ -823,6 +810,19 @@
       "Repository": "CRAN",
       "Hash": "7ce2733a9826b3aeb1775d56fd305472",
       "Requirements": []
+    },
+    "metathis": {
+      "Package": "metathis",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "12abc0ff44a291420f77574d792ff12d",
+      "Requirements": [
+        "htmltools",
+        "knitr",
+        "magrittr",
+        "purrr"
+      ]
     },
     "mgcv": {
       "Package": "mgcv",
