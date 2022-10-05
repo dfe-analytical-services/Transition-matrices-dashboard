@@ -17,7 +17,6 @@
 #    http://shiny.rstudio.com/
 #
 # ---------------------------------------------------------
-library(cowplot)
 
 server <- function(input, output, session) {
   
@@ -176,10 +175,9 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab('GCSE Grades') +
-      ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
+      #ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
       scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
                          expand = c(0, 0),
-             
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                         limits = function (x) {c(0, (max (x) +1) *1.1)}) +
  
@@ -195,10 +193,12 @@ server <- function(input, output, session) {
         panel.grid.minor = element_blank(),
         panel.background = element_rect(fill = 'White'),
         plot.background = element_rect(fill = 'White', color = NA),
-        axis.line = element_line(colour = 'black')
+        axis.line = element_line(colour = 'black'),
+        legend.position = 'top'
       )
     
-    ggplotly(subjects_chart) %>% config(displayModeBar = F)
+    ggplotly(subjects_chart) %>% config(displayModeBar = F) %>%
+      layout(legend = list(orientation = 'h', y = -0.3))
   }#,
   #bg = 'transparent'
   )
@@ -218,7 +218,7 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
-      ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+      #ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
       scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
@@ -226,7 +226,7 @@ server <- function(input, output, session) {
       
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=14, vjust=0.5),
+        axis.text.x=element_text(size=10, vjust=0.5),
         axis.text.y=element_text(size=14, vjust=0.5),
         # set size, colour and spacing of axis labels
         axis.title.x = element_text(size=14, vjust=-0.5),
@@ -236,10 +236,12 @@ server <- function(input, output, session) {
         panel.grid.minor = element_blank(),
         panel.background = element_rect(fill = 'White'),
         plot.background = element_rect(fill = 'White', color = NA),
-        axis.line = element_line(colour = 'black')
+        axis.line = element_line(colour = 'black'),
+        legend.position = "top"
       )
     
-    ggplotly(number_plot) %>% config(displayModeBar = F)
+    ggplotly(number_plot) %>% config(displayModeBar = F)  %>%
+      layout(legend = list(orientation = 'h', y = -0.1))
     
   }
   )
@@ -257,7 +259,7 @@ server <- function(input, output, session) {
       geom_bar(stat = 'identity', position = 'dodge') +
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
-      ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+      #ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
       scale_y_continuous(name = paste(input$KS2_att_select, 'KS2 attainment', sep = " "),
                          paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 attainment', sep = " "),
                          expand = c(0, 0) ,
@@ -266,7 +268,7 @@ server <- function(input, output, session) {
       
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=15, vjust=0.5),
+        axis.text.x=element_text(size=10, vjust=0.5),
         axis.text.y=element_text(size=15, vjust=0.5),
         # set size, colour and spacing of axis labels
         axis.title.x = element_text(size=15, vjust=-0.5),
@@ -276,10 +278,13 @@ server <- function(input, output, session) {
         panel.grid.minor = element_blank(),
         panel.background = element_rect(fill = 'White'),
         plot.background = element_rect(fill = 'White', color = NA),
-        axis.line = element_line(colour = 'black')
+        axis.line = element_line(colour = 'black'),
+        legend.position = "top"
       )
     
-    ggplotly(perc_plot) %>% config(displayModeBar = F)
+    ggplotly(perc_plot) %>% 
+      config(displayModeBar = F) %>%
+      layout(legend = list(orientation = 'h', y = -0.1))
     
   }
   )

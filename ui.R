@@ -59,8 +59,9 @@ ui <- function(input, output, session) {
   fluidPage(
     #use_tota11y(),
       title = tags$head(tags$link(rel="shortcut icon",
-                                  href="dfefavicon.png")),
-    
+                                  href="dfefavicon.png"),
+                        tags$title("KS4 Transition Matrices")),
+      tags$html(lang="en"),
     shinyjs::useShinyjs(),
     useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
@@ -71,10 +72,21 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
+    #meta description for search engines
+    meta() %>%
+      meta_general(
+        application_name = "Key stage 4 Transition Matrices",
+        description = "Key stage 4 Transition Matrices",
+        robots = "index,follow",
+        generator = "R-Shiny",
+        subject = "Key stage 4",
+        rating = "General",
+        referrer = "no-referrer"
+      ),
     shinyGovstyle::header(
       main_text = "DfE",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
-      secondary_text = "DfE Shiny Template",
+      secondary_text = "Key stage 4 Transition Matrices",
       logo = "images/DfE_logo.png"
     ),
     shinyGovstyle::banner(
