@@ -159,7 +159,7 @@ dashboard_panel <- function() {
                     width=12,
                     box(
                       width=12,
-                      p("Key stage 2 to Key stage 4 pupil progress in GCSE subjects", style = "font-size:20px;"),
+                      htmlOutput('subjects_chart_title'),
                         plotlyOutput('subjects_chart')),
                       
                       column (12,
