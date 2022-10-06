@@ -138,15 +138,15 @@ dashboard_panel <- function() {
                       #                      choices = num_perc_dropdown)),
                       
                       column(6,  selectInput(inputId = "characteristic_select",
-                                             label = "2.Select one pupil characteristics",
+                                             label = "1.Select one pupil characteristics",
                                              choices = characteristic_dropdown$characteristic_type)),
                       
                       column(6,selectInput(inputId = "subjects_select", 
-                                           label = "3.Select one GCSE Subject",
+                                           label = "2.Select one GCSE Subject",
                                            choices = subject_dropdown$subject)),   
                       
                       column(6, selectInput(inputId = "KS2_dropdown_attainment_subject",
-                                            label = "4.Select one KS2 attainment score",
+                                            label = "3.Select one KS2 attainment score",
                                             choices = "" )),
                       
                         ),
