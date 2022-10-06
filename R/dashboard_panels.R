@@ -133,9 +133,9 @@ dashboard_panel <- function() {
             
                           
                       #h3("Select one option from all categories to explore data:"),
-                      column(6,selectInput(inputId = "num_perc_select",
-                                           label = "1.Select one format",
-                                           choices = num_perc_dropdown)),
+                      # column(6,selectInput(inputId = "num_perc_select",
+                      #                      label = "1.Select one format",
+                      #                      choices = num_perc_dropdown)),
                       
                       column(6,  selectInput(inputId = "characteristic_select",
                                              label = "2.Select one pupil characteristics",
@@ -157,6 +157,12 @@ dashboard_panel <- function() {
 
                   column(
                     width=12,
+                    # column(6,selectInput(inputId = "num_perc_select",
+                    #                      label = "1.Select one format",
+                    #                      choices = num_perc_dropdown)),
+                    radioGroupButtons(inputId = "num_perc_select",
+                                      label = "Select one format for both the chart and table(s):",
+                                      choices = num_perc_dropdown),
                     box(
                       width=12,
                       htmlOutput('subjects_chart_title'),
@@ -233,7 +239,7 @@ dashboard_panel <- function() {
             box(
               width=12,
               radioGroupButtons('num_perc',
-                                label = 'View this chart by either number or percentage',
+                                label = "Select one format for both the chart and table(s):",
                                 choices = c('Number', 'Percentage')),
               p("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures", style = "font-size:20px;"),
               conditionalPanel("input.num_perc == 'Number'",
