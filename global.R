@@ -62,7 +62,8 @@ characteristic_dropdown <- subject_data %>%
   distinct()
 
 
-num_perc_dropdown <- c('Number of pupils', 'Percentage of pupils achieving')
+num_perc_dropdown <- list('Number' = "Number of pupils", 
+                          'Percentage' = 'Percentage of pupils achieving')
 
 
 attainment_dropdown <- c('EBacc Entry', 'EBacc Achievement 9-4', 'EBacc Achievement 9-5',

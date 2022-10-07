@@ -133,10 +133,14 @@ dashboard_panel <- function() {
             
                           
                       #h3("Select one option from all categories to explore data:"),
-                      column(6,selectInput(inputId = "num_perc_select",
-                                           label = "1.Select one format",
-                                           choices = num_perc_dropdown)),
-                      
+                      column(6,
+                             radioGroupButtons(inputId = "num_perc_select",
+                                               label = "1.Select one format for both the chart and table(s):",
+                                               choices = num_perc_dropdown)
+                             # selectInput(inputId = "num_perc_select",
+                             #               label = "1.Select one format",
+                             #               choices = num_perc_dropdown)
+                             ),
                       column(6,  selectInput(inputId = "characteristic_select",
                                              label = "2.Select one pupil characteristics",
                                              choices = characteristic_dropdown$characteristic_type)),
@@ -159,7 +163,7 @@ dashboard_panel <- function() {
                     width=12,
                     box(
                       width=12,
-                      p("Key stage 2 to Key stage 4 pupil progress in GCSE subjects", style = "font-size:20px;"),
+                      htmlOutput('subjects_chart_title'),
                         plotlyOutput('subjects_chart')),
                       
                       column (12,
@@ -211,14 +215,22 @@ dashboard_panel <- function() {
               fluidRow(
                 
               #  h3("Select one option from all categories to explore data:"),
+                column(6,
+                       radioGroupButtons('num_perc',
+                                         label = "1.Select one format for both the chart and table(s):",
+                                         choices = c('Number', 'Percentage'))
+                       # selectInput(inputId = "num_perc_select",
+                       #               label = "1.Select one format",
+                       #               choices = num_perc_dropdown)
+                ),
                 column(6, selectInput(inputId = "attainment_select",
-                                      label = "1.Select one KS4 measure",
+                                      label = "2.Select one KS4 measure",
                                       choices = attainment_dropdown)),
                 column(6, selectInput(inputId = "characteristic_att_select",
-                                      label = "2.Select one pupil characteristic",
+                                      label = "3.Select one pupil characteristic",
                                       choices = characteristic_dropdown$characteristic_type)),
                 column(6,  selectInput(inputId = "KS2_att_select",
-                                       label = "3.Select one KS2 attainment score",
+                                       label = "4.Select one KS2 attainment score",
                                        choices = KS2_dropdown_attainment)),
      
               ),
@@ -232,9 +244,6 @@ dashboard_panel <- function() {
             width=12,
             box(
               width=12,
-              radioGroupButtons('num_perc',
-                                label = 'View this chart by either number or percentage',
-                                choices = c('Number', 'Percentage')),
               p("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures", style = "font-size:20px;"),
               conditionalPanel("input.num_perc == 'Number'",
                                plotlyOutput('attainment_chart_num')),
