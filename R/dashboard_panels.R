@@ -134,7 +134,7 @@ dashboard_panel <- function() {
                           
                       #h3("Select one option from all categories to explore data:"),
                       column(6,
-                             radioGroupButtons(inputId = "num_perc_select",
+                             selectInput(inputId = "num_perc_select",
                                                label = "1.Select one format for both the chart and table(s):",
                                                choices = num_perc_dropdown)
                              # selectInput(inputId = "num_perc_select",
@@ -216,7 +216,7 @@ dashboard_panel <- function() {
                 
               #  h3("Select one option from all categories to explore data:"),
                 column(6,
-                       radioGroupButtons('num_perc',
+                       selectInput('num_perc',
                                          label = "1.Select one format for both the chart and table(s):",
                                          choices = c('Number', 'Percentage'))
                        # selectInput(inputId = "num_perc_select",
