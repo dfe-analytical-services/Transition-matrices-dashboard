@@ -134,12 +134,9 @@ dashboard_panel <- function() {
                           
                       #h3("Select one option from all categories to explore data:"),
                       column(6,
-                             radioGroupButtons(inputId = "num_perc_select",
+                             selectInput(inputId = "num_perc_select",
                                                label = "1.Select one format for both the chart and table(s):",
                                                choices = num_perc_dropdown)
-                             # selectInput(inputId = "num_perc_select",
-                             #               label = "1.Select one format",
-                             #               choices = num_perc_dropdown)
                              ),
                       column(6,  selectInput(inputId = "characteristic_select",
                                              label = "2.Select one pupil characteristics",
@@ -216,12 +213,9 @@ dashboard_panel <- function() {
                 
               #  h3("Select one option from all categories to explore data:"),
                 column(6,
-                       radioGroupButtons('num_perc',
+                       selectInput('num_perc',
                                          label = "1.Select one format for both the chart and table(s):",
                                          choices = c('Number', 'Percentage'))
-                       # selectInput(inputId = "num_perc_select",
-                       #               label = "1.Select one format",
-                       #               choices = num_perc_dropdown)
                 ),
                 column(6, selectInput(inputId = "attainment_select",
                                       label = "2.Select one KS4 measure",
