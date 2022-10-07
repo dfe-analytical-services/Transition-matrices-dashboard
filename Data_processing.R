@@ -4,14 +4,14 @@
 rm(list = ls())
 
 #These are the packages needed for this code, you may already have these installed but run this section if not
- install.packages("dplyr")
- install.packages("odbc")
- install.packages("DBI")
- install.packages("janitor")
- install.packages("tidyverse")
- install.packages ("purrr")
+install.packages("dplyr")
+install.packages("odbc")
+install.packages("DBI")
+install.packages("janitor")
+install.packages("tidyverse")
+install.packages ("purrr")
 
- 
+
 # Load libraries
 library(dplyr)
 library(odbc)
@@ -33,17 +33,17 @@ round2 = function(x, n) {
 
 
 # Connect to the SQL server
- SQL_con <- dbConnect(odbc(), Driver = "SQL Server",
-                      Server = "3DCPRI-PDB16\\ACSQLS",
-                      Database = "KS4_RESTRICTED", # Enter the folder containing your SQL data
-                      Trusted_Connection = "True")
+SQL_con <- dbConnect(odbc(), Driver = "SQL Server",
+                     Server = "3DCPRI-PDB16\\ACSQLS",
+                     Database = "KS4_RESTRICTED", # Enter the folder containing your SQL data
+                     Trusted_Connection = "True")
 
 
 
 #STEP 1
 
 # Import the exam data
-SQL_data <- tbl(SQL_con,("KS4_exam_21_Sept_live_v2")) # Enter the name of your SQL database #updare file name
+SQL_data <- tbl(SQL_con,("KS4_exam_22_cohort_amended_v2")) # Enter the name of your SQL database #updare file name
 
 # Create subject groupings based on wolf codes from the exam file
 Exam_SQL_data <- SQL_data %>%
@@ -55,46 +55,55 @@ Exam_SQL_data <- SQL_data %>%
           LAESTAB, 
           SUBLEVNO, 
           GRADE) %>% 
-  mutate(subjects = case_when(WOLF_DISC_CODE == "FK2B" ~ "English Language",
-                              WOLF_DISC_CODE == "FC4" ~ "English Literature",
-                              WOLF_DISC_CODE == "RB1" ~ "Mathematics",
-                              WOLF_DISC_CODE == "RA1E" ~ "Combined Science",
-                              WOLF_DISC_CODE == "RC1" ~ "Physics",
-                              WOLF_DISC_CODE == "RD1" ~ "Chemistry",
-                              WOLF_DISC_CODE == "RH3" ~ "Biology",
-                              WOLF_DISC_CODE == "CK1" ~ "Computer Science",
-                              WOLF_DISC_CODE == "RE1" | WOLF_DISC_CODE == "RF2" | WOLF_DISC_CODE == "RC52" ~ "Other Sciences",
-                              WOLF_DISC_CODE == "VF1" ~ "Design and Technology",
-                              WOLF_DISC_CODE == "XA1" ~ "Engineering",
-                              WOLF_DISC_CODE == "AA3" ~ "Business Studies",
-                              WOLF_DISC_CODE == "NH6" ~ "Food Preparation and Nutrition",
-                              WOLF_DISC_CODE == "RF4" ~ "Geography",
-                              WOLF_DISC_CODE == "DB" | WOLF_DISC_CODE == "DB21" ~ "History",
-                              WOLF_DISC_CODE == "EB" ~ "Economics",
-                              WOLF_DISC_CODE == "PK1" ~ "Psychology",
-                              WOLF_DISC_CODE == "EE2" ~ "Sociology",
-                              WOLF_DISC_CODE == "FKF" ~ "French",
-                              WOLF_DISC_CODE == "FKG" ~ "German",
-                              WOLF_DISC_CODE == "FKS" ~ "Spanish",
-                              WOLF_DISC_CODE == "FKM" | WOLF_DISC_CODE == "FKB" | WOLF_DISC_CODE == "FKC" 
-                              | WOLF_DISC_CODE == "FKK" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKX"
-                              | WOLF_DISC_CODE == "FKJ" | WOLF_DISC_CODE == "FKO" | WOLF_DISC_CODE == "FKQ"
-                              | WOLF_DISC_CODE == "FKR" | WOLF_DISC_CODE == "FKU" | WOLF_DISC_CODE == "FKI" 
-                              | WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKT" ~ "Other Modern Languages",
-                              WOLF_DISC_CODE == "DB2B" | WOLF_DISC_CODE == "F1K" | WOLF_DISC_CODE == "F1L" ~ "Classical Studies",
-                              WOLF_DISC_CODE == "F1Z" ~ "Ancient Languages",
-                              WOLF_DISC_CODE == "JA2" ~ "Art & Design",
-                              WOLF_DISC_CODE == "EE31" ~ "Citizenship Studies",
-                              WOLF_DISC_CODE == "LB1" ~ "Dance",
-                              WOLF_DISC_CODE == "KA2" ~ "Media Studies",
-                              WOLF_DISC_CODE == "LF1" ~ "Music",
-                              WOLF_DISC_CODE == "LC11" ~ "Performing Arts",
-                              WOLF_DISC_CODE == "KJ1" ~ "Photography",
-                              WOLF_DISC_CODE == "MA1" ~ "Physical Education",
-                              WOLF_DISC_CODE == "DD1" ~ "Religious Studies",
-                              WOLF_DISC_CODE == "RB71" ~ "Statistics",
-                              TRUE ~ NA_character_)) %>% 
-                              as.data.frame() #need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
+  mutate(subjects = case_when( wolf_disc_code == "FK2B"~ "English Language",
+                               wolf_disc_code == "FC4" ~ "English Literature",
+                               WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" |   WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55"| 
+                                 WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B"|  WOLF_DISC_CODE == "RB7E"~ "Mathematics",  
+                               wolf_disc_code == "RA1E"   ~ "Combined Science",					
+                               wolf_disc_code == "RC1"   ~ "Physics", 
+                               wolf_disc_code == "RD1"   ~ "Chemistry", 
+                               wolf_disc_code == "RH3"   ~ "Biology" ,
+                               wolf_disc_code == "CK1"   ~ "Computer Science",
+                               WOLF_DISC_CODE == "RE1" | WOLF_DISC_CODE == "RF2" | WOLF_DISC_CODE == "RC52" | 
+                                 WOLF_DISC_CODE == "QA3" ~ "Other Sciences",                                     
+                               wolf_disc_code == "VF1"  ~ "Design & Technology"	,			
+                               wolf_disc_code == "XA5A" ~ "D & T: Textiles Technology"	,	
+                               wolf_disc_code == "VF2" | WOLF_DISC_CODE == "VF3" ~ "Other Design and Technology"	,	
+                               wolf_disc_code =="XA1"   ~ "Engineering"		,		
+                               wolf_disc_code =="AA3"		~ "Business" ,
+                               wolf_disc_code =="NH6"  ~ "Food Preparation & Nutrition",
+                               wolf_disc_code =="RF4"  ~ "Geography" ,
+                               wolf_disc_code =="DB"   ~ "History" ,
+                               wolf_disc_code =="DB21" ~ "Ancient History",
+                               wolf_disc_code == "EB"  ~ "Economics",
+                               WOLF_DISC_CODE == "EE22" | WOLF_DISC_CODE == "PK1"| WOLF_DISC_CODE == "EE31"|
+                                 WOLF_DISC_CODE == "DE1"| WOLF_DISC_CODE == "EA"   ~ "Social Studies" ,
+                               wolf_disc_code == "FKF" ~ "French" ,
+                               wolf_disc_code == "FKG" ~ "German",
+                               wolf_disc_code == "FKS"  ~ "Spanish", 
+                               WOLF_DISC_CODE == "FKO" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKB"| WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKI"
+                               | WOLF_DISC_CODE == "FKJ" | WOLF_DISC_CODE == "FKM" | WOLF_DISC_CODE == "FKK"| WOLF_DISC_CODE == "F1U" | WOLF_DISC_CODE == "FKX" | WOLF_DISC_CODE == "FKC"
+                               | WOLF_DISC_CODE == "FKR" | WOLF_DISC_CODE == "FKT"~ "Other Modern Languages",
+                               wolf_disc_code == "F1L"   ~ "Latin", 
+                               wolf_disc_code == "DB2B"  ~ "Classical Civilisation" ,
+                               wolf_disc_code == "F1K"   ~ "Classical Greek" ,
+                               wolf_disc_code == "F1Z"   ~ "Biblical Hebrew" ,
+                               wolf_disc_code == "JA2" | WOLF_DISC_CODE == "KJ1" ~ "Art and Design" ,
+                               wolf_disc_code == "KA2"             						 ~ "Film Studies" ,
+                               wolf_disc_code == "LB1"      ~ "Dance" ,
+                               wolf_disc_code == "LC11"		 ~ "Drama",
+                               wolf_disc_code == "PA1" 										~ "Health and Social Care"	,		
+                               wolf_disc_code == "KA2"											 ~ "Media/Film/TV" ,
+                               wolf_disc_code == "LF1"| WOLF_DISC_CODE == "LJ9" 				     ~ "Music" ,
+                               wolf_disc_code == "MA1" 										 ~ "Physical Education" ,
+                               wolf_disc_code == "DD1"										 ~ "Religious Studies"	,			
+                               wolf_disc_code == "RB71"          					 ~ "Statistics" ,
+                               wolf_disc_code == "AK6"	 		                 ~ "Accounting"	,
+                               
+                               
+                               TRUE ~ NA_character_)) %>% 
+  as.data.frame() #need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
+
 
 
 # count the number of times each subject is in the data
@@ -103,7 +112,7 @@ Exam_SQL_data %>% count(subjects) %>% arrange(subjects)
 # count the number of pupils doing each subject and so removes duplicates, 
 # this does not match the SQL output
 #Exam_SQL_data %>% select(CANDNO, subjects) %>% distinct() %>% count(subjects) %>% 
- # arrange(subjects)
+# arrange(subjects)
 
 # count the number of times each subject is in the data
 Exam_SQL_data %>% group_by(subjects) %>% summarise(n = n()) %>% arrange(subjects)
@@ -114,7 +123,7 @@ Exam_SQL_data %>% group_by(subjects) %>% summarise(n = n()) %>% arrange(subjects
 #STEP 2 Define variables
 
 # Import the pupil data
-Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_21_Sept_live_v2")) # Enter the name of your SQL database #update file name
+Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_22_cohort_amended_v2")) # Enter the name of your SQL database #update file name
 
 
 Var_SQL_data <- Pupil_SQL_data %>% 
@@ -127,39 +136,84 @@ Var_SQL_data <- Pupil_SQL_data %>%
   as.data.frame()%>% #Handy to cast it as a dataframe so you can view what's happening by clicking on the table in your environment on the right
   mutate(Disadvantage = case_when(FSM6CLA1A == 0 ~ "Non Disadvantaged Pupils",
                                   FSM6CLA1A == 1 ~ "Disadvantaged Pupils",
-                                   TRUE ~ NA_character_)) %>% 
+                                  TRUE ~ NA_character_)) %>% 
   mutate(Gender = case_when(GENDER == 'F' ~ "Female Pupils",
-                             GENDER == 'M' ~ "Male Pupils",
-                             TRUE ~ NA_character_)) %>% 
+                            GENDER == 'M' ~ "Male Pupils",
+                            TRUE ~ NA_character_)) %>% 
   mutate(SEN = case_when(SENF %in% c('S','E','A','P','K') ~ "SEN Pupils",
                          TRUE ~ "Non SEN Pupils")) %>% 
   mutate(EAL = case_when(LANG1ST %in% c('OTB','OTH') ~ "EAL Pupils", #
                          TRUE ~ "Non EAL Pupils")) %>%
-  mutate(ks2em = case_when(KS2EMSS >=59 & KS2EMSS <80 ~ "Less than 80",
-                           KS2EMSS >=80 & KS2EMSS <=89.5 ~ "80 - 89.5",
-                           KS2EMSS >=90 & KS2EMSS <=95.5 ~ "90 - 95.5",
-                           KS2EMSS >=96 & KS2EMSS <=99.5 ~ "96 - 99.5",
-                           KS2EMSS >=100 & KS2EMSS <=102 ~ "100 - 102",
-                           KS2EMSS >=102.5 & KS2EMSS <=104.5 ~ "102.5 - 104.5",
-                           KS2EMSS >=105 & KS2EMSS <=107 ~ "105 - 107",
-                           KS2EMSS >=107.5 & KS2EMSS <=109.5 ~ "107.5 - 109.5",
-                           KS2EMSS >=110 & KS2EMSS <=113 ~ "110 - 113",
-                           KS2EMSS >=113.5 & KS2EMSS <=116.5 ~ "113.5 - 116.5",
-                           KS2EMSS >=117 & KS2EMSS <=120 ~ "117 - 120",
-                           TRUE ~ NA_character_)) %>% 
-  mutate(ks2em_band = case_when(KS2EMSS >=59 & KS2EMSS <80 ~ "01", #this section makes sure the data is ordered by KS2 groups in the final tidy data files 
-                          KS2EMSS >=80 & KS2EMSS <=89.5 ~ "02",
-                          KS2EMSS >=90 & KS2EMSS <=95.5 ~ "03",
-                          KS2EMSS >=96 & KS2EMSS <=99.5 ~ "04",
-                          KS2EMSS >=100 & KS2EMSS <=102 ~ "05",
-                          KS2EMSS >=102.5 & KS2EMSS <=104.5 ~ "06",
-                          KS2EMSS >=105 & KS2EMSS <=107 ~ "07",
-                          KS2EMSS >=107.5 & KS2EMSS <=109.5 ~ "08",
-                          KS2EMSS >=110 & KS2EMSS <=113 ~ "09",
-                          KS2EMSS >=113.5 & KS2EMSS <=116.5 ~ "10",
-                          KS2EMSS >=117 & KS2EMSS <=120 ~ "11",
-                          TRUE ~ NA_character_))
-
+  mutate(ks2em = case_when(  KS2EMSS >=59    &  KS2EMSS <82        ~ "82 or less",
+                             KS2EMSS >=82.5  & KS2EMSS<= 86        ~  "82.5 - 86",
+                             KS2EMSS >=86.5  & KS2EMSS<= 87.5      ~  "86.5 - 87.5",
+                             KS2EMSS >=88    & KS2EMSS<= 89        ~  "88 - 89",
+                             KS2EMSS >=89.5  & KS2EMSS<= 90.5      ~  "89.5 - 90.5",
+                             KS2EMSS >=91    & KS2EMSS<= 92        ~  "91 - 92",
+                             KS2EMSS >=92.5  & KS2EMSS<= 93        ~  "92.5 - 93",
+                             KS2EMSS >=93.5  & KS2EMSS<= 94        ~  "93.5 - 94",
+                             KS2EMSS >=94.5  & KS2EMSS<= 95        ~  "94.5 - 95",
+                             KS2EMSS >=95.5  & KS2EMSS<= 96        ~  "95.5 - 96",
+                             KS2EMSS >=96.5  & KS2EMSS<= 97        ~  "96.5 - 97",
+                             KS2EMSS >=97.5  & KS2EMSS<= 98         ~  "97.5 - 98",
+                             KS2EMSS >=98.5  & KS2EMSS<= 99         ~  "98.5 - 99",
+                             KS2EMSS >=99.5  & KS2EMSS<= 100        ~  "99.5 - 100",
+                             KS2EMSS >=100.5 & KS2EMSS<= 101        ~  "100.5 - 101",
+                             KS2EMSS >=101.5 & KS2EMSS<= 102        ~  "101.5 - 102",
+                             KS2EMSS >=102.5 & KS2EMSS<= 103        ~  "102.5 - 103",
+                             KS2EMSS >=103.5 & KS2EMSS<= 104        ~  "103.5 - 104",
+                             KS2EMSS >=104.5 & KS2EMSS<= 105        ~  "104.5 - 105",
+                             KS2EMSS >=105.5 & KS2EMSS<= 106        ~  "105.5 - 106",
+                             KS2EMSS >=106.5 & KS2EMSS<= 107        ~  "106.5 - 107",
+                             KS2EMSS >=107.5 & KS2EMSS<= 108        ~  "107.5 - 108" ,
+                             KS2EMSS >=108.5 & KS2EMSS<= 109        ~ "108.5 - 109",
+                             KS2EMSS >=109.5 & KS2EMSS<= 110        ~  "109.5 - 110",
+                             KS2EMSS >=110.5 & KS2EMSS<= 111        ~  "110.5 - 111",
+                             KS2EMSS >=111.5 & KS2EMSS<= 112        ~  "111.5 - 112",
+                             KS2EMSS >=112.5 & KS2EMSS<= 113        ~  "112.5 - 113",
+                             KS2EMSS >=113.5 & KS2EMSS<= 114        ~  "113.5 - 114",
+                             KS2EMSS >=114.5 & KS2EMSS<= 115        ~  "114.5 - 115",
+                             KS2EMSS >=115.5 & KS2EMSS<= 116        ~  "115.5 - 116",
+                             KS2EMSS >=116.5 & KS2EMSS<= 117        ~  "116.5 - 117",
+                             KS2EMSS >=117.5 & KS2EMSS<= 118        ~  "117.5 - 118",
+                             KS2EMSS >=118.5 & KS2EMSS<= 119        ~  "118.5 - 119",
+                             KS2EMSS >=119.5 & KS2EMSS<= 120        ~  "119.5 - 120",
+                             TRUE ~ NA_character_)) %>% 
+  mutate(ks2em_band = case_when( KS2EMSS >=59    &  KS2EMSS <82        ~ "01", #this section makes sure the data is ordered by KS2 groups in the final tidy data files
+                                 KS2EMSS >=82.5  & KS2EMSS<= 86        ~  "02",
+                                 KS2EMSS >=86.5  & KS2EMSS<= 87.5      ~  "03",
+                                 KS2EMSS >=88    & KS2EMSS<= 89        ~  "04",
+                                 KS2EMSS >=89.5  & KS2EMSS<= 90.5      ~  "05",
+                                 KS2EMSS >=91    & KS2EMSS<= 92        ~  "06",
+                                 KS2EMSS >=92.5  & KS2EMSS<= 93        ~  "07",
+                                 KS2EMSS >=93.5  & KS2EMSS<= 94        ~  "08",
+                                 KS2EMSS >=94.5  & KS2EMSS<= 95        ~  "09",
+                                 KS2EMSS >=95.5  & KS2EMSS<= 96        ~  "10",
+                                 KS2EMSS >=96.5  & KS2EMSS<= 97        ~  "11",
+                                 KS2EMSS >=97.5  & KS2EMSS<= 98         ~  "12",
+                                 KS2EMSS >=98.5  & KS2EMSS<= 99         ~  "13",
+                                 KS2EMSS >=99.5  & KS2EMSS<= 100        ~  "14",
+                                 KS2EMSS >=100.5 & KS2EMSS<= 101        ~  "15",
+                                 KS2EMSS >=101.5 & KS2EMSS<= 102        ~  "16",
+                                 KS2EMSS >=102.5 & KS2EMSS<= 103        ~  "17",
+                                 KS2EMSS >=103.5 & KS2EMSS<= 104        ~  "18",
+                                 KS2EMSS >=104.5 & KS2EMSS<= 105        ~  "19",
+                                 KS2EMSS >=105.5 & KS2EMSS<= 106        ~  "20",
+                                 KS2EMSS >=106.5 & KS2EMSS<= 107        ~  "21",
+                                 KS2EMSS >=107.5 & KS2EMSS<= 108        ~  "22",
+                                 KS2EMSS >=108.5 & KS2EMSS<= 109        ~  "23",
+                                 KS2EMSS >=109.5 & KS2EMSS<= 110        ~  "24",
+                                 KS2EMSS >=110.5 & KS2EMSS<= 111        ~  "25",
+                                 KS2EMSS >=111.5 & KS2EMSS<= 112        ~  "26",
+                                 KS2EMSS >=112.5 & KS2EMSS<= 113        ~  "27",
+                                 KS2EMSS >=113.5 & KS2EMSS<= 114        ~  "28",
+                                 KS2EMSS >=114.5 & KS2EMSS<= 115        ~  "29",
+                                 KS2EMSS >=115.5 & KS2EMSS<= 116        ~  "30",
+                                 KS2EMSS >=116.5 & KS2EMSS<= 117        ~  "31",
+                                 KS2EMSS >=117.5 & KS2EMSS<= 118        ~  "32",
+                                 KS2EMSS >=118.5 & KS2EMSS<= 119        ~  "33",
+                                 KS2EMSS >=119.5 & KS2EMSS<= 120        ~  "34",
+                                 TRUE ~ NA_character_))
 
 #CHECKS
 Var_SQL_data %>% count(LANG1ST) %>% arrange(LANG1ST)
@@ -191,11 +245,11 @@ Exam_short <- Exam_SQL_data %>%
          subjects)
 
 # Create a dataframe containing the subjects to be included in the TMs, you need to check with the Data Production Team to see if any subjects have changed
-ks4_subjects = c('Ancient Languages', 'Art & Design', 'Biology', 'Business Studies', 'Chemistry', 'Citizenship Studies', 'Classical Studies',
-                 'Computer Science', 'Dance', 'Design and Technology', 'Economics', 'Engineering', 'English Language', 'English Literature',
-                 'Food Preparation and Nutrition', 'French', 'Geography', 'German', 'History', 'Mathematics', 'Media Studies', 'Music',
-                 'Other Modern Languages', 'Other Sciences', 'Performing Arts', 'Photography', 'Physical Education', 'Physics',
-                 'Psychology', 'Religious Studies', 'Sociology', 'Spanish', 'Statistics')
+ks4_subjects = c('Ancient History', 'Art & Design',  'Biblical Hebrew', 'Biology', 'Business', 'Chemistry', 'Classical Civilisation' ,  'Classical Greek','Combined Science',
+                 'Computer Science', 'Dance', 'Design and Technology', 'Drama', 'Economics', 'Engineering', 'English Language', 'English Literature','Film studies',
+                 'Food Preparation and Nutrition', 'French', 'Geography', 'German', 'History', 'Latin', 'Mathematics', 'Music',
+                 'Other Modern Languages', 'Other Sciences', 'Physical Education', 'Physics', 'Religious Studies', 'Sociology Studies', 'Spanish', 'Statistics')
+
 
 
 #################################################################################################
@@ -246,7 +300,7 @@ grade_counts_spread <- grade_counts_comb %>%
 grade_percentages_spread <- grade_counts_spread %>% 
   select(-X) %>% #removes X from the % calculation
   janitor::adorn_percentages() %>%
- mutate_if(is.numeric, function(x){round2(x*100, 1)}) %>%
+  mutate_if(is.numeric, function(x){round2(x*100, 1)}) %>%
   rename('perc_U' = 'U',
          'perc_1' = '1',
          'perc_2' = '2',
@@ -263,24 +317,24 @@ tidy_data <- grade_counts_spread %>%
   left_join(grade_percentages_spread, by = c('subjects', 'ks2em', 'ks2em_band', 
                                              'characteristic_type',#comment back for app use,
                                              'characteristic_value')) %>%
-  mutate(time_period = 202021,
+  mutate(time_period = 202122,
          time_identifier = 'Academic year',
          geographic_level = 'National',
          country_code = 'E92000001',
          country_name = 'England',
-         version = 'Final',
+         version = 'Provisional',
          All_Grades = rowSums(.[,c('U', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'X')],na.rm=TRUE)) %>%
   arrange(characteristic_type,#comment back for app use,
-    characteristic_value, subjects, ks2em_band) %>%
+          characteristic_value, subjects, ks2em_band) %>%
   select(time_period, time_identifier, geographic_level, country_code, country_name, version,
          characteristic_type, #comment back for app use,
          characteristic_value, subjects, KS2_Prior=ks2em,
-        ##the grades below produce data files output when running app this need to be commented out and the section 2 commented back in.
-        ## 'U' = 'U','1' = '1', '2'= '2', '3' = '3', '4' = '4', '5' = '5', '6' = '6', 
-        ## '7' = '7', '8' = '8', '9' = '9', 'X' = 'X', All_Grades,  '%_U'='perc_U' ,'%_1'='perc_1','%_2'='perc_2','%_3' ='perc_3', '%_4'='perc_4',
-        ##'%_5'='perc_5', '%_6'='perc_6', '%_7'='perc_7', '%_8'='perc_8', '%_9'='perc_9') %>% ##comment out for app
+         ##the grades below produce data files output when running app this need to be commented out and the section 2 commented back in.
+         ## 'U' = 'U','1' = '1', '2'= '2', '3' = '3', '4' = '4', '5' = '5', '6' = '6', 
+         ## '7' = '7', '8' = '8', '9' = '9', 'X' = 'X', All_Grades,  '%_U'='perc_U' ,'%_1'='perc_1','%_2'='perc_2','%_3' ='perc_3', '%_4'='perc_4',
+         ##'%_5'='perc_5', '%_6'='perc_6', '%_7'='perc_7', '%_8'='perc_8', '%_9'='perc_9') %>% ##comment out for app
          
-  ###(section2 for app use)
+         ###(section2 for app use)
          'num_U' = 'U', 'num_1' = '1', 'num_2'= '2', 'num_3' = '3', 'num_4' = '4', 'num_5' = '5', 'num_6' = '6', 
          'num_7' = '7', 'num_8' = '8', 'num_9' = '9', 'num_X' = 'X', 'All_Grades', 'perc_U','perc_1','perc_2', 'perc_3', 'perc_4',
          'perc_5', 'perc_6', 'perc_7', 'perc_8', 'perc_9') %>% ##comment back for app
@@ -290,7 +344,7 @@ tidy_data <- grade_counts_spread %>%
 #copying data to an Excel file
 #save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
 #save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
-save_tidy_data_file = 'C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_91_Scaled_Scores_Final.csv' #update year
+save_tidy_data_file = 'C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv' #update year
 write.table(tidy_data, save_tidy_data_file, row.names = FALSE, sep = ',')
 
 
@@ -316,13 +370,13 @@ grade_counts_disadvantage_cs <- func_counts_char(join_data_cs, Disadvantage, "Di
 grade_counts_all_cs <- func_counts_all(join_data_cs)
 
 grade_counts_comb_cs <- rbind(grade_counts_gender_cs, grade_counts_sen_cs, grade_counts_eal_cs,
-                           grade_counts_disadvantage_cs, grade_counts_all_cs) %>% 
-                           select(-subjects)
+                              grade_counts_disadvantage_cs, grade_counts_all_cs) %>% 
+  select(-subjects)
 
 
 grade_counts_spread_cs <- grade_counts_comb_cs %>% #creates the separate grade columns
   pivot_wider(names_from = GRADE, values_from = n)
-  #select(-Q)
+#select(-Q)
 
 
 grade_percentages_spread_cs <- grade_counts_spread_cs %>% 
@@ -348,38 +402,38 @@ grade_percentages_spread_cs <- grade_counts_spread_cs %>%
          'perc_98' = '98',
          'perc_99' = '99'
          #,'perc_X' = 'X'
-         )
+  )
 
 ##CS output
 tidy_data_cs <- grade_counts_spread_cs %>%
   left_join(grade_percentages_spread_cs, by = c('ks2em', 'ks2em_band', 
                                                 'characteristic_type',#comment back for app use
                                                 'characteristic_value')) %>%
-  mutate(time_period = 202021,
+  mutate(time_period = '202122',
          time_identifier = 'Academic year',
          geographic_level = 'National',
          country_code = 'E92000001',
          country_name = 'England',
-         version = 'Final',
+         version = 'Provisional',
          All_Grades = rowSums(.[,c('U', '11', '21', '22', '32', '33', '43', '44', '54', '55', '65',
                                    '66', '76', '77', '87', '88', '98', '99','X')],na.rm=TRUE)) %>%
   arrange(characteristic_type, #comment back for app use,
-    characteristic_value, ks2em_band) %>% 
+          characteristic_value, ks2em_band) %>% 
   select(time_period, time_identifier, geographic_level, country_code, country_name, version,
          characteristic_type,#comment back for app use, 
          characteristic_value, KS2_Prior=ks2em,
          
          ##the grades below produce data files output when running app this need to be commented out and the section 2 commented back in.
-        ## 'U' = 'U',
-        ##'11' = '11', '22'= '22', '33' = '33', '44' = '44', '55' = '55', '66' = '66', 
-        ## '77' = '77', '88' = '88', '99' = '99', 'X' = 'X', All_Grades,  '%_U'='perc_U' ,'%_11'='perc_11','%_22'='perc_22','%_33' ='perc_33', '%_44'='perc_44',
+         ## 'U' = 'U',
+         ##'11' = '11', '22'= '22', '33' = '33', '44' = '44', '55' = '55', '66' = '66', 
+         ## '77' = '77', '88' = '88', '99' = '99', 'X' = 'X', All_Grades,  '%_U'='perc_U' ,'%_11'='perc_11','%_22'='perc_22','%_33' ='perc_33', '%_44'='perc_44',
          ##'%_55'='perc_55', '%_66'='perc_66', '%_77'='perc_77', '%_88'='perc_88', '%_99'='perc_99') %>% ##comment out for app
-  
-  ###(section2 for app use)
-   'num_U' = 'U',
-  'num_11' = '11', 'num_22'= '22', 'num_33' = '33', 'num_44' = '44', 'num_55' = '55', 'num_66' = '66', 
-  'num_77' = '77', 'num_88' = '88', 'num_99' = '99', 'num_X' = 'X', All_Grades, 'perc_U','perc_11','perc_22', 'perc_33', 'perc_44',
-  'perc_55', 'perc_66', 'perc_77', 'perc_88', 'perc_99') %>% ##comment back for app
+         
+         ###(section2 for app use)
+         'num_U' = 'U',
+         'num_11' = '11', 'num_22'= '22', 'num_33' = '33', 'num_44' = '44', 'num_55' = '55', 'num_66' = '66', 
+         'num_77' = '77', 'num_88' = '88', 'num_99' = '99', 'num_X' = 'X', All_Grades, 'perc_U','perc_11','perc_22', 'perc_33', 'perc_44',
+         'perc_55', 'perc_66', 'perc_77', 'perc_88', 'perc_99') %>% ##comment back for app
   mutate_all(~replace(.,is.na(.),0)) 
 
 
@@ -387,7 +441,7 @@ tidy_data_cs <- grade_counts_spread_cs %>%
 
 #copying data to an Excel file
 #save_tidy_data_file_cs = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv'
-save_tidy_data_file_cs = 'C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv' #update year
+save_tidy_data_file_cs = 'C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv' #update year
 write.table(tidy_data_cs, save_tidy_data_file_cs, row.names = FALSE, sep = ',')
 
 
@@ -416,7 +470,7 @@ func_attainment_char <- function(data, attainment, achieved, char, char_name){
     count ({{attainment}}, ks2em_band, ks2em, {{char}}) %>%
     rename(characteristic_value = {{char}}) %>%
     mutate(characteristic_type = char_name)}
-    
+
 
 ## function for calculating all pupil attainment columns
 func_attainment_allgen <- function(data, attainment){
@@ -458,7 +512,7 @@ EBACC_all_perc <- left_join(EBACC_all,
   rename('EBacc_all_perc_Not_Entered' = 'Not_Entered.y')
 
 
-                            
+
 
 #Calculating 9-4 grade achievement in EBacc
 EBACC94_achieved_gender <- func_attainment_char(join_data_attainment, EBACC_94, 1, Gender, "Gender") 
@@ -479,8 +533,8 @@ EBACC94_all <- rbind(EBACC94_achieved_gender, EBACC94_notachieved_gender, EBACC9
   rename('EBacc_9-4_Not_Achieved' = '0')
 
 EBACC94_all_perc <- left_join(EBACC94_all,
-                            EBACC94_all %>% janitor::adorn_percentages(),
-                            by = c('ks2em_band', 'ks2em', 'characteristic_type', 'characteristic_value')) %>%
+                              EBACC94_all %>% janitor::adorn_percentages(),
+                              by = c('ks2em_band', 'ks2em', 'characteristic_type', 'characteristic_value')) %>%
   rename('EBacc_9-4_Achieved' = 'Achieved_EBacc_9-4.x') %>% 
   rename('EBacc_9-4_Not_Achieved' = 'EBacc_9-4_Not_Achieved.x') %>% 
   rename('EBacc_9-4_perc_Achieved' = 'Achieved_EBacc_9-4.y') %>% 
@@ -536,7 +590,7 @@ L2B94_all <- rbind(L2B94_achieved_gender, L2B94_notachieved_gender, L2B94_achiev
 
 L2B94_all_perc <- left_join(L2B94_all,
                             L2B94_all %>% janitor::adorn_percentages(),
-                              by = c('ks2em_band', 'ks2em', 'characteristic_type', 'characteristic_value')) %>%
+                            by = c('ks2em_band', 'ks2em', 'characteristic_type', 'characteristic_value')) %>%
   rename('Basics_9-4_Achieved' = 'Achieved_Basics_9-4.x') %>% 
   rename('Basics_9-4_Not_Achieved' = 'Basics_9-4_Not_Achieved.x') %>% 
   rename('Basics_9-4_perc_Achieved' = 'Achieved_Basics_9-4.y') %>% 
@@ -584,39 +638,39 @@ attainment_TM <- EBACC_all_perc %>%
 
 #create the final tidy data file from the attainment_TM table
 attainment_tidy_data <- attainment_TM %>%
-  mutate(time_period = 202021,
+  mutate(time_period = '202122',
          time_identifier = 'Academic year',
          geographic_level = 'National',
          country_code = 'E92000001',
          country_name = 'England',
-         version = 'Final') %>%
+         version = 'Provisional') %>%
   arrange(characteristic_type,#comment back for app use,
-    characteristic_value, ks2em_band) %>% 
+          characteristic_value, ks2em_band) %>% 
   select(time_period, time_identifier, geographic_level, country_code, country_name, version,
          characteristic_type,#comment back for app use,
          
          ##comment back in for data files
-       ## characteristic_value, KS2_Prior=ks2em, 'EBacc_all_Entered',
-        ## 'EBacc_all_Not_Entered','EBacc_all_%c_Entered', 'EBacc_all_%c_Not_Entered', 'EBacc_9-4_Achieved','EBacc_9-4_Not_Achieved',
-        ## 'EBacc_9-4_%c_Achieved','EBacc_9-4_%c_Not_Achieved','EBacc_9-5_Achieved','EBacc_9-5_Not_Achieved',
-        ## 'EBacc_9-5_%c_Achieved','EBacc_9-5_%c_Not_Achieved','Basics_9-4_Achieved','Basics_9-4_Not_Achieved',
-        ## 'Basics_9-4_%c_Achieved','Basics_9-4_%c_Not_Achieved', 'Basics_9-5_Achieved','Basics_9-5_Not_Achieved',
-        ## 'Basics_9-5_%c_Achieved', 'Basics_9-5_%c_Not_Achieved') %>% 
-
-   ##section (app use only)
-   characteristic_value, KS2_Prior=ks2em, 'EBacc_all_Entered',
-'EBacc_all_Not_Entered','EBacc_all_perc_Entered', 'EBacc_all_perc_Not_Entered', 'EBacc_9-4_Achieved','EBacc_9-4_Not_Achieved',
-'EBacc_9-4_perc_Achieved','EBacc_9-4_perc_Not_Achieved','EBacc_9-5_Achieved','EBacc_9-5_Not_Achieved',
-'EBacc_9-5_perc_Achieved','EBacc_9-5_perc_Not_Achieved','Basics_9-4_Achieved','Basics_9-4_Not_Achieved',
-'Basics_9-4_perc_Achieved','Basics_9-4_perc_Not_Achieved', 'Basics_9-5_Achieved','Basics_9-5_Not_Achieved',
-'Basics_9-5_perc_Achieved', 'Basics_9-5_perc_Not_Achieved') %>% 
+         ## characteristic_value, KS2_Prior=ks2em, 'EBacc_all_Entered',
+         ## 'EBacc_all_Not_Entered','EBacc_all_%c_Entered', 'EBacc_all_%c_Not_Entered', 'EBacc_9-4_Achieved','EBacc_9-4_Not_Achieved',
+         ## 'EBacc_9-4_%c_Achieved','EBacc_9-4_%c_Not_Achieved','EBacc_9-5_Achieved','EBacc_9-5_Not_Achieved',
+         ## 'EBacc_9-5_%c_Achieved','EBacc_9-5_%c_Not_Achieved','Basics_9-4_Achieved','Basics_9-4_Not_Achieved',
+         ## 'Basics_9-4_%c_Achieved','Basics_9-4_%c_Not_Achieved', 'Basics_9-5_Achieved','Basics_9-5_Not_Achieved',
+         ## 'Basics_9-5_%c_Achieved', 'Basics_9-5_%c_Not_Achieved') %>% 
+         
+         ##section (app use only)
+         characteristic_value, KS2_Prior=ks2em, 'EBacc_all_Entered',
+         'EBacc_all_Not_Entered','EBacc_all_perc_Entered', 'EBacc_all_perc_Not_Entered', 'EBacc_9-4_Achieved','EBacc_9-4_Not_Achieved',
+         'EBacc_9-4_perc_Achieved','EBacc_9-4_perc_Not_Achieved','EBacc_9-5_Achieved','EBacc_9-5_Not_Achieved',
+         'EBacc_9-5_perc_Achieved','EBacc_9-5_perc_Not_Achieved','Basics_9-4_Achieved','Basics_9-4_Not_Achieved',
+         'Basics_9-4_perc_Achieved','Basics_9-4_perc_Not_Achieved', 'Basics_9-5_Achieved','Basics_9-5_Not_Achieved',
+         'Basics_9-5_perc_Achieved', 'Basics_9-5_perc_Not_Achieved') %>% 
   
-
+  
   mutate_all(~replace(.,is.na(.),0))
 
 
 #copying data to an Excel file
 #save_tidy_data_file_attainment = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
 #save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-save_tidy_data_file_attainment = 'C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'#update year
+save_tidy_data_file_attainment = 'C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'#update year
 write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ',')
