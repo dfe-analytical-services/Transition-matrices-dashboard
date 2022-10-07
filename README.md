@@ -119,4 +119,5 @@ Only members of the Statistics Development team can merge pull requests. Add lau
 
 ## Contact
 
-Add contact details of how to get in touch with your team.
+Email
+Attainment.STATISTICS@education.gov.uk
