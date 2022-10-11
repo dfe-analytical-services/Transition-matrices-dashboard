@@ -157,10 +157,11 @@ server <- function(input, output, session) {
   # -----------------------------------------------------------------------------------------------------------------------------
   
   output$subjects_chart_title <- renderText(
-    paste("<h3> Key stage 2 to Key stage 4 pupil progress in GCSE ",input$subjects_select,", pupils with ",input$KS2_dropdown_attainment_subject," KS2 attainment. </h3>",
+    paste("<h4> KS2-KS4 pupil progress in GCSE ",input$subjects_select,", with ",input$KS2_dropdown_attainment_subject," KS2 scaled score </43>",
           sep = "")
   )
   
+ 
   output$subjects_chart = renderPlotly({
     
     chart_data <- numbers_data() %>%
@@ -188,11 +189,11 @@ server <- function(input, output, session) {
  
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=14, vjust=0.5),
-        axis.text.y=element_text(size=14, vjust=0.5),
+        axis.text.x=element_text(size=12, vjust=0.5),
+        axis.text.y=element_text(size=12, vjust=0.5),
         # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size=14, vjust=-0.5),
-        axis.title.y = element_text(size=14, vjust=2.0),
+        axis.title.x = element_text(size=12, vjust=-0.5),
+        axis.title.y = element_text(size=12, vjust=2.0),
         # sorting out the background colour, grid lines, and axis lines
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -206,6 +207,13 @@ server <- function(input, output, session) {
       layout(legend = list(orientation = 'h', y = -0.3))
   }#,
   #bg = 'transparent'
+  )
+  
+######################
+  
+  output$attainment_chart_title <- renderText(
+    paste("<h4> KS2-KS4 pupil progress in ",input$attainment_select,", with ",input$KS2_att_select," KS2 scaled score </43>",
+          sep = "")
   )
   
   
@@ -224,18 +232,19 @@ server <- function(input, output, session) {
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
       #ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
-      scale_y_continuous(name = paste(input$num_perc_select, "\n", 'with', input$KS2_dropdown_attainment_subject, 'KS2 attainment', sep = " "),
+      scale_y_continuous(name = paste(input$num_perc, 'of pupils'),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                          limits = function (x) {c(0, (max (x) +1) *1.1)}) +
       
+      
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=10, vjust=0.5),
-        axis.text.y=element_text(size=14, vjust=0.5),
+        axis.text.x=element_text(size=12, vjust=0.5),
+        axis.text.y=element_text(size=12, vjust=0.5),
         # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size=14, vjust=-0.5),
-        axis.title.y = element_text(size=14, vjust=2.0),
+        axis.title.x = element_text(size=12, vjust=-0.5),
+        axis.title.y = element_text(size=12, vjust=2.0),
         # sorting out the background colour, grid lines, and axis lines
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
@@ -265,19 +274,19 @@ server <- function(input, output, session) {
       scale_fill_manual(values = c('#12436D', '#28A197')) +
       xlab(' ') +
       #ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
-      scale_y_continuous(name = paste(input$KS2_att_select, 'KS2 attainment', sep = " "),
-                         paste(input$attainment_select, 'percentages', "\n", 'with', input$KS2_att_select, 'KS2 attainment', sep = " "),
+      scale_y_continuous(name = paste(input$num_perc, 'of pupils'),
                          expand = c(0, 0) ,
                          breaks = function (x) {unique(floor(pretty(seq(0, max(x) +1) *1.1)))},
                          limits = function (x) {c(0, (max (x) +1) *1.1)}) +
       
+      
       theme(
         # set size and spacing of axis tick labels
-        axis.text.x=element_text(size=10, vjust=0.5),
-        axis.text.y=element_text(size=15, vjust=0.5),
+        axis.text.x=element_text(size=12, vjust=0.5),
+        axis.text.y=element_text(size=12, vjust=0.5),
         # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size=15, vjust=-0.5),
-        axis.title.y = element_text(size=15, vjust=2.0),
+        axis.title.x = element_text(size=12, vjust=-0.5),
+        axis.title.y = element_text(size=12, vjust=2.0),
         # sorting out the background colour, grid lines, and axis lines
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),

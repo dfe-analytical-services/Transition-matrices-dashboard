@@ -63,7 +63,7 @@ characteristic_dropdown <- subject_data %>%
 
 
 num_perc_dropdown <- list('Number' = "Number of pupils", 
-                          'Percentage' = 'Percentage of pupils achieving')
+                          'Percentage' = 'Percentage of pupils')
 
 
 attainment_dropdown <- c('EBacc Entry', 'EBacc Achievement 9-4', 'EBacc Achievement 9-5',
@@ -114,6 +114,7 @@ subject_table = function(subj, char, num_perc){
       filter(characteristic_type == char) %>%
       subject_col_selection(., num_perc)
   }
+  
   
   else{
     

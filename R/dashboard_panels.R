@@ -115,13 +115,13 @@ dashboard_panel <- function() {
                tabsetPanel(id = "tabsetpanels",
                 
          tabPanel(
-            "KS2-KS4 progress by GCSE subjects",
+            "Pupil progress in GCSE subjects",
             fluidRow(
               column(
                 width=12,
                 h2("Summary"),
-                p("The following data is based on KS2 prior attainment scores and KS4 achievements in GCSE subjects’ grades 9-1 for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
-                           Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
+                p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
+                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
                 
                 column(
                   width=12,
@@ -135,19 +135,19 @@ dashboard_panel <- function() {
                       #h3("Select one option from all categories to explore data:"),
                       column(6,
                              selectInput(inputId = "num_perc_select",
-                                               label = "1.Select one format for both the chart and table(s):",
+                                               label = "1. Select one format:", #for both the chart and table(s)
                                                choices = num_perc_dropdown)
                              ),
                       column(6,  selectInput(inputId = "characteristic_select",
-                                             label = "2.Select one pupil characteristics",
+                                             label = "2. Select one pupil characteristics:",
                                              choices = characteristic_dropdown$characteristic_type)),
                       
                       column(6,selectInput(inputId = "subjects_select", 
-                                           label = "3.Select one GCSE Subject",
+                                           label = "3. Select one GCSE Subject:",
                                            choices = subject_dropdown$subject)),   
                       
                       column(6, selectInput(inputId = "KS2_dropdown_attainment_subject",
-                                            label = "4.Select one KS2 attainment score",
+                                            label = "4. Select one KS2 scaled score:",
                                             choices = "" )),
                       
                         ),
@@ -187,12 +187,12 @@ dashboard_panel <- function() {
  #######KS4 HEADLINE MEASURES tab#######    
  
         tabPanel(
-          "KS2-KS4 progress by KS4 headline measures",
+          "Pupil progress in KS4 measures",
           fluidRow(
             column(
               width=12,
           h2("Summary"),
-          p("The following data is based on KS2 prior attainment scores and KS4 achievements in EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5),English and maths (9-4), English and maths (9-5) for the 2021/2022 academic year.
+          p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2021/2022 academic year
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). 
             Figures are available at national (England) level only.
             Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
@@ -214,17 +214,17 @@ dashboard_panel <- function() {
               #  h3("Select one option from all categories to explore data:"),
                 column(6,
                        selectInput('num_perc',
-                                         label = "1.Select one format for both the chart and table(s):",
+                                         label = "1. Select one format:",
                                          choices = c('Number', 'Percentage'))
                 ),
                 column(6, selectInput(inputId = "attainment_select",
-                                      label = "2.Select one KS4 measure",
+                                      label = "2. Select one KS4 measure:",
                                       choices = attainment_dropdown)),
                 column(6, selectInput(inputId = "characteristic_att_select",
-                                      label = "3.Select one pupil characteristic",
+                                      label = "3. Select one pupil characteristic:",
                                       choices = characteristic_dropdown$characteristic_type)),
                 column(6,  selectInput(inputId = "KS2_att_select",
-                                       label = "4.Select one KS2 attainment score",
+                                       label = "4. Select one KS2 scaled score:",
                                        choices = KS2_dropdown_attainment)),
      
               ),
@@ -238,7 +238,8 @@ dashboard_panel <- function() {
             width=12,
             box(
               width=12,
-              p("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures", style = "font-size:20px;"),
+              htmlOutput('attainment_chart_title'),
+             # p("Key stage 2 to Key stage 4 pupil progress in KS4 measures", style = "font-size:20px;"),
               conditionalPanel("input.num_perc == 'Number'",
                                plotlyOutput('attainment_chart_num')),
               conditionalPanel("input.num_perc == 'Percentage'",
