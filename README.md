@@ -20,19 +20,19 @@ The KS4 Transition Matrices (TM) dashboard allows to explore pupil progress from
 
 The dashboard is split into 2 categories: 
 
-  1.	Pupil progress in GCSE subjects: This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
+  •	Pupil progress in GCSE subjects: This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
 
-  2.	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
+  •	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
 
 Notes:
 
-  • Data can be viewed in the format of a table or chart.
+ 1. Data can be viewed in the format of a table or chart.
  
- • The data has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). 
+ 2. The data has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). 
  
- • Figures are available at national (England) level only.
+ 3. Figures are available at national (England) level only.
  
- • Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools.
+ 4. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools.
 
 
 ---
