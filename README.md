@@ -16,13 +16,13 @@ KS4 Transition Matrices dashboard
 
 ## Introduction 
 
-The KS4 Transition Matrices (TM) dashboard allows to explore pupil progress from key stage 2 to key stage 4 based on KS2 scaled score and KS4 achievements. 
+The KS4 Transition Matrices (TM) dashboard allows to explore pupil progress from Key stage 2 (KS2) to Key stage 4 (KS4) based on KS2 scaled score and KS4 achievements. 
 
 The dashboard is split into 2 categories: 
 
-  •	Pupil progress in GCSE subjects: This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
+  •	<b> Pupil progress in GCSE subjects:</b>  This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
 
-  •	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
+  •  <b> Pupil progress in KS4 measures:</b>  The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
 
 Notes:
 
