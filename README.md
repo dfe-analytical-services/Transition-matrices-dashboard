@@ -50,10 +50,6 @@ You should list out the software and programming skills needed, as well as any a
 
 - Particularly [R Shiny](https://shiny.rstudio.com/)
 
-### iii. Access requirements
-
-- Access to the Stats Development Team SQL modelling area (MA_SDT_NS_DATA) in T1PRANMSQL\SQLPROD,60125. Request access from Cam Race and forward on your request to the PDR mailbox (PupilData.REPOSITORY@education.gov.uk)
-  
 ---
 
 ## How to use
