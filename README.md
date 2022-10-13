@@ -26,13 +26,13 @@ The dashboard is split into 2 categories:
 
 Notes:
 
- 1. Data can be viewed in the format of a table or chart.
+ - Data can be viewed in the format of a table or chart.
  
- 2. The data has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). 
+ - The data has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). 
  
- 3. Figures are available at national (England) level only.
+ - Figures are available at national (England) level only.
  
- 4. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools.
+ - Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools.
 
 
 ---
