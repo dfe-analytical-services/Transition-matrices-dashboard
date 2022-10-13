@@ -57,11 +57,15 @@
 
 ui <- function(input, output, session) {
   fluidPage(
-    #use_tota11y(),
-      title = tags$head(tags$link(rel="shortcut icon",
-                                  href="dfefavicon.png"),
-                        tags$title("KS4 Transition Matrices")),
-      tags$html(lang="en"),
+    # use_tota11y(),
+    title = tags$head(
+      tags$link(
+        rel = "shortcut icon",
+        href = "dfefavicon.png"
+      ),
+      tags$title("KS4 Transition Matrices")
+    ),
+    tags$html(lang = "en"),
     shinyjs::useShinyjs(),
     useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
@@ -72,7 +76,7 @@ ui <- function(input, output, session) {
         href = "dfe_shiny_gov_style.css"
       )
     ),
-    #meta description for search engines
+    # meta description for search engines
     meta() %>%
       meta_general(
         application_name = "Key stage 4 Transition Matrices",
@@ -93,10 +97,10 @@ ui <- function(input, output, session) {
       "beta banner",
       "beta",
       paste0(
-        "This Dashboard is in beta phase and we are still reviewing performance and reliability. "#,
-      #  "In case of slowdown or connection issues due to high demand, we have produced two instances of this site which can be accessed at the following links: "#,
-      #  "<a href=", site_primary, " id='link_site_1'>Site 1</a> and ", ## check
-       # "<a href=", site_overflow, " id='link_site_2'>Site 2</a>." ##check
+        "This Dashboard is in beta phase and we are still reviewing performance and reliability. " # ,
+        #  "In case of slowdown or connection issues due to high demand, we have produced two instances of this site which can be accessed at the following links: "#,
+        #  "<a href=", site_primary, " id='link_site_1'>Site 1</a> and ", ## check
+        # "<a href=", site_overflow, " id='link_site_2'>Site 2</a>." ##check
       )
     ),
     shiny::navlistPanel(
