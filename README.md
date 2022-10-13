@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-Shiny template app
+KS4 Transition Matrices
   <br>
 </h1>
 
@@ -16,11 +16,13 @@ Shiny template app
 
 ## Introduction 
 
-The Transition Matrices (TM) dashboard allows to explore pupil progress from key stage 2 to key stage 4 based on KS2 scaled score and KS4 achievements. 
+The KS4 Transition Matrices (TM) dashboard allows to explore pupil progress from key stage 2 to key stage 4 based on KS2 scaled score and KS4 achievements. 
 
 The dashboard is split into 2 categories: 
-•	Pupil progress in GCSE subjects: This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
-•	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
+
+  •	Pupil progress in GCSE subjects: This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
+
+  •	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
 
 Note: Data can be viewed in the format of a table or chart. The data has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools.
 
