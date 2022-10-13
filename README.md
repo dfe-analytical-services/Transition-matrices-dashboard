@@ -24,7 +24,7 @@ The dashboard is split into 2 categories:
 
   2.	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
 
-Note:
+Notes:
 
   • Data can be viewed in the format of a table or chart.
  
