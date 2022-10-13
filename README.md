@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-KS4 Transition Matrices
+KS4 Transition Matrices dashboard
   <br>
 </h1>
 
