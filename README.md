@@ -4,14 +4,6 @@ Shiny template app
   <br>
 </h1>
 
-This template repository is for making accessible apps for published statistics in DfE. It includes a basic accessible shiny app with DfE styling, as well as templates for additional best practice documents like this README script, pull request templates and codes of conduct for contributing.
-
-To use this template, click the green "use this template" button at the top of the repo. This will create a copy for you to work off of. 
-
-Please delete this header section when you are writing up the README file for your own app.
-
-Please contact statistics.DEVELOPMENT@education.gov.uk if you have any questions, or raise an issue on here if you have spotted something specific that we should change.
-
 <p align="center">
   <a href="#introduction">Introduction</a> |
   <a href="#requirements">Requirements</a> |
@@ -24,13 +16,13 @@ Please contact statistics.DEVELOPMENT@education.gov.uk if you have any questions
 
 ## Introduction 
 
-Give a brief overview of what your app is for here. 
+The Transition Matrices (TM) dashboard allows to explore pupil progress from key stage 2 to key stage 4 based on KS2 scaled score and KS4 achievements. 
 
-Add links to where each version of your app is deployed - e.g.
+The dashboard is split into 2 categories: 
+•	Pupil progress in GCSE subjects: This section explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved.
+•	Pupil progress in KS4 measures: The section explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved.
 
-- Production - https://rsconnect/rsc/dfe-published-data-qa
-- Pre-production - https://rsconnect-pp/rsc/dfe-published-data-qa
-- Development - https://rsconnect-pp/rsc/dev-dfe-published-data-qa
+Note: Data can be viewed in the format of a table or chart. The data has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN). Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools.
 
 
 ---
