@@ -25,6 +25,7 @@ shhh(library(metathis))
 shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(purrr))
+shhh(library(styler))
 
 
 # Functions ---------------------------------------------------------------------------------
