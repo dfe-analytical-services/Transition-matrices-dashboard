@@ -66,4 +66,4 @@ jobs:
           Rscript
           -e "rsconnect::setAccountInfo(name = 'department-for-education', token = '${{secrets.SHINYAPPS_TOKEN}}', secret = '${{secrets.SHINYAPPS_SECRET}}')"
           -e "rsconnect::deployApp(appName='KS4-transition-matrices')"
-          -e "rsconnect::deployApp(appName='KS4-transition-matrices-overflow')"
+#          -e "rsconnect::deployApp(appName='KS4-transition-matrices-overflow')"
