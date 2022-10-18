@@ -27,9 +27,9 @@ homepage_panel <- function() {
                 tags$div(
                   title = "This section is useful if you want to understand how well different industries retain graduates.",
                   h3("Introduction"),
-                  p("This app demonstrates the KS4 Transition Matrices data dashboard."),
+                  p("This tool demonstrates the KS4 Transition Matrices data."),
                   p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements found here:"),
-                  p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices dashboard")),
+                  p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices tool")),
                   # p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices: KS4 headline measures (Academic year 2022)")),
                   # p("You need to add an observeEvent() function to the server.R script for any link that navigates within your App.")
                 ),
@@ -54,7 +54,7 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 h3("Context and purpose"),
-                p("To use the KS4 Transition Matrices dashboard click onto the 'Dasboard' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
+                p("To use the KS4 Transition Matrices tool click onto the 'tool' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
                    "),
                 # p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
                  #p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
@@ -84,7 +84,7 @@ homepage_panel <- function() {
 dashboard_panel <- function() {
   tabPanel(
     value = "dashboard",
-    "Dashboard",
+    "KS4 Transition Matrices Tool",
 
     # Define UI for application that draws a histogram
 
@@ -97,14 +97,14 @@ dashboard_panel <- function() {
           br(), # added
           br(), # added
         ),
-        column(
-          width = 12,
-          div(
-            class = "well",
-            style = "min-height: 100%; height: 1000%; overflow-y: visible",
-            h2("Dashboard") # added
-          )
-        ),
+        #column(
+         # width = 12,
+          #div(
+           # class = "well",
+            #style = "min-height: 100%; height: 1000%; overflow-y: visible",
+            #h2("Dashboard") # added
+        #  )
+        #),
 
         ####### GCSE SUBJECTS tab#######
         column(
