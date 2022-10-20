@@ -38,9 +38,9 @@ library(purrr)
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-subject_data <- read.csv("data/2021_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-cs_data <- read.csv("data/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-attainment_data <- read.csv("data/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+subject_data <- read.csv("data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+cs_data <- read.csv("data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+attainment_data <- read.csv("data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
 
 

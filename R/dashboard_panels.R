@@ -54,7 +54,7 @@ homepage_panel <- function() {
               div(
                 class = "panel-body",
                 h3("Context and purpose"),
-                p("To use the KS4 Transition Matrices tool click onto the 'tool' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
+                p("To use the KS4 Transition Matrices tool click onto the 'KS4 TM tool' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
                    "),
                 # p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
                  #p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
@@ -84,7 +84,7 @@ homepage_panel <- function() {
 dashboard_panel <- function() {
   tabPanel(
     value = "dashboard",
-    "KS4 Transition Matrices Tool",
+    "KS4 TM Tool",
 
     # Define UI for application that draws a histogram
 
@@ -118,7 +118,7 @@ dashboard_panel <- function() {
                   width = 12,
                   h2("Summary"),
                   p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
-                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
+                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award."),
                   column(
                     width = 12,
                     div(

@@ -6,7 +6,7 @@ a11y_panel <- function() {
         column(
           width = 12,
           h1("Accessibility statement"),
-          br("This accessibility statement applies to the Key stage 4 Transition Matrices dasboard.
+          br("This accessibility statement applies to the Key stage 4 Transition Matrices tool.
             This application is run by the Department for Education. We want as many people as possible to be able to use this application,
             and have actively developed this application with accessibilty in mind."),
           h2("WCAG 2.1 compliance"),

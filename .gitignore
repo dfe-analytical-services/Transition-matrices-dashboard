@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 *unpublished*
+datafiles_log.csv
+global.R
