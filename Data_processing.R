@@ -45,7 +45,7 @@ SQL_con <- dbConnect(odbc(),
 # STEP 1
 
 # Import the exam data
-SQL_data <- tbl(SQL_con, ("KS4_exam_22_cohort_amended_v2")) # Enter the name of your SQL database #updare file name
+SQL_data <- tbl(SQL_con, ("KS4_exam_22_cohort_amended_v3")) # Enter the name of your SQL database #updare file name
 
 # Create subject groupings based on wolf codes from the exam file
 Exam_SQL_data <- SQL_data %>%
@@ -59,13 +59,14 @@ Exam_SQL_data <- SQL_data %>%
     WOLF_DISC_CODE,
     LAESTAB,
     SUBLEVNO,
-    GRADE
+    GRADE,
+    GNUMBER
   ) %>%
   mutate(subjects = case_when(
     wolf_disc_code == "FK2B" ~ "English Language",
     wolf_disc_code == "FC4" ~ "English Literature",
-    WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" | WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55" |
-      WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B" | WOLF_DISC_CODE == "RB7E" ~ "Mathematics",
+    (WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" | WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55" |
+      WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B" | WOLF_DISC_CODE == "RB7E") & !(GNUMBER %in% c('10034912','10060054','10060091','10060133','10060170','10060212','1006025X','10050395', '60310844', '60311770')) ~ "Mathematics",
     wolf_disc_code == "RA1E" ~ "Combined Science",
     wolf_disc_code == "RC1" ~ "Physics",
     wolf_disc_code == "RD1" ~ "Chemistry",
@@ -73,12 +74,12 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "CK1" ~ "Computer Science",
     WOLF_DISC_CODE == "RE1" | WOLF_DISC_CODE == "RF2" | WOLF_DISC_CODE == "RC52" |
       WOLF_DISC_CODE == "QA3" ~ "Other Sciences",
-    wolf_disc_code == "VF1" ~ "Design & Technology",
+    wolf_disc_code == "VF1" ~ "Design and Technology",
     wolf_disc_code == "XA5A" ~ "D & T: Textiles Technology",
     wolf_disc_code == "VF2" | WOLF_DISC_CODE == "VF3" ~ "Other Design and Technology",
     wolf_disc_code == "XA1" ~ "Engineering",
     wolf_disc_code == "AA3" ~ "Business",
-    wolf_disc_code == "NH6" ~ "Food Preparation & Nutrition",
+    wolf_disc_code == "NH6" ~ "Food Preparation and Nutrition",
     wolf_disc_code == "RF4" ~ "Geography",
     wolf_disc_code == "DB" ~ "History",
     wolf_disc_code == "DB21" ~ "Ancient History",
@@ -96,15 +97,15 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "F1K" ~ "Classical Greek",
     wolf_disc_code == "F1Z" ~ "Biblical Hebrew",
     wolf_disc_code == "JA2" | WOLF_DISC_CODE == "KJ1" ~ "Art and Design",
-    wolf_disc_code == "KA2" ~ "Film Studies",
+    wolf_disc_code == "KA2" & !(GNUMBER %in% c('60311150','60311502','60319434','60320692','60321052','60322469')) ~ "Film Studies",
     wolf_disc_code == "LB1" ~ "Dance",
     wolf_disc_code == "LC11" ~ "Drama",
     wolf_disc_code == "PA1" ~ "Health and Social Care",
-    wolf_disc_code == "KA2" ~ "Media/Film/TV",
+    wolf_disc_code == "KA2" & !(GNUMBER %in% c("10042799","50022465","50025995","50030188","60055029","60308898","60309702","60309714","60309726")) ~ "Media/Film/TV",
     wolf_disc_code == "LF1" | WOLF_DISC_CODE == "LJ9" ~ "Music",
     wolf_disc_code == "MA1" ~ "Physical Education",
     wolf_disc_code == "DD1" ~ "Religious Studies",
-    wolf_disc_code == "RB71" ~ "Statistics",
+    wolf_disc_code == "RB71" & !(GNUMBER %in% c('60322615')) ~ "Statistics",
     wolf_disc_code == "AK6" ~ "Accounting",
     TRUE ~ NA_character_
   )) %>%
@@ -134,7 +135,7 @@ Exam_SQL_data %>%
 # STEP 2 Define variables
 
 # Import the pupil data
-Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_22_cohort_amended_v2")) # Enter the name of your SQL database #update file name
+Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_22_cohort_amended_v3")) # Enter the name of your SQL database #update file name
 
 
 Var_SQL_data <- Pupil_SQL_data %>%
@@ -167,80 +168,32 @@ Var_SQL_data <- Pupil_SQL_data %>%
     LANG1ST %in% c("OTB", "OTH") ~ "EAL Pupils", #
     TRUE ~ "Non EAL Pupils"
   )) %>%
-  mutate(ks2em = case_when(
-    KS2EMSS >= 59 & KS2EMSS < 82 ~ "82 or less",
-    KS2EMSS >= 82.5 & KS2EMSS <= 86 ~ "82.5 - 86",
-    KS2EMSS >= 86.5 & KS2EMSS <= 87.5 ~ "86.5 - 87.5",
-    KS2EMSS >= 88 & KS2EMSS <= 89 ~ "88 - 89",
-    KS2EMSS >= 89.5 & KS2EMSS <= 90.5 ~ "89.5 - 90.5",
-    KS2EMSS >= 91 & KS2EMSS <= 92 ~ "91 - 92",
-    KS2EMSS >= 92.5 & KS2EMSS <= 93 ~ "92.5 - 93",
-    KS2EMSS >= 93.5 & KS2EMSS <= 94 ~ "93.5 - 94",
-    KS2EMSS >= 94.5 & KS2EMSS <= 95 ~ "94.5 - 95",
-    KS2EMSS >= 95.5 & KS2EMSS <= 96 ~ "95.5 - 96",
-    KS2EMSS >= 96.5 & KS2EMSS <= 97 ~ "96.5 - 97",
-    KS2EMSS >= 97.5 & KS2EMSS <= 98 ~ "97.5 - 98",
-    KS2EMSS >= 98.5 & KS2EMSS <= 99 ~ "98.5 - 99",
-    KS2EMSS >= 99.5 & KS2EMSS <= 100 ~ "99.5 - 100",
-    KS2EMSS >= 100.5 & KS2EMSS <= 101 ~ "100.5 - 101",
-    KS2EMSS >= 101.5 & KS2EMSS <= 102 ~ "101.5 - 102",
-    KS2EMSS >= 102.5 & KS2EMSS <= 103 ~ "102.5 - 103",
-    KS2EMSS >= 103.5 & KS2EMSS <= 104 ~ "103.5 - 104",
-    KS2EMSS >= 104.5 & KS2EMSS <= 105 ~ "104.5 - 105",
-    KS2EMSS >= 105.5 & KS2EMSS <= 106 ~ "105.5 - 106",
-    KS2EMSS >= 106.5 & KS2EMSS <= 107 ~ "106.5 - 107",
-    KS2EMSS >= 107.5 & KS2EMSS <= 108 ~ "107.5 - 108",
-    KS2EMSS >= 108.5 & KS2EMSS <= 109 ~ "108.5 - 109",
-    KS2EMSS >= 109.5 & KS2EMSS <= 110 ~ "109.5 - 110",
-    KS2EMSS >= 110.5 & KS2EMSS <= 111 ~ "110.5 - 111",
-    KS2EMSS >= 111.5 & KS2EMSS <= 112 ~ "111.5 - 112",
-    KS2EMSS >= 112.5 & KS2EMSS <= 113 ~ "112.5 - 113",
-    KS2EMSS >= 113.5 & KS2EMSS <= 114 ~ "113.5 - 114",
-    KS2EMSS >= 114.5 & KS2EMSS <= 115 ~ "114.5 - 115",
-    KS2EMSS >= 115.5 & KS2EMSS <= 116 ~ "115.5 - 116",
-    KS2EMSS >= 116.5 & KS2EMSS <= 117 ~ "116.5 - 117",
-    KS2EMSS >= 117.5 & KS2EMSS <= 118 ~ "117.5 - 118",
-    KS2EMSS >= 118.5 & KS2EMSS <= 119 ~ "118.5 - 119",
-    KS2EMSS >= 119.5 & KS2EMSS <= 120 ~ "119.5 - 120",
-    TRUE ~ NA_character_
-  )) %>%
-  mutate(ks2em_band = case_when(
-    KS2EMSS >= 59 & KS2EMSS < 82 ~ "01", # this section makes sure the data is ordered by KS2 groups in the final tidy data files
-    KS2EMSS >= 82.5 & KS2EMSS <= 86 ~ "02",
-    KS2EMSS >= 86.5 & KS2EMSS <= 87.5 ~ "03",
-    KS2EMSS >= 88 & KS2EMSS <= 89 ~ "04",
-    KS2EMSS >= 89.5 & KS2EMSS <= 90.5 ~ "05",
-    KS2EMSS >= 91 & KS2EMSS <= 92 ~ "06",
-    KS2EMSS >= 92.5 & KS2EMSS <= 93 ~ "07",
-    KS2EMSS >= 93.5 & KS2EMSS <= 94 ~ "08",
-    KS2EMSS >= 94.5 & KS2EMSS <= 95 ~ "09",
-    KS2EMSS >= 95.5 & KS2EMSS <= 96 ~ "10",
-    KS2EMSS >= 96.5 & KS2EMSS <= 97 ~ "11",
-    KS2EMSS >= 97.5 & KS2EMSS <= 98 ~ "12",
-    KS2EMSS >= 98.5 & KS2EMSS <= 99 ~ "13",
-    KS2EMSS >= 99.5 & KS2EMSS <= 100 ~ "14",
-    KS2EMSS >= 100.5 & KS2EMSS <= 101 ~ "15",
-    KS2EMSS >= 101.5 & KS2EMSS <= 102 ~ "16",
-    KS2EMSS >= 102.5 & KS2EMSS <= 103 ~ "17",
-    KS2EMSS >= 103.5 & KS2EMSS <= 104 ~ "18",
-    KS2EMSS >= 104.5 & KS2EMSS <= 105 ~ "19",
-    KS2EMSS >= 105.5 & KS2EMSS <= 106 ~ "20",
-    KS2EMSS >= 106.5 & KS2EMSS <= 107 ~ "21",
-    KS2EMSS >= 107.5 & KS2EMSS <= 108 ~ "22",
-    KS2EMSS >= 108.5 & KS2EMSS <= 109 ~ "23",
-    KS2EMSS >= 109.5 & KS2EMSS <= 110 ~ "24",
-    KS2EMSS >= 110.5 & KS2EMSS <= 111 ~ "25",
-    KS2EMSS >= 111.5 & KS2EMSS <= 112 ~ "26",
-    KS2EMSS >= 112.5 & KS2EMSS <= 113 ~ "27",
-    KS2EMSS >= 113.5 & KS2EMSS <= 114 ~ "28",
-    KS2EMSS >= 114.5 & KS2EMSS <= 115 ~ "29",
-    KS2EMSS >= 115.5 & KS2EMSS <= 116 ~ "30",
-    KS2EMSS >= 116.5 & KS2EMSS <= 117 ~ "31",
-    KS2EMSS >= 117.5 & KS2EMSS <= 118 ~ "32",
-    KS2EMSS >= 118.5 & KS2EMSS <= 119 ~ "33",
-    KS2EMSS >= 119.5 & KS2EMSS <= 120 ~ "34",
-    TRUE ~ NA_character_
-  ))
+  mutate(ks2em = case_when(KS2EMSS >=59 & KS2EMSS <80 ~ "Less than 80",
+                           KS2EMSS >=80 & KS2EMSS <=89.5 ~ "80 - 89.5",
+                           KS2EMSS >=90 & KS2EMSS <=95.5 ~ "90 - 95.5",
+                           KS2EMSS >=96 & KS2EMSS <=99.5 ~ "96 - 99.5",
+                           KS2EMSS >=100 & KS2EMSS <=102 ~ "100 - 102",
+                           KS2EMSS >=102.5 & KS2EMSS <=104.5 ~ "102.5 - 104.5",
+                           KS2EMSS >=105 & KS2EMSS <=107 ~ "105 - 107",
+                           KS2EMSS >=107.5 & KS2EMSS <=109.5 ~ "107.5 - 109.5",
+                           KS2EMSS >=110 & KS2EMSS <=113 ~ "110 - 113",
+                           KS2EMSS >=113.5 & KS2EMSS <=116.5 ~ "113.5 - 116.5",
+                           KS2EMSS >=117 & KS2EMSS <=120 ~ "117 - 120",
+                           TRUE ~ NA_character_)) %>% 
+  mutate(ks2em_band = case_when(KS2EMSS >=59 & KS2EMSS <80 ~ "01", #this section makes sure the data is ordered by KS2 groups in the final tidy data files 
+                                KS2EMSS >=80 & KS2EMSS <=89.5 ~ "02",
+                                KS2EMSS >=90 & KS2EMSS <=95.5 ~ "03",
+                                KS2EMSS >=96 & KS2EMSS <=99.5 ~ "04",
+                                KS2EMSS >=100 & KS2EMSS <=102 ~ "05",
+                                KS2EMSS >=102.5 & KS2EMSS <=104.5 ~ "06",
+                                KS2EMSS >=105 & KS2EMSS <=107 ~ "07",
+                                KS2EMSS >=107.5 & KS2EMSS <=109.5 ~ "08",
+                                KS2EMSS >=110 & KS2EMSS <=113 ~ "09",
+                                KS2EMSS >=113.5 & KS2EMSS <=116.5 ~ "10",
+                                KS2EMSS >=117 & KS2EMSS <=120 ~ "11",
+                                TRUE ~ NA_character_))
+
+
 
 # CHECKS
 Var_SQL_data %>%
@@ -289,10 +242,10 @@ Exam_short <- Exam_SQL_data %>%
 
 # Create a dataframe containing the subjects to be included in the TMs, you need to check with the Data Production Team to see if any subjects have changed
 ks4_subjects <- c(
-  "Ancient History", "Art & Design", "Biblical Hebrew", "Biology", "Business", "Chemistry", "Classical Civilisation", "Classical Greek", "Combined Science",
-  "Computer Science", "Dance", "Design and Technology", "Drama", "Economics", "Engineering", "English Language", "English Literature", "Film studies",
-  "Food Preparation and Nutrition", "French", "Geography", "German", "History", "Latin", "Mathematics", "Music",
-  "Other Modern Languages", "Other Sciences", "Physical Education", "Physics", "Religious Studies", "Sociology Studies", "Spanish", "Statistics"
+  "Ancient History", "Art and Design", "Biblical Hebrew", "Biology", "Business", "Chemistry", "Classical Civilisation", "Classical Greek", "Combined Science",
+  "Computer Science", "Dance", "Design and Technology", "Drama", "Economics", "Engineering", "English Language", "English Literature", "Film Studies",
+  "Food Preparation and Nutrition", "French", "Geography", "German", "History", "Latin", "Mathematics", "Media/Film/TV", "Music",
+  "Other Modern Languages", "Other Sciences", "Physical Education", "Physics", "Religious Studies", "Social Studies", "Spanish", "Statistics"
 )
 
 
@@ -508,8 +461,8 @@ tidy_data_cs <- grade_counts_spread_cs %>%
 
     ### (section2 for app use)
     "num_U" = "U",
-    "num_11" = "11", "num_22" = "22", "num_33" = "33", "num_44" = "44", "num_55" = "55", "num_66" = "66",
-    "num_77" = "77", "num_88" = "88", "num_99" = "99", "num_X" = "X", All_Grades, "perc_U", "perc_11", "perc_22", "perc_33", "perc_44",
+    "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32","num_33" = "33","num_43" = "43", "num_44" = "44", "num_54" = "54","num_55" = "55","num_65" = "65", "num_66" = "66","num_76" = "76",
+    "num_77" = "77", "num_87" = "87","num_88" = "88","num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades, "perc_U", "perc_11", "perc_22", "perc_33", "perc_44",
     "perc_55", "perc_66", "perc_77", "perc_88", "perc_99"
   ) %>% ## comment back for app
   mutate_all(~ replace(., is.na(.), 0))
