@@ -397,7 +397,7 @@ grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade 
 
 #calcs %
 grade_percentages_spread_cs <- grade_counts_spread_cs %>%
-  select(-X) %>% # removes X from the % calculation
+  select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
   janitor::adorn_percentages() %>%
   mutate_if(is.numeric, function(x) {
     round2(x * 100, 1)
@@ -438,11 +438,12 @@ tidy_data_cs <- grade_counts_spread_cs %>%
     country_code = "E92000001",
     country_name = "England",
     version = "Provisional",
-    All_Grades = rowSums(.[,c('U', '11', '21', '22', '32', '33', '43', '44', '54', '55', '65',
-                              '66', '76', '77', '87', '88', '98', '99','X')],na.rm=TRUE)) %>%
+    All_Grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65","66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE) ) %>%
   arrange(characteristic_type, characteristic_value, ks2em_band) %>% 
   select(time_period, time_identifier, geographic_level, country_code, country_name, version,
-         characteristic_type, characteristic_value, KS2_Prior=ks2em, 'num_U' = 'U', 'num_11' = '11',
+         characteristic_type, characteristic_value, KS2_Prior=ks2em, 
+         
+         'num_U' = 'U', 'num_11' = '11',
          'num_21' = '21', 'num_22' = '22', 'num_32' = '32', 'num_33' = '33', 'num_43' = '43',
          'num_44' = '44', 'num_54' = '54', 'num_55' = '55', 'num_65' = '65','num_66' = '66',
          'num_76' = '76', 'num_77' = '77', 'num_87' = '87', 'num_88' = '88', 'num_98' = '98',
@@ -453,6 +454,8 @@ tidy_data_cs <- grade_counts_spread_cs %>%
          #, 'perc_X'
   ) %>% 
   mutate_all(~replace(.,is.na(.),0))
+
+
 
 
 
