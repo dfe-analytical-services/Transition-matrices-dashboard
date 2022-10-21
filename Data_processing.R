@@ -52,7 +52,7 @@ Exam_SQL_data <- SQL_data %>%
   filter(
     ptq_include == 1,
     disc3B_ptq_ee == 0,
-    sublevno %in% c("310",  "391", "395", "450", "451", "760", "954","363")) %>%
+    sublevno %in% c("310",  "391", "395", "450", "451", "760", "954")) %>%
   select(
     CANDNO,
     WOLF_DISC_CODE,
@@ -140,7 +140,7 @@ Var_SQL_data <- Pupil_SQL_data %>%
   filter(
     endks == 1,
     natres == 1,
-    (nftype %in% c("32", "33") | nftype %in% c("20", "21", "22", "23", "24", "25", "26", "27", "28", "50", "51", "52", "53", "55", "57", "58") &
+    (nftype %in% c("32", "33") | nftype %in% c("20", "21", "22", "23", "24", "25", "26", "27", "28","31", "50", "51", "52", "53", "55", "57", "58")  &
       norflage != 3)
   ) %>% # you can use norflage !=3 instead here :)
   select(
@@ -389,14 +389,15 @@ grade_counts_comb_cs <- rbind(
 ) %>%
   select(-subjects)
 
-
+# creates the separate grade columns
 grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade columns
   pivot_wider(names_from = GRADE, values_from = n)
 # select(-Q)
 
 
+#calcs %
 grade_percentages_spread_cs <- grade_counts_spread_cs %>%
-  select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
+  select(-X) %>% # removes X from the % calculation
   janitor::adorn_percentages() %>%
   mutate_if(is.numeric, function(x) {
     round2(x * 100, 1)
@@ -420,7 +421,7 @@ grade_percentages_spread_cs <- grade_counts_spread_cs %>%
     "perc_88" = "88",
     "perc_98" = "98",
     "perc_99" = "99"
-    # ,'perc_X' = 'X'
+    
   )
 
 ## CS output
@@ -437,34 +438,21 @@ tidy_data_cs <- grade_counts_spread_cs %>%
     country_code = "E92000001",
     country_name = "England",
     version = "Provisional",
-    All_Grades = rowSums(.[, c(
-      "U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65",
-      "66", "76", "77", "87", "88", "98", "99", "X"
-    )], na.rm = TRUE)
-  ) %>%
-  arrange(
-    characteristic_type, # comment back for app use,
-    characteristic_value, ks2em_band
-  ) %>%
+    All_Grades = rowSums(.[,c('U', '11', '21', '22', '32', '33', '43', '44', '54', '55', '65',
+                              '66', '76', '77', '87', '88', '98', '99','X')],na.rm=TRUE)) %>%
+  arrange(characteristic_type, characteristic_value, ks2em_band) %>% 
   select(time_period, time_identifier, geographic_level, country_code, country_name, version,
-    characteristic_type, # comment back for app use,
-    characteristic_value,
-    KS2_Prior = ks2em,
-
-    ## the grades below produce data files output when running app this need to be commented out and the section 2 commented back in.
-    ## 'U' = 'U',
-    ##' 11' = '11', '22'= '22', '33' = '33', '44' = '44', '55' = '55', '66' = '66',
-    ## '77' = '77', '88' = '88', '99' = '99', 'X' = 'X', All_Grades,  '%_U'='perc_U' ,'%_11'='perc_11','%_22'='perc_22','%_33' ='perc_33', '%_44'='perc_44',
-    ##' %_55'='perc_55', '%_66'='perc_66', '%_77'='perc_77', '%_88'='perc_88', '%_99'='perc_99') %>% ##comment out for app
-
-    ### (section2 for app use)
-    "num_U" = "U",
-    "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32","num_33" = "33","num_43" = "43", "num_44" = "44", "num_54" = "54","num_55" = "55","num_65" = "65", "num_66" = "66","num_76" = "76",
-    "num_77" = "77", "num_87" = "87","num_88" = "88","num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades, "perc_U" = "U", "perc_11" = "11", "perc_21" = "21", "perc_22" = "22", "perc_32" = "32","perc_33" = "33","perc_43" = "43", "perc_44" = "44", "perc_54" = "54","perc_55" = "55","perc_65" = "65", "perc_66" = "66","perc_76" = "76",
-    "perc_77" = "77", "perc_87" = "87","perc_88" = "88","perc_98" = "98", "perc_99" = "99", "perc_X" = "X"
-  ) %>% ## comment back for app
-  mutate_all(~ replace(., is.na(.), 0))
-
+         characteristic_type, characteristic_value, KS2_Prior=ks2em, 'num_U' = 'U', 'num_11' = '11',
+         'num_21' = '21', 'num_22' = '22', 'num_32' = '32', 'num_33' = '33', 'num_43' = '43',
+         'num_44' = '44', 'num_54' = '54', 'num_55' = '55', 'num_65' = '65','num_66' = '66',
+         'num_76' = '76', 'num_77' = '77', 'num_87' = '87', 'num_88' = '88', 'num_98' = '98',
+         'num_99' = '99', 'num_X' = 'X',
+         All_Grades, 'perc_U', 'perc_11', 'perc_21', 'perc_22', 'perc_32', 'perc_33', 'perc_43',
+         'perc_44', 'perc_54', 'perc_55', 'perc_65','perc_66', 'perc_76', 'perc_77', 'perc_87',
+         'perc_88', 'perc_98', 'perc_99'
+         #, 'perc_X'
+  ) %>% 
+  mutate_all(~replace(.,is.na(.),0))
 
 
 
