@@ -99,15 +99,14 @@ server <- function(input, output, session) {
     tables <- map(numbers_data_split(), ~ {
       renderDataTable(
         {
-          .x %>%
+          datatable((.x %>%
             rename("KS2 Attainment" = "KS2_Prior") %>%
-            select(-"characteristic_value")
-        },
+            select(-"characteristic_value")),
         caption = htmltools::tags$caption(as.character(.x[1, "characteristic_value"]), style = "color: #104f75 ; font-size:16pt"),
         # caption = as.character(.x[1, "characteristic_value"]),
         options = list(columnDefs = list(list(className = "dt-center", targets = "_all")), bFilter = FALSE, bPaginate = FALSE, scrollX = TRUE),
         rownames = FALSE
-      )
+      )})
 
 
       # formatStyle('KS2 Attainment', target = 'row',
@@ -120,14 +119,13 @@ server <- function(input, output, session) {
     tables <- map(attainment_data_split(), ~ {
       renderDataTable(
         {
-          .x %>%
+         datatable((.x %>%
             rename("KS2 Attainment" = "KS2 Prior") %>%
-            select(-"characteristic_value")
-        },
+            select(-"characteristic_value")),
         caption = htmltools::tags$caption(as.character(.x[1, "characteristic_value"]), style = "color: #104f75 ; font-size:16pt"),
         options = list(columnDefs = list(list(className = "dt-center", targets = "_all")), bFilter = FALSE, bPaginate = FALSE, scrollX = TRUE),
         rownames = FALSE
-      )
+      )})
     })
   })
 
