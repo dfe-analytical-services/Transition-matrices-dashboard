@@ -52,7 +52,8 @@ Exam_SQL_data <- SQL_data %>%
   filter(
     ptq_include == 1,
     disc3B_ptq_ee == 0,
-    sublevno %in% c("310",  "391", "395", "450", "451", "760", "954")) %>%
+    sublevno %in% c("310", "391", "395", "450", "451", "760", "954")
+  ) %>%
   select(
     CANDNO,
     WOLF_DISC_CODE,
@@ -65,7 +66,7 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "FK2B" ~ "English Language",
     wolf_disc_code == "FC4" ~ "English Literature",
     (WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" | WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55" |
-      WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B" | WOLF_DISC_CODE == "RB7E") & !(GNUMBER %in% c('10034912','10060054','10060091','10060133','10060170','10060212','1006025X','10050395', '60310844', '60311770')) ~ "Mathematics",
+      WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B" | WOLF_DISC_CODE == "RB7E") & !(GNUMBER %in% c("10034912", "10060054", "10060091", "10060133", "10060170", "10060212", "1006025X", "10050395", "60310844", "60311770")) ~ "Mathematics",
     WOLF_DISC_CODE == "RA1E" ~ "Combined Science",
     wolf_disc_code == "RC1" ~ "Physics",
     wolf_disc_code == "RD1" ~ "Chemistry",
@@ -83,11 +84,11 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "DB" ~ "History",
     wolf_disc_code == "DB21" ~ "Ancient History",
     wolf_disc_code == "EB" ~ "Economics",
-    WOLF_DISC_CODE == "DE1" | WOLF_DISC_CODE == "EA"  | WOLF_DISC_CODE == "EE31"  | WOLF_DISC_CODE == "PK1"  | WOLF_DISC_CODE == "EE2" ~ "Social Studies",
+    WOLF_DISC_CODE == "DE1" | WOLF_DISC_CODE == "EA" | WOLF_DISC_CODE == "EE31" | WOLF_DISC_CODE == "PK1" | WOLF_DISC_CODE == "EE2" ~ "Social Studies",
     wolf_disc_code == "FKF" ~ "French",
     wolf_disc_code == "FKG" ~ "German",
     wolf_disc_code == "FKS" ~ "Spanish",
-    WOLF_DISC_CODE == "FKO"  |  WOLF_DISC_CODE ==  "FKQ" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKB" | WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKI" |
+    WOLF_DISC_CODE == "FKO" | WOLF_DISC_CODE == "FKQ" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKB" | WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKI" |
       WOLF_DISC_CODE == "FKJ" | WOLF_DISC_CODE == "FKM" | WOLF_DISC_CODE == "FKK" | WOLF_DISC_CODE == "FKU" | WOLF_DISC_CODE == "FKX" | WOLF_DISC_CODE == "FKC" |
       WOLF_DISC_CODE == "FKR" | WOLF_DISC_CODE == "FKT" ~ "Other Modern Languages",
     wolf_disc_code == "F1L" ~ "Latin",
@@ -95,15 +96,15 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "F1K" ~ "Classical Greek",
     wolf_disc_code == "F1Z" ~ "Biblical Hebrew",
     wolf_disc_code == "JA2" | WOLF_DISC_CODE == "KJ1" ~ "Art and Design",
-    wolf_disc_code == "KA2" & !(GNUMBER %in% c('60311150','60311502','60319434','60320692','60321052','60322469')) ~ "Film Studies",
+    wolf_disc_code == "KA2" & !(GNUMBER %in% c("60311150", "60311502", "60319434", "60320692", "60321052", "60322469")) ~ "Film Studies",
     wolf_disc_code == "LB1" ~ "Dance",
     wolf_disc_code == "LC11" ~ "Drama",
     wolf_disc_code == "PA1" ~ "Health and Social Care",
-    wolf_disc_code == "KA2" & !(GNUMBER %in% c("10042799","50022465","50025995","50030188","60055029","60308898","60309702","60309714","60309726")) ~ "Media/Film/TV",
+    wolf_disc_code == "KA2" & !(GNUMBER %in% c("10042799", "50022465", "50025995", "50030188", "60055029", "60308898", "60309702", "60309714", "60309726")) ~ "Media/Film/TV",
     wolf_disc_code == "LF1" | WOLF_DISC_CODE == "LJ9" ~ "Music",
     wolf_disc_code == "MA1" ~ "Physical Education",
     wolf_disc_code == "DD1" ~ "Religious Studies",
-    wolf_disc_code == "RB71" & !(GNUMBER %in% c('60322615')) ~ "Statistics",
+    wolf_disc_code == "RB71" & !(GNUMBER %in% c("60322615")) ~ "Statistics",
     wolf_disc_code == "AK6" ~ "Accounting",
     TRUE ~ NA_character_
   )) %>%
@@ -140,7 +141,7 @@ Var_SQL_data <- Pupil_SQL_data %>%
   filter(
     endks == 1,
     natres == 1,
-    (nftype %in% c("32", "33") | nftype %in% c("20", "21", "22", "23", "24", "25", "26", "27", "28","31", "50", "51", "52", "53", "55", "57", "58")  &
+    (nftype %in% c("32", "33") | nftype %in% c("20", "21", "22", "23", "24", "25", "26", "27", "28", "31", "50", "51", "52", "53", "55", "57", "58") &
       norflage != 3)
   ) %>% # you can use norflage !=3 instead here :)
   select(
@@ -166,30 +167,34 @@ Var_SQL_data <- Pupil_SQL_data %>%
     LANG1ST %in% c("OTB", "OTH") ~ "EAL Pupils", #
     TRUE ~ "Non EAL Pupils"
   )) %>%
-  mutate(ks2em = case_when(KS2EMSS >=59 & KS2EMSS <80 ~ "Less than 80",
-                           KS2EMSS >=80 & KS2EMSS <=89.5 ~ "80 - 89.5",
-                           KS2EMSS >=90 & KS2EMSS <=95.5 ~ "90 - 95.5",
-                           KS2EMSS >=96 & KS2EMSS <=99.5 ~ "96 - 99.5",
-                           KS2EMSS >=100 & KS2EMSS <=102 ~ "100 - 102",
-                           KS2EMSS >=102.5 & KS2EMSS <=104.5 ~ "102.5 - 104.5",
-                           KS2EMSS >=105 & KS2EMSS <=107 ~ "105 - 107",
-                           KS2EMSS >=107.5 & KS2EMSS <=109.5 ~ "107.5 - 109.5",
-                           KS2EMSS >=110 & KS2EMSS <=113 ~ "110 - 113",
-                           KS2EMSS >=113.5 & KS2EMSS <=116.5 ~ "113.5 - 116.5",
-                           KS2EMSS >=117 & KS2EMSS <=120 ~ "117 - 120",
-                           TRUE ~ NA_character_)) %>% 
-  mutate(ks2em_band = case_when(KS2EMSS >=59 & KS2EMSS <80 ~ "01", #this section makes sure the data is ordered by KS2 groups in the final tidy data files 
-                                KS2EMSS >=80 & KS2EMSS <=89.5 ~ "02",
-                                KS2EMSS >=90 & KS2EMSS <=95.5 ~ "03",
-                                KS2EMSS >=96 & KS2EMSS <=99.5 ~ "04",
-                                KS2EMSS >=100 & KS2EMSS <=102 ~ "05",
-                                KS2EMSS >=102.5 & KS2EMSS <=104.5 ~ "06",
-                                KS2EMSS >=105 & KS2EMSS <=107 ~ "07",
-                                KS2EMSS >=107.5 & KS2EMSS <=109.5 ~ "08",
-                                KS2EMSS >=110 & KS2EMSS <=113 ~ "09",
-                                KS2EMSS >=113.5 & KS2EMSS <=116.5 ~ "10",
-                                KS2EMSS >=117 & KS2EMSS <=120 ~ "11",
-                                TRUE ~ NA_character_))
+  mutate(ks2em = case_when(
+    KS2EMSS >= 59 & KS2EMSS < 80 ~ "Less than 80",
+    KS2EMSS >= 80 & KS2EMSS <= 89.5 ~ "80 - 89.5",
+    KS2EMSS >= 90 & KS2EMSS <= 95.5 ~ "90 - 95.5",
+    KS2EMSS >= 96 & KS2EMSS <= 99.5 ~ "96 - 99.5",
+    KS2EMSS >= 100 & KS2EMSS <= 102 ~ "100 - 102",
+    KS2EMSS >= 102.5 & KS2EMSS <= 104.5 ~ "102.5 - 104.5",
+    KS2EMSS >= 105 & KS2EMSS <= 107 ~ "105 - 107",
+    KS2EMSS >= 107.5 & KS2EMSS <= 109.5 ~ "107.5 - 109.5",
+    KS2EMSS >= 110 & KS2EMSS <= 113 ~ "110 - 113",
+    KS2EMSS >= 113.5 & KS2EMSS <= 116.5 ~ "113.5 - 116.5",
+    KS2EMSS >= 117 & KS2EMSS <= 120 ~ "117 - 120",
+    TRUE ~ NA_character_
+  )) %>%
+  mutate(ks2em_band = case_when(
+    KS2EMSS >= 59 & KS2EMSS < 80 ~ "01", # this section makes sure the data is ordered by KS2 groups in the final tidy data files
+    KS2EMSS >= 80 & KS2EMSS <= 89.5 ~ "02",
+    KS2EMSS >= 90 & KS2EMSS <= 95.5 ~ "03",
+    KS2EMSS >= 96 & KS2EMSS <= 99.5 ~ "04",
+    KS2EMSS >= 100 & KS2EMSS <= 102 ~ "05",
+    KS2EMSS >= 102.5 & KS2EMSS <= 104.5 ~ "06",
+    KS2EMSS >= 105 & KS2EMSS <= 107 ~ "07",
+    KS2EMSS >= 107.5 & KS2EMSS <= 109.5 ~ "08",
+    KS2EMSS >= 110 & KS2EMSS <= 113 ~ "09",
+    KS2EMSS >= 113.5 & KS2EMSS <= 116.5 ~ "10",
+    KS2EMSS >= 117 & KS2EMSS <= 120 ~ "11",
+    TRUE ~ NA_character_
+  ))
 
 
 
@@ -395,7 +400,7 @@ grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade 
 # select(-Q)
 
 
-#calcs %
+# calcs %
 grade_percentages_spread_cs <- grade_counts_spread_cs %>%
   select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
   janitor::adorn_percentages() %>%
@@ -421,7 +426,6 @@ grade_percentages_spread_cs <- grade_counts_spread_cs %>%
     "perc_88" = "88",
     "perc_98" = "98",
     "perc_99" = "99"
-    
   )
 
 ## CS output
@@ -438,22 +442,23 @@ tidy_data_cs <- grade_counts_spread_cs %>%
     country_code = "E92000001",
     country_name = "England",
     version = "Provisional",
-    All_Grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65","66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE) ) %>%
-  arrange(characteristic_type, characteristic_value, ks2em_band) %>% 
+    All_Grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE)
+  ) %>%
+  arrange(characteristic_type, characteristic_value, ks2em_band) %>%
   select(time_period, time_identifier, geographic_level, country_code, country_name, version,
-         characteristic_type, characteristic_value, KS2_Prior=ks2em, 
-         
-         'num_U' = 'U', 'num_11' = '11',
-         'num_21' = '21', 'num_22' = '22', 'num_32' = '32', 'num_33' = '33', 'num_43' = '43',
-         'num_44' = '44', 'num_54' = '54', 'num_55' = '55', 'num_65' = '65','num_66' = '66',
-         'num_76' = '76', 'num_77' = '77', 'num_87' = '87', 'num_88' = '88', 'num_98' = '98',
-         'num_99' = '99', 'num_X' = 'X',
-         All_Grades, 'perc_U', 'perc_11', 'perc_21', 'perc_22', 'perc_32', 'perc_33', 'perc_43',
-         'perc_44', 'perc_54', 'perc_55', 'perc_65','perc_66', 'perc_76', 'perc_77', 'perc_87',
-         'perc_88', 'perc_98', 'perc_99'
-         #, 'perc_X'
-  ) %>% 
-  mutate_all(~replace(.,is.na(.),0))
+    characteristic_type, characteristic_value,
+    KS2_Prior = ks2em,
+    "num_U" = "U", "num_11" = "11",
+    "num_21" = "21", "num_22" = "22", "num_32" = "32", "num_33" = "33", "num_43" = "43",
+    "num_44" = "44", "num_54" = "54", "num_55" = "55", "num_65" = "65", "num_66" = "66",
+    "num_76" = "76", "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98",
+    "num_99" = "99", "num_X" = "X",
+    All_Grades, "perc_U", "perc_11", "perc_21", "perc_22", "perc_32", "perc_33", "perc_43",
+    "perc_44", "perc_54", "perc_55", "perc_65", "perc_66", "perc_76", "perc_77", "perc_87",
+    "perc_88", "perc_98", "perc_99"
+    # , 'perc_X'
+  ) %>%
+  mutate_all(~ replace(., is.na(.), 0))
 
 
 
