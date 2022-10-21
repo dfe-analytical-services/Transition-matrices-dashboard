@@ -52,8 +52,7 @@ Exam_SQL_data <- SQL_data %>%
   filter(
     ptq_include == 1,
     disc3B_ptq_ee == 0,
-    sublevno %in% c("310", "363", "391", "395", "450", "451", "760", "954")
-  ) %>%
+    sublevno %in% c("310",  "391", "395", "450", "451", "760", "954","363")) %>%
   select(
     CANDNO,
     WOLF_DISC_CODE,
@@ -67,7 +66,7 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "FC4" ~ "English Literature",
     (WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" | WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55" |
       WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B" | WOLF_DISC_CODE == "RB7E") & !(GNUMBER %in% c('10034912','10060054','10060091','10060133','10060170','10060212','1006025X','10050395', '60310844', '60311770')) ~ "Mathematics",
-    wolf_disc_code == "RA1E" ~ "Combined Science",
+    WOLF_DISC_CODE == "RA1E" ~ "Combined Science",
     wolf_disc_code == "RC1" ~ "Physics",
     wolf_disc_code == "RD1" ~ "Chemistry",
     wolf_disc_code == "RH3" ~ "Biology",
@@ -84,13 +83,12 @@ Exam_SQL_data <- SQL_data %>%
     wolf_disc_code == "DB" ~ "History",
     wolf_disc_code == "DB21" ~ "Ancient History",
     wolf_disc_code == "EB" ~ "Economics",
-    WOLF_DISC_CODE == "EE22" | WOLF_DISC_CODE == "PK1" | WOLF_DISC_CODE == "EE31" |
-      WOLF_DISC_CODE == "DE1" | WOLF_DISC_CODE == "EA" ~ "Social Studies",
+    WOLF_DISC_CODE == "DE1" | WOLF_DISC_CODE == "EA"  | WOLF_DISC_CODE == "EE31"  | WOLF_DISC_CODE == "PK1"  | WOLF_DISC_CODE == "EE2" ~ "Social Studies",
     wolf_disc_code == "FKF" ~ "French",
     wolf_disc_code == "FKG" ~ "German",
     wolf_disc_code == "FKS" ~ "Spanish",
-    WOLF_DISC_CODE == "FKO" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKB" | WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKI" |
-      WOLF_DISC_CODE == "FKJ" | WOLF_DISC_CODE == "FKM" | WOLF_DISC_CODE == "FKK" | WOLF_DISC_CODE == "F1U" | WOLF_DISC_CODE == "FKX" | WOLF_DISC_CODE == "FKC" |
+    WOLF_DISC_CODE == "FKO"  |  WOLF_DISC_CODE ==  "FKQ" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKB" | WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKI" |
+      WOLF_DISC_CODE == "FKJ" | WOLF_DISC_CODE == "FKM" | WOLF_DISC_CODE == "FKK" | WOLF_DISC_CODE == "FKU" | WOLF_DISC_CODE == "FKX" | WOLF_DISC_CODE == "FKC" |
       WOLF_DISC_CODE == "FKR" | WOLF_DISC_CODE == "FKT" ~ "Other Modern Languages",
     wolf_disc_code == "F1L" ~ "Latin",
     wolf_disc_code == "DB2B" ~ "Classical Civilisation",
@@ -462,8 +460,8 @@ tidy_data_cs <- grade_counts_spread_cs %>%
     ### (section2 for app use)
     "num_U" = "U",
     "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32","num_33" = "33","num_43" = "43", "num_44" = "44", "num_54" = "54","num_55" = "55","num_65" = "65", "num_66" = "66","num_76" = "76",
-    "num_77" = "77", "num_87" = "87","num_88" = "88","num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades, "perc_U", "perc_11", "perc_22", "perc_33", "perc_44",
-    "perc_55", "perc_66", "perc_77", "perc_88", "perc_99"
+    "num_77" = "77", "num_87" = "87","num_88" = "88","num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades, "perc_U" = "U", "perc_11" = "11", "perc_21" = "21", "perc_22" = "22", "perc_32" = "32","perc_33" = "33","perc_43" = "43", "perc_44" = "44", "perc_54" = "54","perc_55" = "55","perc_65" = "65", "perc_66" = "66","perc_76" = "76",
+    "perc_77" = "77", "perc_87" = "87","perc_88" = "88","perc_98" = "98", "perc_99" = "99", "perc_X" = "X"
   ) %>% ## comment back for app
   mutate_all(~ replace(., is.na(.), 0))
 
