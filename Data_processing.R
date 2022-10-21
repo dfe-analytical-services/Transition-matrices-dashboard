@@ -400,7 +400,7 @@ grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade 
 # select(-Q)
 
 
-#calcs
+# calcs
 grade_percentages_spread_cs <- grade_counts_spread_cs %>%
   select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
   janitor::adorn_percentages() %>%
@@ -442,8 +442,8 @@ tidy_data_cs <- grade_counts_spread_cs %>%
     country_code = "E92000001",
     country_name = "England",
     version = "Provisional",
-
-    All_Grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65","66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE) ) %>%
+    All_Grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE)
+  ) %>%
   arrange(
     characteristic_type, # comment back for app use,
     characteristic_value, ks2em_band
@@ -461,11 +461,11 @@ tidy_data_cs <- grade_counts_spread_cs %>%
 
     ### (section2 for app use)
     "num_U" = "U",
-    "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32","num_33" = "33","num_43" = "43", "num_44" = "44", "num_54" = "54","num_55" = "55","num_65" = "65", "num_66" = "66","num_76" = "76",
-    "num_77" = "77", "num_87" = "87","num_88" = "88","num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades,
+    "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32", "num_33" = "33", "num_43" = "43", "num_44" = "44", "num_54" = "54", "num_55" = "55", "num_65" = "65", "num_66" = "66", "num_76" = "76",
+    "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades,
     "perc_U" = "U",
-    "perc_11" = "11", "perc_21" = "21", "perc_22" = "22", "perc_32" = "32","perc_33" = "33",    "perc_43" = "43", "perc_44" = "44", "perc_54" = "54","perc_55" = "55","perc_65" = "65", "perc_66" = "66","perc_76" = "76",
-    "perc_77" = "77", "perc_87" = "87","perc_88" = "88","perc_98" = "98", "perc_99" = "99", "perc_X" = "X"
+    "perc_11" = "11", "perc_21" = "21", "perc_22" = "22", "perc_32" = "32", "perc_33" = "33", "perc_43" = "43", "perc_44" = "44", "perc_54" = "54", "perc_55" = "55", "perc_65" = "65", "perc_66" = "66", "perc_76" = "76",
+    "perc_77" = "77", "perc_87" = "87", "perc_88" = "88", "perc_98" = "98", "perc_99" = "99", "perc_X" = "X"
   ) %>% ## comment back for app
   mutate_all(~ replace(., is.na(.), 0))
 
