@@ -322,39 +322,39 @@ server <- function(input, output, session) {
 
   #
   output$download_tm_subject <- downloadHandler(
-    filename = "KS4_TM_subject_data.csv",
+    filename = "2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv",
     content = function(file) {
       write.csv(subject_data, file, row.names = FALSE)
     }
   )
 
   output$download_tm_combined_science <- downloadHandler(
-    filename = "KS4_TM_combined_science_data.csv",
+    filename = "2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv",
     content = function(file) {
       write.csv(cs_data, file, row.names = FALSE)
     }
   )
-
-  output$download_tm_attainment <- downloadHandler(
-    filename = "KS4_TM_attainment_data.csv",
-    content = function(file) {
+  
+  output$attainment_data <- downloadHandler(
+    filename = "2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final",
+    content = function(file = "data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv") {
       write.csv(attainment_data, file, row.names = FALSE)
     }
   )
+  
 
 
+#  output$download_user_subject_table <- downloadHandler(
+ #   filename = "subject_data.csv",
+  #  content = function(file) {
+   #   write.csv(numbers_data(), file, row.names = FALSE)
+  #  }
+  #)
 
-  output$download_user_subject_table <- downloadHandler(
-    filename = "subject_data.csv",
-    content = function(file) {
-      write.csv(numbers_data(), file, row.names = FALSE)
-    }
-  )
-
-  output$download_user_attainments_table <- downloadHandler(
-    filename = "attainment_data.csv",
-    content = function(file) {
-      write.csv(attainment_data(), file, row.names = FALSE)
-    }
-  )
+  #output$download_user_attainments_table <- downloadHandler(
+   # filename = "attainment_data.csv",
+    #content = function(file) {
+     # write.csv(attainment_data(), file, row.names = FALSE)
+    #}
+#  )
 }
