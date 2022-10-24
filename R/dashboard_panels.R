@@ -57,7 +57,7 @@ homepage_panel <- function() {
                 p("To use the KS4 Transition Matrices tool click onto the 'KS4 TM tool' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
                    "),
                 # p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
-                 #p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
+                # p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
 
 
 
@@ -68,10 +68,10 @@ homepage_panel <- function() {
                 a(href = "https://content.explore-education-statistics.service.gov.uk/api/releases/1c01df43-72e6-4ee4-a64e-2805f5e44d2d/files/dd9db45d-7f81-41a4-b147-08d88fd28587", "Key stage 4 GCSE Subject group composition ", .noWS = c("after")),
                 br(),
                 br(),
-                 p("Access to historical data files can be found here:"),
-                 a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
+                p("Access to historical data files can be found here:"),
+                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
                 br(),
-                  )
+              )
             )
           )
         )
@@ -97,14 +97,14 @@ dashboard_panel <- function() {
           br(), # added
           br(), # added
         ),
-        #column(
-         # width = 12,
-          #div(
-           # class = "well",
-            #style = "min-height: 100%; height: 1000%; overflow-y: visible",
-            #h2("Dashboard") # added
+        # column(
+        # width = 12,
+        # div(
+        # class = "well",
+        # style = "min-height: 100%; height: 1000%; overflow-y: visible",
+        # h2("Dashboard") # added
         #  )
-        #),
+        # ),
 
         ####### GCSE SUBJECTS tab#######
         column(
@@ -297,4 +297,3 @@ dashboard_panel <- function() {
     )
   )
 }
-
