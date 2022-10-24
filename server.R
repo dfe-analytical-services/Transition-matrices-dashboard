@@ -319,26 +319,26 @@ server <- function(input, output, session) {
 
 
   #
-  output$download_tm_subject <- downloadHandler(
-    filename = "2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv",
-    content = function(file) {
-      write.csv(subject_data, file, row.names = FALSE)
-    }
-  )
+ # output$download_tm_subject <- downloadHandler(
+  #  filename = "2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv",
+  #  content = function(file) {
+  #    write.csv(subject_data, file, row.names = FALSE)
+  #  }
+  #)
 
-  output$download_tm_combined_science <- downloadHandler(
-    filename = "2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv",
-    content = function(file) {
-      write.csv(cs_data, file, row.names = FALSE)
-    }
-  )
+#  output$download_tm_combined_science <- downloadHandler(
+#    filename = "2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv",
+#    content = function(file) {
+#      write.csv(cs_data, file, row.names = FALSE)
+#    }
+#  )
   
-  output$attainment_data <- downloadHandler(
-    filename = "2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final",
-    content = function(file = "data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv") {
-      write.csv(attainment_data, file, row.names = FALSE)
-    }
-  )
+#  output$attainment_data <- downloadHandler(
+#    filename = "2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv",
+#    content = function(file) {
+#      write.csv(attainment_data, file, row.names = FALSE)
+#    }
+#  )
   
 
 
