@@ -51,9 +51,9 @@ tidy_code_function <- function() {
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-subject_data <- read.csv("data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-cs_data <- read.csv("data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-attainment_data <- read.csv("data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_GCSE_Subjects_data <- read.csv("data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_Combined_Science_data <- read.csv("data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_attainment_data <- read.csv("data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
 
 
@@ -62,7 +62,7 @@ attainment_data <- read.csv("data/2022_Tidy_Data_Output_Attainment_Scaled_Scores
 # ---- Creating drop down lists ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-subject_dropdown <- subject_data %>%
+subject_dropdown <- download_GCSE_Subjects_data %>%
   select(subjects) %>%
   distinct() %>%
   add_row(subjects = "Combined Science") %>%
@@ -70,7 +70,7 @@ subject_dropdown <- subject_data %>%
 
 
 
-characteristic_dropdown <- subject_data %>%
+characteristic_dropdown <- download_GCSE_Subjects_data %>%
   select(characteristic_type) %>%
   distinct()
 
@@ -94,7 +94,7 @@ attainment_dropdown <- c(
 # '110 - 112', '112.5 - 114.5', '115 - 117', '117.5 - 120')
 
 
-KS2_dropdown_attainment <- attainment_data %>%
+KS2_dropdown_attainment <- download_attainment_data %>%
   select(KS2_Prior) %>%
   distinct() %>%
   # arrange(KS2_Prior)%>%
@@ -123,11 +123,11 @@ subject_col_selection <- function(data, num_perc) {
 # # Returns a table from the 9-1 subjects tidy data CSV
 subject_table <- function(subj, char, num_perc) {
   if (subj == "Combined Science") {
-    table <- cs_data %>%
+    table <- download_Combined_Science_data %>%
       filter(characteristic_type == char) %>%
       subject_col_selection(., num_perc)
   } else {
-    table <- subject_data %>%
+    table <- download_GCSE_Subjects_data %>%
       filter(
         subjects == subj,
         characteristic_type == char
@@ -164,7 +164,7 @@ attainment_col_format <- function(data, att_type) {
 
 ## returns a table from the attainment tidy data CSV
 attainment_table <- function(att, char) {
-  table <- attainment_data %>%
+  table <- download_attainment_data %>%
     filter(characteristic_type == char)
 
 
@@ -199,25 +199,4 @@ attainment_table <- function(att, char) {
 
 
 
-# -----------------------------------------------------------------------------------------------------------------------------
-# ---- Example Tables ----
-# -----------------------------------------------------------------------------------------------------------------------------
 
-example_data <- subject_table("French", "All Pupils", "Number of pupils") %>%
-  rename("KS2 Attainment" = KS2_Prior)
-
-
-# extract the value for example
-example_value <- example_data %>%
-  filter(`KS2 Attainment` == "110 - 113") %>%
-  pull("6")
-
-
-example_data_perc <- subject_table("French", "All Pupils", "Percentage of pupils") %>%
-  rename("KS2 Attainment" = KS2_Prior)
-
-
-# extract the value for example
-example_value_perc <- example_data_perc %>%
-  filter(`KS2 Attainment` == "110 - 113") %>%
-  pull("% 6")

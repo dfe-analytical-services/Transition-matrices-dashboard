@@ -319,24 +319,24 @@ server <- function(input, output, session) {
 
 
   
- output$download_tm_subject <- downloadHandler(
-    filename = "2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv",
+ output$GCSE_Subjects_data_download <- downloadHandler(
+    filename = "2022_KS4_GCSE_Subjects_TM_provisional_data.csv",
     content = function(file) {
-      write.csv(subject_data, file, row.names = FALSE)
+      write.csv(download_GCSE_Subjects_data, file, row.names = FALSE)
     }
   )
 
-  output$download_tm_combined_science <- downloadHandler(
-    filename = "2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv",
+  output$Combined_Science_data_download <- downloadHandler(
+    filename = "2022_KS4_Combined_Science_TM_provisional_data.csv",
     content = function(file) {
-      write.csv(cs_data, file, row.names = FALSE)
+      write.csv(download_Combined_Science_data, file, row.names = FALSE)
     }
   )
   
-  output$attainment_data <- downloadHandler(
-    filename = "2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv",
+  output$attainment_data_download <- downloadHandler(
+    filename = "2022_KS4_meaures_TM_provisional_data.csv",
     content = function(file) {
-      write.csv(attainment_data, file, row.names = FALSE)
+      write.csv(download_attainment_data, file, row.names = FALSE)
     }
   )
   
