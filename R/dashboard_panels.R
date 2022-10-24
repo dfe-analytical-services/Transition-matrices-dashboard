@@ -155,6 +155,8 @@ dashboard_panel <- function() {
                       ),
                     )
                   ),
+                  
+                  
                   column(
                     width = 12,
                     box(
@@ -240,6 +242,8 @@ dashboard_panel <- function() {
                       ),
                     )
                   ),
+                  
+            
                   column(
                     width = 12,
                     box(
@@ -261,6 +265,19 @@ dashboard_panel <- function() {
                     )
                   )
                 ),
+                
+                br(),
+                column(10, 
+                       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),        
+                       downloadButton("attainment_data"),
+                                     # label = "Download (KS4 measures)",
+                                      #style = "color: black; border-color: #fff; padding: 5px 14px 5px 14px; margin: 5px 5px 5px 10px; "),
+            
+            
+                       
+                       
+                ),
+                
               )
             )
           )
