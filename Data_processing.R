@@ -245,13 +245,13 @@ Exam_short <- Exam_SQL_data %>%
 
 # Create a dataframe containing the subjects to be included in the TMs, you need to check with the Data Production Team to see if any subjects have changed
 ks4_subjects <- c(
-  "Ancient History", "Art and Design", "Biblical Hebrew", "Biology", "Business", "Chemistry", "Classical Civilisation", "Classical Greek", "Combined Science",
+  "Ancient History", "Art and Design", "Biblical Hebrew", "Biology", "Business", "Chemistry", "Classical Civilisation", "Classical Greek",#, "Combined Science",
   "Computer Science", "Dance", "Design and Technology", "Drama", "Economics", "Engineering", "English Language", "English Literature", "Film Studies",
   "Food Preparation and Nutrition", "French", "Geography", "German", "History", "Latin", "Mathematics", "Media/Film/TV", "Music",
   "Other Modern Languages", "Other Sciences", "Physical Education", "Physics", "Religious Studies", "Social Studies", "Spanish", "Statistics"
 )
 
-
+##combined science has its own output below due to double award
 
 #################################################################################################
 ##################                    9-1 subjects tidy data                    #################
@@ -362,7 +362,7 @@ tidy_data <- grade_counts_spread %>%
 # copying data to an Excel file
 # save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
 # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
-save_tidy_data_file <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
+save_tidy_data_file <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
 write.table(tidy_data, save_tidy_data_file, row.names = FALSE, sep = ",")
 
 
@@ -474,7 +474,7 @@ tidy_data_cs <- grade_counts_spread_cs %>%
 
 # copying data to an Excel file
 # save_tidy_data_file_cs = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv'
-save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
+save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
 write.table(tidy_data_cs, save_tidy_data_file_cs, row.names = FALSE, sep = ",")
 
 
@@ -727,5 +727,5 @@ attainment_tidy_data <- attainment_TM %>%
 # copying data to an Excel file
 # save_tidy_data_file_attainment = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
 # save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/KS4_TM_Scaled_Scores/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # update year
+save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # update year
 write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
