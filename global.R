@@ -51,9 +51,9 @@ tidy_code_function <- function() {
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-download_GCSE_Subjects_data <- read.csv("data/2022_KS2_to_KS4_GCSE_subjects_data.csv", stringsAsFactors = FALSE)
-download_Combined_Science_data <- read.csv("data/2022_KS2_to_KS4_Combined_Science_TM_data.csv", stringsAsFactors = FALSE)
-download_attainment_data <- read.csv("2022_KS2_to_KS4_meaures_TM_data.csv", stringsAsFactors = FALSE)
+download_GCSE_Subjects_data <- read.csv("data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_Combined_Science_data <- read.csv("data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_attainment_data <- read.csv("data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
 
 
