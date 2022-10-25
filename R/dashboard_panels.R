@@ -167,19 +167,11 @@ dashboard_panel <- function() {
                     column(
                       12,
                       uiOutput("number_table"),
-                      
 
-                      column(10, 
-                             #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),     
-                             
-                             downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),),
-                      br(),
-                      br(),                      
-                      column(10, 
-=======
+
                       column(12, 
                              br(),
-                            tags$b("All underlying data can be downloaded here::"),     
+                            tags$b("All underlying data can be found here:"),     
                              br(),
                              downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),),
                       br(),
@@ -295,12 +287,10 @@ dashboard_panel <- function() {
                 
                 br(),
 
-                column(1, 
-                       #tags$b("KS2-KS4 Transition Matrices: KS4 measures 2022"),        
-=======
+          
                 column(12, 
                        br(),
-                       tags$b("All underlying data can be downloaded here:"),     
+                       tags$b("All underlying data can be found here:"),     
                        br(),
 
                        downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
