@@ -245,13 +245,13 @@ Exam_short <- Exam_SQL_data %>%
 
 # Create a dataframe containing the subjects to be included in the TMs, you need to check with the Data Production Team to see if any subjects have changed
 ks4_subjects <- c(
-  "Ancient History", "Art and Design", "Biblical Hebrew", "Biology", "Business", "Chemistry", "Classical Civilisation", "Classical Greek",#, "Combined Science",
+  "Ancient History", "Art and Design", "Biblical Hebrew", "Biology", "Business", "Chemistry", "Classical Civilisation", "Classical Greek", # , "Combined Science",
   "Computer Science", "Dance", "Design and Technology", "Drama", "Economics", "Engineering", "English Language", "English Literature", "Film Studies",
   "Food Preparation and Nutrition", "French", "Geography", "German", "History", "Latin", "Mathematics", "Media/Film/TV", "Music",
   "Other Modern Languages", "Other Sciences", "Physical Education", "Physics", "Religious Studies", "Social Studies", "Spanish", "Statistics"
 )
 
-##combined science has its own output below due to double award
+## combined science has its own output below due to double award
 
 #################################################################################################
 ##################                    9-1 subjects tidy data                    #################

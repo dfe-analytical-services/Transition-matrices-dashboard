@@ -195,8 +195,3 @@ attainment_table <- function(att, char) {
 
 
 # test <- attainment_table('EBacc Achievement 9-4', 'Male Pupils')
-
-
-
-
-

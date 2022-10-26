@@ -155,8 +155,6 @@ dashboard_panel <- function() {
                       ),
                     )
                   ),
-                  
-                  
                   column(
                     width = 12,
                     box(
@@ -167,25 +165,24 @@ dashboard_panel <- function() {
                     column(
                       12,
                       uiOutput("number_table"),
-
-
-                      column(12, 
-                             br(),
-                            tags$b("All underlying data can be found here:"),     
-                             br(),
-                             downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),),
+                      column(
+                        12,
+                        br(),
+                        tags$b("All underlying data can be found here:"),
+                        br(),
+                        downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
+                      ),
                       br(),
-                      br(),  
                       br(),
-                      column(12, 
+                      br(),
+                      column(
+                        12,
+                        downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
+                      ),
 
-                      downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),),
-                
-                     # column(10, 
-                      #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),        
-                       #      downloadButton("Combined_Science_data_download"),
-               
-                             
+                      # column(10,
+                      #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),
+                      #      downloadButton("Combined_Science_data_download"),
                     )
                   )
                 )
@@ -261,8 +258,6 @@ dashboard_panel <- function() {
                       ),
                     )
                   ),
-                  
-            
                   column(
                     width = 12,
                     box(
@@ -284,23 +279,15 @@ dashboard_panel <- function() {
                     )
                   )
                 ),
-                
                 br(),
-
-          
-                column(12, 
-                       br(),
-                       tags$b("All underlying data can be found here:"),     
-                       br(),
-
-                       downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
-                                    #  style = "color: black; border-color: #fff; padding: 5px 14px 5px 14px; margin: 5px 5px 5px 10px; "),
-            
-            
-                       
-                       
+                column(
+                  12,
+                  br(),
+                  tags$b("All underlying data can be found here:"),
+                  br(),
+                  downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
+                  #  style = "color: black; border-color: #fff; padding: 5px 14px 5px 14px; margin: 5px 5px 5px 10px; "),
                 ),
-                
               )
             )
           )

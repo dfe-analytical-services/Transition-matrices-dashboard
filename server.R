@@ -318,8 +318,8 @@ server <- function(input, output, session) {
   # -----------------------------------------------------------------------------------------------------------------------------
 
 
-  
- output$GCSE_Subjects_data_download <- downloadHandler(
+
+  output$GCSE_Subjects_data_download <- downloadHandler(
     filename = "2022_KS4_GCSE_Subjects_TM_data.csv",
     content = function(file) {
       write.csv(download_GCSE_Subjects_data, file, row.names = FALSE)
@@ -332,27 +332,27 @@ server <- function(input, output, session) {
       write.csv(download_Combined_Science_data, file, row.names = FALSE)
     }
   )
-  
+
   output$attainment_data_download <- downloadHandler(
     filename = "2022_KS4_meaures_TM_data.csv",
     content = function(file) {
       write.csv(download_attainment_data, file, row.names = FALSE)
     }
   )
-  
 
 
-#  output$download_user_subject_table <- downloadHandler(
- #   filename = "subject_data.csv",
+
+  #  output$download_user_subject_table <- downloadHandler(
+  #   filename = "subject_data.csv",
   #  content = function(file) {
-   #   write.csv(numbers_data(), file, row.names = FALSE)
+  #   write.csv(numbers_data(), file, row.names = FALSE)
   #  }
-  #)
+  # )
 
-  #output$download_user_attainments_table <- downloadHandler(
-   # filename = "attainment_data.csv",
-    #content = function(file) {
-     # write.csv(attainment_data(), file, row.names = FALSE)
-    #}
-#  )
+  # output$download_user_attainments_table <- downloadHandler(
+  # filename = "attainment_data.csv",
+  # content = function(file) {
+  # write.csv(attainment_data(), file, row.names = FALSE)
+  # }
+  #  )
 }
