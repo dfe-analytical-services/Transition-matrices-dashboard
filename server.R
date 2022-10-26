@@ -27,7 +27,7 @@ server <- function(input, output, session) {
 
   KS2_prior_subj <- reactive({
     if (input$subjects_select == "Combined Science") {
-      cs_data %>%
+      download_Combined_Science_data %>%
         filter(characteristic_type == input$characteristic_select) %>%
         select(KS2_Prior) %>%
         distinct() %>%
