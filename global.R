@@ -9,9 +9,9 @@
 # renv::status()
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
-library(ggplot2)
-library(shinydashboard)
-library(shinyWidgets)
+shhh(library(ggplot2))
+shhh(library(shinydashboard))
+shhh(library(shinyWidgets))
 shhh(library(shiny))
 shhh(library(shinyjs))
 shhh(library(tools))
