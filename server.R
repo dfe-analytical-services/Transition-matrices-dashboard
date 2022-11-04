@@ -19,8 +19,6 @@
 # ---------------------------------------------------------
 
 server <- function(input, output, session) {
-
-
   # -----------------------------------------------------------------------------------------------------------------------------
   # ---- Reactive KS2 attainment level from subject, numperc, and characteristic drop-down selections ----
   # -----------------------------------------------------------------------------------------------------------------------------
@@ -98,13 +96,14 @@ server <- function(input, output, session) {
   output$number_table <- renderUI({
     tables <- map(numbers_data_split(), ~ {
       renderDataTable({
-        datatable((.x %>%
-          rename("KS2 Attainment" = "KS2_Prior") %>%
-          select(-"characteristic_value")),
-        caption = htmltools::tags$caption(as.character(.x[1, "characteristic_value"]), style = "color: #104f75 ; font-size:16pt"),
-        # caption = as.character(.x[1, "characteristic_value"]),
-        options = list(columnDefs = list(list(className = "dt-center", targets = "_all")), bFilter = FALSE, bPaginate = FALSE, scrollX = TRUE),
-        rownames = FALSE
+        datatable(
+          (.x %>%
+            rename("KS2 Attainment" = "KS2_Prior") %>%
+            select(-"characteristic_value")),
+          caption = htmltools::tags$caption(as.character(.x[1, "characteristic_value"]), style = "color: #104f75 ; font-size:16pt"),
+          # caption = as.character(.x[1, "characteristic_value"]),
+          options = list(columnDefs = list(list(className = "dt-center", targets = "_all")), bFilter = FALSE, bPaginate = FALSE, scrollX = TRUE),
+          rownames = FALSE
         )
       })
 
@@ -118,12 +117,13 @@ server <- function(input, output, session) {
   output$attainment_table <- renderUI({
     tables <- map(attainment_data_split(), ~ {
       renderDataTable({
-        datatable((.x %>%
-          rename("KS2 Attainment" = "KS2 Prior") %>%
-          select(-"characteristic_value")),
-        caption = htmltools::tags$caption(as.character(.x[1, "characteristic_value"]), style = "color: #104f75 ; font-size:16pt"),
-        options = list(columnDefs = list(list(className = "dt-center", targets = "_all")), bFilter = FALSE, bPaginate = FALSE, scrollX = TRUE),
-        rownames = FALSE
+        datatable(
+          (.x %>%
+            rename("KS2 Attainment" = "KS2 Prior") %>%
+            select(-"characteristic_value")),
+          caption = htmltools::tags$caption(as.character(.x[1, "characteristic_value"]), style = "color: #104f75 ; font-size:16pt"),
+          options = list(columnDefs = list(list(className = "dt-center", targets = "_all")), bFilter = FALSE, bPaginate = FALSE, scrollX = TRUE),
+          rownames = FALSE
         )
       })
     })
