@@ -1,25 +1,22 @@
 #---- Loading in KS4 data ----
 
-# Clear environment
-rm(list = ls())
 
 # These are the packages needed for this code, you may already have these installed but run this section if not
-install.packages("dplyr")
-install.packages("odbc")
-install.packages("DBI")
-install.packages("janitor")
-install.packages("tidyverse")
-install.packages("purrr")
+#install.packages("dplyr")
+#install.packages("odbc")
+#install.packages("DBI")
+#install.packages("janitor")
+#install.packages("tidyverse")
+#install.packages("purrr")
 
-
+pull_latest_data <- function(){
 # Load libraries
-library(dplyr)
-library(odbc)
-library(DBI)
-library(janitor)
-library(tidyverse)
-
-
+  library(dplyr)
+  library(odbc)
+  library(DBI)
+  library(janitor)
+  library(tidyverse)
+  
 # round function
 round2 <- function(x, n) {
   posneg <- sign(x)
@@ -729,3 +726,4 @@ attainment_tidy_data <- attainment_TM %>%
 # save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
 save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # update year
 write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
+}
