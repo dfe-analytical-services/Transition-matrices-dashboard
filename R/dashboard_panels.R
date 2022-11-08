@@ -118,7 +118,12 @@ dashboard_panel <- function() {
                   width = 12,
                   h2("Summary"),
                   p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
-                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award."),
+                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award.   
+                   All underlying data can be downloaded here", 
+                    
+                    tags$a(href="https://content.explore-education-statistics.service.gov.uk/api/releases/f27addae-752f-478c-b142-663f12aea8e1/files?fileIds=1e9e7500-dd1d-4c37-0c40-08dab0fe9961", "Key stage 2 to 4 transition matrices GCSE subjects."),
+                    
+                    
                   column(
                     width = 12,
                     div(
@@ -149,7 +154,7 @@ dashboard_panel <- function() {
                         )),
                         column(6, selectInput(
                           inputId = "KS2_dropdown_attainment_subject",
-                          label = "4. Select one KS2 scaled score:",
+                          label = "4. Select one KS2 scaled score group:",
                           choices = ""
                         )),
                       ),
@@ -164,21 +169,21 @@ dashboard_panel <- function() {
                     ),
                     column(
                       12,
-                      uiOutput("number_table"),
-                      column(
-                        12,
-                        br(),
-                        tags$b("All underlying data can be found here:"),
-                        br(),
-                        downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
-                      ),
-                      br(),
-                      br(),
-                      br(),
-                      column(
-                        12,
-                        downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
-                      ),
+                      uiOutput("number_table")),
+                     # column(
+                      #  12,
+                       # br(),
+                        #tags$b("All underlying data can be found here:"),
+                        #br(),
+                        #downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
+                    #  ),
+                     # br(),
+                    #  br(),
+                     # br(),
+                      #column(
+                       # 12,
+                       # downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
+                      #),
 
                       # column(10,
                       #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),
@@ -216,7 +221,11 @@ dashboard_panel <- function() {
                   p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2021/2022 academic year
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
             Figures are available at national (England) level only.
-            Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools."),
+            Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here", 
+                  
+                  tags$a(href=" https://content.explore-education-statistics.service.gov.uk/api/releases/f27addae-752f-478c-b142-663f12aea8e1/files?fileIds=bed16a4f-5693-45b9-0c42-08dab0fe9961", "Key stage 2 to 4 transition matrices KS4 measures."),
+                  
+                  
                   #
                   #     column(
                   #      width=12,
@@ -252,7 +261,7 @@ dashboard_panel <- function() {
                         )),
                         column(6, selectInput(
                           inputId = "KS2_att_select",
-                          label = "4. Select one KS2 scaled score:",
+                          label = "4. Select one KS2 scaled score group:",
                           choices = KS2_dropdown_attainment
                         )),
                       ),
@@ -279,13 +288,13 @@ dashboard_panel <- function() {
                     )
                   )
                 ),
-                br(),
-                column(
-                  12,
-                  br(),
-                  tags$b("All underlying data can be found here:"),
-                  br(),
-                  downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
+              #  br(),
+               # column(
+                #  12,
+                 # br(),
+                  #tags$b("All underlying data can be found here:"),
+                  #br(),
+                 # downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
                   #  style = "color: black; border-color: #fff; padding: 5px 14px 5px 14px; margin: 5px 5px 5px 10px; "),
                 ),
               )
