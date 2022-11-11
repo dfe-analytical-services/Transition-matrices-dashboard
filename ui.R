@@ -67,6 +67,7 @@ ui <- function(input, output, session) {
     ),
     tags$html(lang = "en"),
     shinyjs::useShinyjs(),
+    customDisconnectMessage(),
     useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
@@ -112,9 +113,6 @@ ui <- function(input, output, session) {
       dashboard_panel(),
       a11y_panel(),
       support_links()
-    ),
-    tags$script(
-      src = "script.js"
     ),
     footer(full = TRUE)
   )
