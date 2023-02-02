@@ -10,12 +10,13 @@
 # install.packages("purrr")
 
 pull_latest_data <- function() {
-  # Load libraries
+  # Load libraries==from here
   library(dplyr)
   library(odbc)
   library(DBI)
   library(janitor)
   library(tidyverse)
+
 
   # round function
   round2 <- function(x, n) {
@@ -42,7 +43,7 @@ pull_latest_data <- function() {
   # STEP 1
 
   # Import the exam data
-  SQL_data <- tbl(SQL_con, ("KS4_exam_22_cohort_amended_v3")) # Enter the name of your SQL database #updare file name
+  SQL_data <- tbl(SQL_con, ("KS4_exam_22_result_amended_v2")) # Enter the name of your SQL database #updare file name
 
   # Create subject groupings based on wolf codes from the exam file
   Exam_SQL_data <- SQL_data %>%
@@ -57,7 +58,8 @@ pull_latest_data <- function() {
       LAESTAB,
       SUBLEVNO,
       GRADE,
-      GNUMBER
+      GNUMBER,
+      Covid_Impacted_Flag
     ) %>%
     mutate(subjects = case_when(
       wolf_disc_code == "FK2B" ~ "English Language",
@@ -105,6 +107,12 @@ pull_latest_data <- function() {
       wolf_disc_code == "AK6" ~ "Accounting",
       TRUE ~ NA_character_
     )) %>%
+    mutate(GRADE = ifelse(Covid_Impacted_Flag == "1" & !(GRADE %in% c("Q")), "covid impacted", GRADE)) %>%
+    #  mutate(GRADE = case_when(
+    #   Covid_Impacted_Flag == "1" & !(GRADE %in% c("Q")) ~"covid_impacted",
+    #  TRUE ~ NA_character_
+    # )) %>%
+
     as.data.frame() # need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
 
 
@@ -131,7 +139,7 @@ pull_latest_data <- function() {
   # STEP 2 Define variables
 
   # Import the pupil data
-  Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_22_cohort_amended_v3")) # Enter the name of your SQL database #update file name
+  Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_22_result_amended_v2")) # Enter the name of your SQL database #update file name
 
 
   Var_SQL_data <- Pupil_SQL_data %>%
@@ -263,6 +271,9 @@ pull_latest_data <- function() {
     filter(subjects %in% ks4_subjects) %>%
     drop_na(ks2em)
 
+  # a <- join_data %>% filter(GRADE == 'covid impacted')
+
+
   #####################################################################################
   func_counts_char <- function(data, char, char_name) {
     data %>%
@@ -297,11 +308,12 @@ pull_latest_data <- function() {
   # creates the separate grade columns
   grade_counts_spread <- grade_counts_comb %>%
     pivot_wider(names_from = GRADE, values_from = n) %>%
-    select(-Q)
+    select(-Q) %>%
+    rename("covid_impacted" = "covid impacted")
 
   # Calculates the percentages
   grade_percentages_spread <- grade_counts_spread %>%
-    select(-X) %>% # removes X from the % calculation
+    # select(-X) %>% # removes X from the % calculation
     janitor::adorn_percentages() %>%
     mutate_if(is.numeric, function(x) {
       round2(x * 100, 1)
@@ -316,11 +328,13 @@ pull_latest_data <- function() {
       "perc_6" = "6",
       "perc_7" = "7",
       "perc_8" = "8",
-      "perc_9" = "9"
+      "perc_9" = "9",
+      "perc_X" = "X",
+      "per_covid_impacted" = "covid_impacted"
     )
 
   # Creates the final tidy data
-  tidy_data <- grade_counts_spread %>%
+  tidy_data_subjects <- grade_counts_spread %>%
     left_join(grade_percentages_spread, by = c(
       "subjects", "ks2em", "ks2em_band",
       "characteristic_type", # comment back for app use,
@@ -332,8 +346,8 @@ pull_latest_data <- function() {
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional",
-      All_Grades = rowSums(.[, c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X")], na.rm = TRUE)
+      version = "Revised",
+      all_grades = rowSums(.[, c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid_impacted")], na.rm = TRUE)
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -344,14 +358,14 @@ pull_latest_data <- function() {
       characteristic_value, subjects,
       KS2_Prior = ks2em,
       ## the grades below produce data files output when running app this need to be commented out and the section 2 commented back in.
-      ## 'U' = 'U','1' = '1', '2'= '2', '3' = '3', '4' = '4', '5' = '5', '6' = '6',
-      ## '7' = '7', '8' = '8', '9' = '9', 'X' = 'X', All_Grades,  '%_U'='perc_U' ,'%_1'='perc_1','%_2'='perc_2','%_3' ='perc_3', '%_4'='perc_4',
-      ##' %_5'='perc_5', '%_6'='perc_6', '%_7'='perc_7', '%_8'='perc_8', '%_9'='perc_9') %>% ##comment out for app
+      # '1' = '1', '2'= '2', '3' = '3', '4' = '4', '5' = '5', '6' = '6', '7' = '7', '8' = '8', '9' = '9', 'U' = 'U', 'X' = 'X', 'all_grades',
+      #' %'='perc_1','%_2'='perc_2','%_3' ='perc_3', '%_4'='perc_4',' %_5'='perc_5', '%_6'='perc_6', '%_7'='perc_7', '%_8'='perc_8',
+      #' %_9'='perc_9','%_U'='perc_U' ,'%_X'='perc_X', 'covid_impacted' ) %>% ##comment out for app
 
       ### (section2 for app use)
       "num_U" = "U", "num_1" = "1", "num_2" = "2", "num_3" = "3", "num_4" = "4", "num_5" = "5", "num_6" = "6",
-      "num_7" = "7", "num_8" = "8", "num_9" = "9", "num_X" = "X", "All_Grades", "perc_U", "perc_1", "perc_2", "perc_3", "perc_4",
-      "perc_5", "perc_6", "perc_7", "perc_8", "perc_9"
+      "num_7" = "7", "num_8" = "8", "num_9" = "9", "num_X" = "X", "num_covid_impacted" = "covid_impacted", "all_grades", "perc_1", "perc_2", "perc_3", "perc_4",
+      "perc_5", "perc_6", "perc_7", "perc_8", "perc_9", "perc_U", "perc_X", "per_covid_impacted"
     ) %>% ## comment back for app
     mutate_all(~ replace(., is.na(.), 0))
 
@@ -359,11 +373,8 @@ pull_latest_data <- function() {
   # copying data to an Excel file
   # save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
-  save_tidy_data_file <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
-  write.table(tidy_data, save_tidy_data_file, row.names = FALSE, sep = ",")
-
-
-
+  save_tidy_data_file_subjects <- "C:/Users/tabdulla/OneDrive - Department for Education/Documents/Transition-matrices-dashboard-main/Transition-matrices-dashboard/data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
+  write.table(tidy_data_subjects, save_tidy_data_file_subjects, row.names = FALSE, sep = ",")
 
   #################################################################################################
   ##################                 Combined Science tidy data                   #################
@@ -393,19 +404,21 @@ pull_latest_data <- function() {
 
   # creates the separate grade columns
   grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade columns
-    pivot_wider(names_from = GRADE, values_from = n)
+    pivot_wider(names_from = GRADE, values_from = n) %>%
+    rename("covid_impacted" = "covid impacted")
+
   # select(-Q)
 
 
   # calcs
   grade_percentages_spread_cs <- grade_counts_spread_cs %>%
-    select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
+    # select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
     janitor::adorn_percentages() %>%
     mutate_if(is.numeric, function(x) {
       round2(x * 100, 1)
     }) %>%
     rename(
-      "perc_U" = "U",
+      "perc_UU" = "U",
       "perc_11" = "11",
       "perc_21" = "21",
       "perc_22" = "22",
@@ -422,7 +435,9 @@ pull_latest_data <- function() {
       "perc_87" = "87",
       "perc_88" = "88",
       "perc_98" = "98",
-      "perc_99" = "99"
+      "perc_99" = "99",
+      "perc_XX" = "X",
+      "per_covid_impacted_double" = "covid_impacted"
     )
 
   ## CS output
@@ -438,8 +453,8 @@ pull_latest_data <- function() {
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional",
-      All_Grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE)
+      version = "Revised",
+      all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X", "covid_impacted")], na.rm = TRUE)
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -457,12 +472,11 @@ pull_latest_data <- function() {
       ##' %_55'='perc_55', '%_66'='perc_66', '%_77'='perc_77', '%_88'='perc_88', '%_99'='perc_99') %>% ##comment out for app
 
       ### (section2 for app use)
-      "num_U" = "U",
+
       "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32", "num_33" = "33", "num_43" = "43", "num_44" = "44", "num_54" = "54", "num_55" = "55", "num_65" = "65", "num_66" = "66", "num_76" = "76",
-      "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98", "num_99" = "99", "num_X" = "X", All_Grades,
-      "perc_U" = "U",
-      "perc_11" = "11", "perc_21" = "21", "perc_22" = "22", "perc_32" = "32", "perc_33" = "33", "perc_43" = "43", "perc_44" = "44", "perc_54" = "54", "perc_55" = "55", "perc_65" = "65", "perc_66" = "66", "perc_76" = "76",
-      "perc_77" = "77", "perc_87" = "87", "perc_88" = "88", "perc_98" = "98", "perc_99" = "99", "perc_X" = "X"
+      "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98", "num_99" = "99", "num_UU" = "U", "num_XX" = "X", "num_covid_impacted" = "covid_impacted", "all_grades",
+      "perc_UU", "perc_11", "perc_21", "perc_22", "perc_32", "perc_33", "perc_43", "perc_44", "perc_54", "perc_55", "perc_65", "perc_66", "perc_76",
+      "perc_77", "perc_87", "perc_88", "perc_98", "perc_99", "perc_XX", "per_covid_impacted_double"
     ) %>% ## comment back for app
     mutate_all(~ replace(., is.na(.), 0))
 
@@ -471,7 +485,7 @@ pull_latest_data <- function() {
 
   # copying data to an Excel file
   # save_tidy_data_file_cs = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv'
-  save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/Documents/Transition-matrices-dashboard-main/Transition-matrices-dashboard/data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
   write.table(tidy_data_cs, save_tidy_data_file_cs, row.names = FALSE, sep = ",")
 
 
@@ -692,7 +706,7 @@ pull_latest_data <- function() {
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional"
+      version = "Revised"
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -724,6 +738,6 @@ pull_latest_data <- function() {
   # copying data to an Excel file
   # save_tidy_data_file_attainment = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
   # save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-  save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/TM/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/Documents/Transition-matrices-dashboard-main/Transition-matrices-dashboard/data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
 }

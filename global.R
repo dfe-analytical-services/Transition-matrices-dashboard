@@ -4,7 +4,7 @@
 # Moving these out of the server file and into here improves performance
 # The global file is run only once when the app launches and stays consistent across users
 # whereas the server and UI files are constantly interacting and responsive to user input.
-#
+
 # ---------------------------------------------------------
 # renv::status()
 # Library calls ---------------------------------------------------------------------------------
@@ -117,7 +117,7 @@ KS2_dropdown_attainment <- download_attainment_data %>%
 subject_col_selection <- function(data, num_perc) {
   if (num_perc == "Number of pupils") {
     data %>%
-      select(KS2_Prior, characteristic_value, starts_with("num_"), "All Grades" = "All_Grades") %>%
+      select(KS2_Prior, characteristic_value, starts_with("num_"), "All Grades" = "all_grades", "Covid impacted" = "num_covid_impacted") %>%
       rename_at(vars(starts_with("num_")), list(~ sub("num_", "", .)))
   } else {
     data %>%

@@ -1,4 +1,3 @@
-# ---------------------------------------------------------
 # This is the server file.
 # Use it to create interactive elements like tables, charts and text for your app.
 #
@@ -169,6 +168,7 @@ server <- function(input, output, session) {
         filter(KS2_Prior == input$KS2_dropdown_attainment_subject) %>%
         rename(Characteristic = characteristic_value)
 
+
       if (input$num_perc_select == "Number of pupils") {
         chart_data <- chart_data %>%
           select(-"All Grades")
@@ -181,6 +181,7 @@ server <- function(input, output, session) {
         geom_bar(stat = "identity", position = "dodge") +
         scale_fill_manual(values = c("#12436D", "#28A197")) +
         xlab("GCSE Grades") +
+
         # ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
         scale_y_continuous(
           name = paste(input$num_perc_select),
@@ -192,28 +193,44 @@ server <- function(input, output, session) {
             c(0, (max(x) + 1) * 1.1)
           }
         ) +
-        theme(
-          # set size and spacing of axis tick labels
-          axis.text.x = element_text(size = 12, vjust = 0.5),
-          axis.text.y = element_text(size = 12, vjust = 0.5),
-          # set size, colour and spacing of axis labels
-          axis.title.x = element_text(size = 12, vjust = -0.5),
-          axis.title.y = element_text(size = 12, vjust = 2.0),
-          # sorting out the background colour, grid lines, and axis lines
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_rect(fill = "White"),
-          plot.background = element_rect(fill = "White", color = NA),
-          axis.line = element_line(colour = "black"),
-          legend.position = "top"
-        )
+        # scale_x_discrete(labels =  c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid impacted \n"))
+        #  scale_x_discrete(labels = c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X", "covid_impacted"))
+
+
+
+        scale_x_discrete(labels = function(x) {
+          stringr::str_wrap(x, width = 10)
+        })
+
+
+
+      # scale_x_discrete(labels = c(chart_data$variable[1:length(chart_data$variable)-1],"Covid\nimpacted")) +
+      # scale_x_discrete(labels = str_wrap(labels, 10))
+      theme(
+        # set size and spacing of axis tick labels
+        axis.text.x = element_text(size = 12, vjust = 0.5),
+        axis.text.y = element_text(size = 12, vjust = 0.5),
+        # set size, colour and spacing of axis labels
+        axis.title.x = element_text(size = 12, vjust = -0.5),
+        axis.title.y = element_text(size = 12, vjust = 2.0),
+        # sorting out the background colour, grid lines, and axis lines
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "White"),
+        plot.background = element_rect(fill = "White", color = NA),
+        axis.line = element_line(colour = "black"),
+        legend.position = "top"
+      )
+
+
 
       ggplotly(subjects_chart) %>%
         config(displayModeBar = F) %>%
-        layout(legend = list(orientation = "h", y = -0.3))
+        layout(legend = list(orientation = "h", y = -0.1))
     } # ,
     # bg = 'transparent'
   )
+  #####################
 
   ######################
 
