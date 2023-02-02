@@ -89,20 +89,22 @@ ui <- function(input, output, session) {
         referrer = "no-referrer"
       ),
     shinyGovstyle::header(
-      main_text = "DfE",
+      main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
       secondary_text = "Key stage 4 Transition Matrices",
-      logo = "images/DfE_logo.png"
+      logo = "images/DfE_logo_landscape.png",
+      logo_width = 150,
+      logo_height = 32
     ),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
       paste0(
-          "<b>We're looking for volunteers! We've developed quite a few dashboards ",
-          "in the last 12 months and we'd really like to know what you think if them. ",
-          "If you're interested in helping us improve our products, please sign up ",
-          "using our <a href='https://forms.office.com/e/ZjNxf10uuN'>user-testing volunteer form</a>.</b><br>",
-          "This Dashboard is in beta phase and we are still reviewing performance and reliability. " # ,
+        "<b>We're looking for volunteers! We've developed quite a few dashboards ",
+        "in the last 12 months and we'd really like to know what you think if them. ",
+        "If you're interested in helping us improve our products, please sign up ",
+        "using our <a href='https://forms.office.com/e/ZjNxf10uuN'>user-testing volunteer form</a>.</b><br>",
+        "This Dashboard is in beta phase and we are still reviewing performance and reliability. " # ,
         #  "In case of slowdown or connection issues due to high demand, we have produced two instances of this site which can be accessed at the following links: "#,
         #  "<a href=", site_primary, " id='link_site_1'>Site 1</a> and ", ## check
         # "<a href=", site_overflow, " id='link_site_2'>Site 2</a>." ##check
