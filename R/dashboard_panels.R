@@ -28,8 +28,9 @@ homepage_panel <- function() {
                   title = "This section is useful if you want to understand how well different industries retain graduates.",
                   h3("Introduction"),
                   p("This tool demonstrates the KS4 Transition Matrices data."),
-                  p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements found here:"),
-                  p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices tool")),
+                  p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements.")
+                  # found here:"),
+                  # p(actionLink("dashboard", "KS4 Transition Matrices tool")),
                   # p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices: KS4 headline measures (Academic year 2022)")),
                   # p("You need to add an observeEvent() function to the server.R script for any link that navigates within your App.")
                 ),
@@ -117,73 +118,75 @@ dashboard_panel <- function() {
                 column(
                   width = 12,
                   h2("Summary"),
-                  p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
-                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award.   
-                   All underlying data can be downloaded here", 
-                    
-                    tags$a(href="https://content.explore-education-statistics.service.gov.uk/api/releases/f27addae-752f-478c-b142-663f12aea8e1/files?fileIds=1e9e7500-dd1d-4c37-0c40-08dab0fe9961", "Key stage 2 to 4 transition matrices GCSE subjects."),
-                    
-                    
-                  column(
-                    width = 12,
-                    div(
-                      class = "well",
-                      style = "min-height: 100%; height: 100%; overflow-y: visible",
-                      fluidRow(
+                  p(
+                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
+                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award.
 
-
-
-                        # h3("Select one option from all categories to explore data:"),
-                        column(
-                          6,
-                          selectInput(
-                            inputId = "num_perc_select",
-                            label = "1. Select one format:", # for both the chart and table(s)
-                            choices = num_perc_dropdown
-                          )
-                        ),
-                        column(6, selectInput(
-                          inputId = "characteristic_select",
-                          label = "2. Select one pupil characteristics:",
-                          choices = characteristic_dropdown$characteristic_type
-                        )),
-                        column(6, selectInput(
-                          inputId = "subjects_select",
-                          label = "3. Select one GCSE Subject:",
-                          choices = subject_dropdown$subject
-                        )),
-                        column(6, selectInput(
-                          inputId = "KS2_dropdown_attainment_subject",
-                          label = "4. Select one KS2 scaled score group:",
-                          choices = ""
-                        )),
-                      ),
-                    )
-                  ),
-                  column(
-                    width = 12,
-                    box(
+                   All underlying data can be downloaded here:",
+                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices GCSE subjects."),
+                    br(),
+                    tags$b("UPDATE: 2nd February 2023 - The KS4 Transition Matrices have been updated with revised data, in line with the revised KS4 performance release."),
+                    column(
                       width = 12,
-                      htmlOutput("subjects_chart_title"),
-                      plotlyOutput("subjects_chart")
+                      div(
+                        class = "well",
+                        style = "min-height: 100%; height: 100%; overflow-y: visible",
+                        fluidRow(
+
+
+
+                          # h3("Select one option from all categories to explore data:"),
+                          column(
+                            6,
+                            selectInput(
+                              inputId = "num_perc_select",
+                              label = "1. Select one format:", # for both the chart and table(s)
+                              choices = num_perc_dropdown
+                            )
+                          ),
+                          column(6, selectInput(
+                            inputId = "characteristic_select",
+                            label = "2. Select one pupil characteristics:",
+                            choices = characteristic_dropdown$characteristic_type
+                          )),
+                          column(6, selectInput(
+                            inputId = "subjects_select",
+                            label = "3. Select one GCSE Subject:",
+                            choices = subject_dropdown$subject
+                          )),
+                          column(6, selectInput(
+                            inputId = "KS2_dropdown_attainment_subject",
+                            label = "4. Select one KS2 scaled score group:",
+                            choices = ""
+                          )),
+                        ),
+                      )
                     ),
                     column(
-                      12,
-                      uiOutput("number_table")),
-                     # column(
+                      width = 12,
+                      box(
+                        width = 12,
+                        htmlOutput("subjects_chart_title"),
+                        plotlyOutput("subjects_chart")
+                      ),
+                      column(
+                        12,
+                        uiOutput("number_table")
+                      ),
+                      # column(
                       #  12,
-                       # br(),
-                        #tags$b("All underlying data can be found here:"),
-                        #br(),
-                        #downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
-                    #  ),
-                     # br(),
-                    #  br(),
-                     # br(),
-                      #column(
-                       # 12,
-                       # downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
-                      #),
+                      # br(),
+                      # tags$b("All underlying data can be found here:"),
+                      # br(),
+                      # downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
+                      #  ),
+                      # br(),
+                      #  br(),
+                      # br(),
+                      # column(
+                      # 12,
+                      # downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
+                      # ),
 
                       # column(10,
                       #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),
@@ -218,83 +221,83 @@ dashboard_panel <- function() {
                 column(
                   width = 12,
                   h2("Summary"),
-                  p("The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2021/2022 academic year
+                  p(
+                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2021/2022 academic year
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
             Figures are available at national (England) level only.
-            Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here", 
-                  
-                  tags$a(href=" https://content.explore-education-statistics.service.gov.uk/api/releases/f27addae-752f-478c-b142-663f12aea8e1/files?fileIds=bed16a4f-5693-45b9-0c42-08dab0fe9961", "Key stage 2 to 4 transition matrices KS4 measures."),
-                  
-                  
-                  #
-                  #     column(
-                  #      width=12,
-                  #    box(
-                  #     width=12,
-                  #    plotlyOutput("colBenchmark2")
-                  # )
-                  # ),## continue here check above
-                  column(
-                    width = 12,
-                    div(
-                      class = "well",
-                      style = "min-height: 100%; height: 100%; overflow-y: visible",
-                      fluidRow(
+            Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here:",
+                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices KS4 measures."),
 
-                        #  h3("Select one option from all categories to explore data:"),
-                        column(
-                          6,
-                          selectInput("num_perc",
-                            label = "1. Select one format:",
-                            choices = c("Number", "Percentage")
-                          )
-                        ),
-                        column(6, selectInput(
-                          inputId = "attainment_select",
-                          label = "2. Select one KS4 measure:",
-                          choices = attainment_dropdown
-                        )),
-                        column(6, selectInput(
-                          inputId = "characteristic_att_select",
-                          label = "3. Select one pupil characteristic:",
-                          choices = characteristic_dropdown$characteristic_type
-                        )),
-                        column(6, selectInput(
-                          inputId = "KS2_att_select",
-                          label = "4. Select one KS2 scaled score group:",
-                          choices = KS2_dropdown_attainment
-                        )),
-                      ),
-                    )
-                  ),
-                  column(
-                    width = 12,
-                    box(
+
+                    #
+                    #     column(
+                    #      width=12,
+                    #    box(
+                    #     width=12,
+                    #    plotlyOutput("colBenchmark2")
+                    # )
+                    # ),## continue here check above
+                    column(
                       width = 12,
-                      htmlOutput("attainment_chart_title"),
-                      # p("Key stage 2 to Key stage 4 pupil progress in KS4 measures", style = "font-size:20px;"),
-                      conditionalPanel(
-                        "input.num_perc == 'Number'",
-                        plotlyOutput("attainment_chart_num")
-                      ),
-                      conditionalPanel(
-                        "input.num_perc == 'Percentage'",
-                        plotlyOutput("attainment_chart_perc")
-                      ),
+                      div(
+                        class = "well",
+                        style = "min-height: 100%; height: 100%; overflow-y: visible",
+                        fluidRow(
+
+                          #  h3("Select one option from all categories to explore data:"),
+                          column(
+                            6,
+                            selectInput("num_perc",
+                              label = "1. Select one format:",
+                              choices = c("Number", "Percentage")
+                            )
+                          ),
+                          column(6, selectInput(
+                            inputId = "attainment_select",
+                            label = "2. Select one KS4 measure:",
+                            choices = attainment_dropdown
+                          )),
+                          column(6, selectInput(
+                            inputId = "characteristic_att_select",
+                            label = "3. Select one pupil characteristic:",
+                            choices = characteristic_dropdown$characteristic_type
+                          )),
+                          column(6, selectInput(
+                            inputId = "KS2_att_select",
+                            label = "4. Select one KS2 scaled score group:",
+                            choices = KS2_dropdown_attainment
+                          )),
+                        ),
+                      )
                     ),
                     column(
-                      12,
-                      uiOutput("attainment_table"),
+                      width = 12,
+                      box(
+                        width = 12,
+                        htmlOutput("attainment_chart_title"),
+                        # p("Key stage 2 to Key stage 4 pupil progress in KS4 measures", style = "font-size:20px;"),
+                        conditionalPanel(
+                          "input.num_perc == 'Number'",
+                          plotlyOutput("attainment_chart_num")
+                        ),
+                        conditionalPanel(
+                          "input.num_perc == 'Percentage'",
+                          plotlyOutput("attainment_chart_perc")
+                        ),
+                      ),
+                      column(
+                        12,
+                        uiOutput("attainment_table"),
+                      )
                     )
-                  )
-                ),
-              #  br(),
-               # column(
-                #  12,
-                 # br(),
-                  #tags$b("All underlying data can be found here:"),
-                  #br(),
-                 # downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
+                  ),
+                  #  br(),
+                  # column(
+                  #  12,
+                  # br(),
+                  # tags$b("All underlying data can be found here:"),
+                  # br(),
+                  # downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
                   #  style = "color: black; border-color: #fff; padding: 5px 14px 5px 14px; margin: 5px 5px 5px 10px; "),
                 ),
               )
