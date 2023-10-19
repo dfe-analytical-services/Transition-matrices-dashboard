@@ -58,9 +58,9 @@ ees_publication <- "https://explore-education-statistics.service.gov.uk/find-sta
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-download_GCSE_Subjects_data <- read.csv("data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_Combined_Science_data <- read.csv("data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_attainment_data <- read.csv("data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_GCSE_Subjects_data <- read.csv("data/2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_Combined_Science_data <- read.csv("data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" , stringsAsFactors = FALSE)
+download_attainment_data <- read.csv("data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
 
 
@@ -81,6 +81,10 @@ characteristic_dropdown <- download_GCSE_Subjects_data %>%
   select(characteristic_type) %>%
   distinct()
 
+#LA_dropdown <- download_GCSE_Subjects_data %>%
+ # select(LA_name) %>%
+  #distinct()
+
 
 num_perc_dropdown <- list(
   "Number" = "Number of pupils",
@@ -92,6 +96,7 @@ attainment_dropdown <- c(
   "EBacc Entry", "EBacc Achievement 9-4", "EBacc Achievement 9-5",
   "English & Mathematics Achievement 9-4", "English & Mathematics Achievement 9-5"
 )
+
 
 
 
@@ -132,6 +137,7 @@ subject_table <- function(subj, char, num_perc) {
   if (subj == "Combined Science") {
     table <- download_Combined_Science_data %>%
       filter(characteristic_type == char) %>%
+     # filter(LA_dropdown == LA_name) %>%
       subject_col_selection(., num_perc)
   } else {
     table <- download_GCSE_Subjects_data %>%

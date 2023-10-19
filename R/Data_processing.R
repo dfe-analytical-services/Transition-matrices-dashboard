@@ -33,87 +33,109 @@ pull_latest_data <- function() {
   # Connect to the SQL server
   SQL_con <- dbConnect(odbc(),
     Driver = "SQL Server",
-    Server = "3DCPRI-PDB16\\ACSQLS",
+    Server = "VMT1PR-DHSQL02",
     Database = "KS4_RESTRICTED", # Enter the folder containing your SQL data
     Trusted_Connection = "True"
   )
 
 
 
+
   # STEP 1
+  # Import the exam data
+  SQL_Statement <- "SELECT 
+exam.CANDNO
+,WOLF_DISC_CODE
+,exam.LAESTAB
+,SUBLEVNO
+,GRADE
+,GNUMBER
+,COVID_IMPACTED_FLAG
+FROM [ks4_restricted].[dbo].[ks4_exam_23_cohort_amended_v3] exam
+LEFT JOIN [ks4_restricted].[dbo].[ks4_pupil_23_cohort_amended_v3] pupil
+ON exam.laestab = pupil.laestab and exam.candno = pupil.candno
+WHERE PTQ_INCLUDE = 1
+AND disc3B_ptq_ee = 0
+AND sublevno in ('310', '391', '395', '450', '451', '760', '954')
+AND ENDKS = 1
+AND NATRES = 1"
+  Exam_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
 
   # Import the exam data
-  SQL_data <- tbl(SQL_con, ("KS4_exam_22_result_amended_v2")) # Enter the name of your SQL database #updare file name
+ # Exam_SQL_data <- tbl(SQL_con, ("KS4_exam_23_cohort_amended_v3"))%>% # Enter the name of your SQL database #update file name
+#    as.data.frame() %>%
 
   # Create subject groupings based on wolf codes from the exam file
-  Exam_SQL_data <- SQL_data %>%
-    filter(
-      ptq_include == 1,
-      disc3B_ptq_ee == 0,
-      sublevno %in% c("310", "391", "395", "450", "451", "760", "954")
-    ) %>%
-    select(
-      CANDNO,
-      WOLF_DISC_CODE,
-      LAESTAB,
-      SUBLEVNO,
-      GRADE,
-      GNUMBER,
-      Covid_Impacted_Flag
-    ) %>%
-    mutate(subjects = case_when(
-      wolf_disc_code == "FK2B" ~ "English Language",
-      wolf_disc_code == "FC4" ~ "English Literature",
+#  Exam_SQL_data <- SQL_data %>%
+    # filter(
+    #   ptq_include == 1,
+    #   disc3B_ptq_ee == 0,
+    #   sublevno %in% c("310", "391", "395", "450", "451", "760", "954")
+    # ) %>%
+    # select(
+    #   CANDNO,
+    #   WOLF_DISC_CODE,
+    #   LAESTAB,
+    #   SUBLEVNO,
+    #   GRADE,
+    #   GNUMBER,
+    #   COVID_IMPACTED_FLAG
+    # ) %>%
+   
+  Exam_SQL_data <- Exam_SQL_data %>% 
+  mutate(subjects = case_when(
+      WOLF_DISC_CODE == "FK2B" ~ "English Language",
+      WOLF_DISC_CODE == "FC4" ~ "English Literature",
       (WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" | WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55" |
         WOLF_DISC_CODE == "RB156" | WOLF_DISC_CODE == "RB71" | WOLF_DISC_CODE == "RB7B" | WOLF_DISC_CODE == "RB7E") & !(GNUMBER %in% c("10034912", "10060054", "10060091", "10060133", "10060170", "10060212", "1006025X", "10050395", "60310844", "60311770")) ~ "Mathematics",
       WOLF_DISC_CODE == "RA1E" ~ "Combined Science",
-      wolf_disc_code == "RC1" ~ "Physics",
-      wolf_disc_code == "RD1" ~ "Chemistry",
-      wolf_disc_code == "RH3" ~ "Biology",
-      wolf_disc_code == "CK1" ~ "Computer Science",
+      WOLF_DISC_CODE == "RC1" ~ "Physics",
+      WOLF_DISC_CODE == "RD1" ~ "Chemistry",
+      WOLF_DISC_CODE == "RH3" ~ "Biology",
+      WOLF_DISC_CODE == "CK1" ~ "Computer Science",
       WOLF_DISC_CODE == "RE1" | WOLF_DISC_CODE == "RF2" | WOLF_DISC_CODE == "RC52" |
         WOLF_DISC_CODE == "QA3" ~ "Other Sciences",
-      wolf_disc_code == "VF1" ~ "Design and Technology",
-      wolf_disc_code == "XA5A" ~ "D & T: Textiles Technology",
-      wolf_disc_code == "VF2" | WOLF_DISC_CODE == "VF3" ~ "Other Design and Technology",
-      wolf_disc_code == "XA1" ~ "Engineering",
-      wolf_disc_code == "AA3" ~ "Business",
-      wolf_disc_code == "NH6" ~ "Food Preparation and Nutrition",
-      wolf_disc_code == "RF4" ~ "Geography",
-      wolf_disc_code == "DB" ~ "History",
-      wolf_disc_code == "DB21" ~ "Ancient History",
-      wolf_disc_code == "EB" ~ "Economics",
+      WOLF_DISC_CODE == "VF1" ~ "Design and Technology",
+      WOLF_DISC_CODE == "XA5A" ~ "D & T: Textiles Technology",
+      WOLF_DISC_CODE == "VF2" | WOLF_DISC_CODE == "VF3" ~ "Other Design and Technology",
+      WOLF_DISC_CODE == "XA1" ~ "Engineering",
+      WOLF_DISC_CODE == "AA3" ~ "Business",
+      WOLF_DISC_CODE == "NH6" ~ "Food Preparation and Nutrition",
+      WOLF_DISC_CODE == "RF4" ~ "Geography",
+      WOLF_DISC_CODE == "DB" ~ "History",
+      WOLF_DISC_CODE == "DB21" ~ "Ancient History",
+      WOLF_DISC_CODE == "EB" ~ "Economics",
       WOLF_DISC_CODE == "DE1" | WOLF_DISC_CODE == "EA" | WOLF_DISC_CODE == "EE31" | WOLF_DISC_CODE == "PK1" | WOLF_DISC_CODE == "EE2" ~ "Social Studies",
-      wolf_disc_code == "FKF" ~ "French",
-      wolf_disc_code == "FKG" ~ "German",
-      wolf_disc_code == "FKS" ~ "Spanish",
+      WOLF_DISC_CODE == "FKF" ~ "French",
+      WOLF_DISC_CODE == "FKG" ~ "German",
+      WOLF_DISC_CODE == "FKS" ~ "Spanish",
       WOLF_DISC_CODE == "FKO" | WOLF_DISC_CODE == "FKQ" | WOLF_DISC_CODE == "F1H" | WOLF_DISC_CODE == "FKB" | WOLF_DISC_CODE == "F1P" | WOLF_DISC_CODE == "FKP" | WOLF_DISC_CODE == "FKI" |
         WOLF_DISC_CODE == "FKJ" | WOLF_DISC_CODE == "FKM" | WOLF_DISC_CODE == "FKK" | WOLF_DISC_CODE == "FKU" | WOLF_DISC_CODE == "FKX" | WOLF_DISC_CODE == "FKC" |
         WOLF_DISC_CODE == "FKR" | WOLF_DISC_CODE == "FKT" ~ "Other Modern Languages",
-      wolf_disc_code == "F1L" ~ "Latin",
-      wolf_disc_code == "DB2B" ~ "Classical Civilisation",
-      wolf_disc_code == "F1K" ~ "Classical Greek",
-      wolf_disc_code == "F1Z" ~ "Biblical Hebrew",
-      wolf_disc_code == "JA2" | WOLF_DISC_CODE == "KJ1" ~ "Art and Design",
-      wolf_disc_code == "KA2" & !(GNUMBER %in% c("60311150", "60311502", "60319434", "60320692", "60321052", "60322469")) ~ "Film Studies",
-      wolf_disc_code == "LB1" ~ "Dance",
-      wolf_disc_code == "LC11" ~ "Drama",
-      wolf_disc_code == "PA1" ~ "Health and Social Care",
-      wolf_disc_code == "KA2" & !(GNUMBER %in% c("10042799", "50022465", "50025995", "50030188", "60055029", "60308898", "60309702", "60309714", "60309726")) ~ "Media/Film/TV",
-      wolf_disc_code == "LF1" | WOLF_DISC_CODE == "LJ9" ~ "Music",
-      wolf_disc_code == "MA1" ~ "Physical Education",
-      wolf_disc_code == "DD1" ~ "Religious Studies",
-      wolf_disc_code == "RB71" & !(GNUMBER %in% c("60322615")) ~ "Statistics",
-      wolf_disc_code == "AK6" ~ "Accounting",
+      WOLF_DISC_CODE == "F1L" ~ "Latin",
+      WOLF_DISC_CODE == "DB2B" ~ "Classical Civilisation",
+      WOLF_DISC_CODE == "F1K" ~ "Classical Greek",
+      WOLF_DISC_CODE == "F1Z" ~ "Biblical Hebrew",
+      WOLF_DISC_CODE == "JA2" | WOLF_DISC_CODE == "KJ1" ~ "Art and Design",
+      WOLF_DISC_CODE == "KA2" & !(GNUMBER %in% c("60311150", "60311502", "60319434", "60320692", "60321052", "60322469")) ~ "Film Studies",
+      WOLF_DISC_CODE == "LB1" ~ "Dance",
+      WOLF_DISC_CODE == "LC11" ~ "Drama",
+      WOLF_DISC_CODE == "PA1" ~ "Health and Social Care",
+      WOLF_DISC_CODE == "KA2" & !(GNUMBER %in% c("10042799", "50022465", "50025995", "50030188", "60055029", "60308898", "60309702", "60309714", "60309726")) ~ "Media/Film/TV",
+      WOLF_DISC_CODE == "LF1" | WOLF_DISC_CODE == "LJ9" ~ "Music",
+      WOLF_DISC_CODE == "MA1" ~ "Physical Education",
+      WOLF_DISC_CODE == "DD1" ~ "Religious Studies",
+      WOLF_DISC_CODE == "RB71" & !(GNUMBER %in% c("60322615")) ~ "Statistics",
+      WOLF_DISC_CODE == "AK6" ~ "Accounting",
       TRUE ~ NA_character_
     )) %>%
-    mutate(GRADE = ifelse(Covid_Impacted_Flag == "1" & !(GRADE %in% c("Q")), "covid impacted", GRADE)) %>%
+    mutate(GRADE = ifelse(COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")), "covid impacted", GRADE)) #%>%
     #  mutate(GRADE = case_when(
-    #   Covid_Impacted_Flag == "1" & !(GRADE %in% c("Q")) ~"covid_impacted",
+    #   COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")) ~"covid_impacted",
     #  TRUE ~ NA_character_
     # )) %>%
 
-    as.data.frame() # need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
+   # as.data.frame() # need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
 
 
 
@@ -139,21 +161,37 @@ pull_latest_data <- function() {
   # STEP 2 Define variables
 
   # Import the pupil data
-  Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_22_result_amended_v2")) # Enter the name of your SQL database #update file name
+  SQL_Statement <- "SELECT 
+  pupil.CANDNO, pupil.URN, pupil.LAESTAB, pupil.NFTYPE, pupil.GENDER, pupil.LANG1ST, pupil.KS2EMSS, pupil.L2BASICS_94,
+  pupil.L2BASICS_95, pupil.EBACC_94, pupil.EBACC_95, pupil.EBACC_E_PTQ_EE, pupil.ATT8, pupil.P8SCORE, pupil.FSM6CLA1A, pupil.SENF, LA_name
 
-
-  Var_SQL_data <- Pupil_SQL_data %>%
-    filter(
-      endks == 1,
-      natres == 1,
-      (nftype %in% c("32", "33") | nftype %in% c("20", "21", "22", "23", "24", "25", "26", "27", "28", "31", "50", "51", "52", "53", "55", "57", "58") &
-        norflage != 3)
-    ) %>% # you can use norflage !=3 instead here :)
-    select(
-      CANDNO, URN, LAESTAB, NFTYPE, GENDER, LANG1ST, KS2EMSS, L2BASICS_94,
-      L2BASICS_95, EBACC_94, EBACC_95, EBACC_E_PTQ_EE, ATT8, P8SCORE, FSM6CLA1A, SENF
-    ) %>%
-    as.data.frame() %>% # Handy to cast it as a dataframe so you can view what's happening by clicking on the table in your environment on the right
+FROM [ks4_restricted].[dbo].[KS4_pupil_23_cohort_amended_v3] pupil
+LEFT JOIN [ks4_restricted].[dbo].[KS4_tidy_data_pupil_22_amended_v2] tidydata
+ON pupil.laestab = tidydata.laestab and pupil.candno = tidydata.candno
+WHERE 
+ pupil.ENDKS = 1
+AND pupil.NATRES = 1
+AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,50,51,52,53,55,57,58) and pupil.NORFLAGE<>3)"
+  
+  Pupil_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
+  
+  # Import the pupil data
+  # Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_23_cohort_amended_v3"))  %>% # Enter the name of your SQL database #update file name
+  # as.data.frame() 
+  # 
+  # Var_SQL_data <- Pupil_SQL_data %>%
+  #   filter(
+  #     endks == 1,
+  #     natres == 1,
+  #     (nftype %in% c("32", "33") | nftype %in% c("20", "21", "22", "23", "24", "25", "26", "27", "28", "31", "50", "51", "52", "53", "55", "57", "58") &
+  #       norflage != 3)
+  #   ) %>% # you can use norflage !=3 instead here :)
+  #   select(
+  #     CANDNO, URN, LAESTAB, NFTYPE, GENDER, LANG1ST, KS2EMSS, L2BASICS_94,
+  #     L2BASICS_95, EBACC_94, EBACC_95, EBACC_E_PTQ_EE, ATT8, P8SCORE, FSM6CLA1A, SENF
+  #   ) %>%
+  #  as.data.frame() %>% # Handy to cast it as a dataframe so you can view what's happening by clicking on the table in your environment on the right
+  Pupil_SQL_data <- Pupil_SQL_data  %>% 
     mutate(Disadvantage = case_when(
       FSM6CLA1A == 0 ~ "Non Disadvantaged Pupils",
       FSM6CLA1A == 1 ~ "Disadvantaged Pupils",
@@ -208,27 +246,27 @@ pull_latest_data <- function() {
     count(LANG1ST) %>%
     arrange(LANG1ST)
 
-  Var_SQL_data %>%
+  Pupil_SQL_data %>%
     count(Disadvantage) %>%
     arrange(Disadvantage)
 
-  Var_SQL_data %>%
+  Pupil_SQL_data %>%
     count(EAL) %>%
     arrange(EAL)
 
-  Var_SQL_data %>%
+  Pupil_SQL_data %>%
     count(SEN) %>%
     arrange(SEN)
 
-  Var_SQL_data %>%
+  Pupil_SQL_data %>%
     count(Gender) %>%
     arrange(Gender)
 
-  Var_SQL_data %>%
+  Pupil_SQL_data %>%
     count(Gender, Disadvantage, EAL, SEN) %>%
     group_by(ks2em)
 
-  Var_SQL_data %>%
+  Pupil_SQL_data %>%
     group_by(ks2em) %>%
     count(Gender, Disadvantage, EAL, SEN)
 
@@ -264,7 +302,7 @@ pull_latest_data <- function() {
 
   # STEP 4 Tidy Data for subjects graded 9-1
 
-  join_data <- Var_SQL_data %>%
+  join_data <- Pupil_SQL_data %>%
     left_join(Exam_short,
       by = c("CANDNO", "LAESTAB")
     ) %>%
@@ -277,7 +315,7 @@ pull_latest_data <- function() {
   #####################################################################################
   func_counts_char <- function(data, char, char_name) {
     data %>%
-      count(GRADE, subjects, ks2em_band, ks2em, {{ char }}) %>%
+      count(GRADE, subjects, ks2em_band, ks2em,{{ char }}) %>%
       rename(characteristic_value = {{ char }}) %>%
       mutate(characteristic_type = char_name)
   }
@@ -341,19 +379,20 @@ pull_latest_data <- function() {
       "characteristic_value"
     )) %>%
     mutate(
-      time_period = 202122,
+      time_period = 202223,
       time_identifier = "Academic year",
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Revised",
+      version = "Provisional",
       all_grades = rowSums(.[, c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid_impacted")], na.rm = TRUE)
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
       characteristic_value, subjects, ks2em_band
     ) %>%
-    select(time_period, time_identifier, geographic_level, country_code, country_name, version,
+    select(time_period, time_identifier, geographic_level, country_code, country_name, #LA_name,
+          version,
       characteristic_type, # comment back for app use,
       characteristic_value, subjects,
       KS2_Prior = ks2em,
@@ -373,8 +412,10 @@ pull_latest_data <- function() {
   # copying data to an Excel file
   # save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
-  save_tidy_data_file_subjects <- "C:/Users/tabdulla/OneDrive - Department for Education/Documents/Transition-matrices-dashboard-main/Transition-matrices-dashboard/data/2022_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_subjects <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/Transition-matrices-dashboard/t2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
   write.table(tidy_data_subjects, save_tidy_data_file_subjects, row.names = FALSE, sep = ",")
+  
+
 
   #################################################################################################
   ##################                 Combined Science tidy data                   #################
@@ -382,13 +423,30 @@ pull_latest_data <- function() {
 
   # STEP 5 Tidy Data for Combined Science
 
-  join_data_cs <- Var_SQL_data %>%
+  join_data_cs <- Pupil_SQL_data %>%
     left_join(Exam_short,
       by = c("CANDNO", "LAESTAB")
     ) %>%
     filter(subjects == "Combined Science") %>%
     drop_na(ks2em)
 
+  
+  func_counts_char <- function(data, char, char_name) {
+    data %>%
+      count(GRADE, subjects, ks2em_band, ks2em, {{ char }}) %>%
+      rename(characteristic_value = {{ char }}) %>%
+      mutate(characteristic_type = char_name)
+  }
+  
+  func_counts_all <- function(data) {
+    data %>%
+      count(GRADE, subjects, ks2em_band, ks2em) %>%
+      mutate(characteristic_value = "All Pupils") %>%
+      mutate(characteristic_type = "All Pupils")
+  }
+  
+ # a <- join_data_cs %>% filter(GRADE == 'covid impacted')
+  
 
   grade_counts_gender_cs <- func_counts_char(join_data_cs, Gender, "Gender")
   grade_counts_sen_cs <- func_counts_char(join_data_cs, SEN, "SEN")
@@ -400,14 +458,14 @@ pull_latest_data <- function() {
     grade_counts_gender_cs, grade_counts_sen_cs, grade_counts_eal_cs,
     grade_counts_disadvantage_cs, grade_counts_all_cs
   ) %>%
-    select(-subjects)
+   select(-subjects) 
 
   # creates the separate grade columns
   grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade columns
     pivot_wider(names_from = GRADE, values_from = n) %>%
-    rename("covid_impacted" = "covid impacted")
+    #rename("covid_impacted" = "covid impacted") #REMOVED
 
-  # select(-Q)
+   select(-Q)
 
 
   # calcs
@@ -436,25 +494,27 @@ pull_latest_data <- function() {
       "perc_88" = "88",
       "perc_98" = "98",
       "perc_99" = "99",
-      "perc_XX" = "X",
-      "per_covid_impacted_double" = "covid_impacted"
+      "perc_XX" = "X"
+     # "per_covid_impacted_double" = "covid_impacted"
     )
 
   ## CS output
-  tidy_data_cs <- grade_counts_spread_cs %>%
+    tidy_data_cs <- grade_counts_spread_cs %>%
     left_join(grade_percentages_spread_cs, by = c(
       "ks2em", "ks2em_band",
-      "characteristic_type", # comment back for app use
+      "characteristic_type", # comment back for app use,
       "characteristic_value"
     )) %>%
+      #,"LA_name"
     mutate(
-      time_period = "202122",
+      time_period = "202223",
       time_identifier = "Academic year",
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Revised",
-      all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X", "covid_impacted")], na.rm = TRUE)
+      version = "Provisional",
+      all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X"
+                                 )], na.rm = TRUE)
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -474,18 +534,16 @@ pull_latest_data <- function() {
       ### (section2 for app use)
 
       "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32", "num_33" = "33", "num_43" = "43", "num_44" = "44", "num_54" = "54", "num_55" = "55", "num_65" = "65", "num_66" = "66", "num_76" = "76",
-      "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98", "num_99" = "99", "num_UU" = "U", "num_XX" = "X", "num_covid_impacted" = "covid_impacted", "all_grades",
+      "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98", "num_99" = "99", "num_UU" = "U", "num_XX" = "X", "all_grades",
       "perc_UU", "perc_11", "perc_21", "perc_22", "perc_32", "perc_33", "perc_43", "perc_44", "perc_54", "perc_55", "perc_65", "perc_66", "perc_76",
-      "perc_77", "perc_87", "perc_88", "perc_98", "perc_99", "perc_XX", "per_covid_impacted_double"
+      "perc_77", "perc_87", "perc_88", "perc_98", "perc_99", "perc_XX"
     ) %>% ## comment back for app
     mutate_all(~ replace(., is.na(.), 0))
 
 
-
-
   # copying data to an Excel file
   # save_tidy_data_file_cs = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv'
-  save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/Documents/Transition-matrices-dashboard-main/Transition-matrices-dashboard/data/2022_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
   write.table(tidy_data_cs, save_tidy_data_file_cs, row.names = FALSE, sep = ",")
 
 
@@ -497,12 +555,12 @@ pull_latest_data <- function() {
 
   # STEP 6 Tidy Data for Attainment
 
-  join_data_attainment <- Var_SQL_data %>%
+  join_data_attainment <- Pupil_SQL_data %>% #check ok
     left_join(Exam_short,
       by = c("CANDNO", "LAESTAB")
     ) %>%
     drop_na(ks2em)
-
+  
 
   ## function for calculating attainment columns for specified characteristic,
   ## the slice makes sure only one entry per pupil is selected
@@ -701,12 +759,12 @@ pull_latest_data <- function() {
   # create the final tidy data file from the attainment_TM table
   attainment_tidy_data <- attainment_TM %>%
     mutate(
-      time_period = "202122",
+      time_period = "202223",
       time_identifier = "Academic year",
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Revised"
+      version = "Provisional"
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -738,6 +796,6 @@ pull_latest_data <- function() {
   # copying data to an Excel file
   # save_tidy_data_file_attainment = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
   # save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-  save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/Documents/Transition-matrices-dashboard-main/Transition-matrices-dashboard/data/2022_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/Transition-matrices-dashboard/2023_Tidy_Data_Output_91_Attainment_Scaled_Scores_Final.csv" # # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
 }
