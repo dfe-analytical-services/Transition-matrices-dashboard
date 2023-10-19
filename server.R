@@ -45,9 +45,10 @@ server <- function(input, output, session) {
   observe({
     updateSelectInput(session, "KS2_dropdown_attainment_subject",
       choices = KS2_prior_subj()
+      
     )
+    
   })
-
 
 
   # -----------------------------------------------------------------------------------------------------------------------------
@@ -337,21 +338,21 @@ server <- function(input, output, session) {
 
 
   output$GCSE_Subjects_data_download <- downloadHandler(
-    filename = "2022_KS4_GCSE_Subjects_TM_data.csv",
+    filename = "2023_KS4_GCSE_Subjects_TM_data.csv",
     content = function(file) {
       write.csv(download_GCSE_Subjects_data, file, row.names = FALSE)
     }
   )
 
   output$Combined_Science_data_download <- downloadHandler(
-    filename = "2022_KS4_Combined_Science_TM_data.csv",
+    filename = "2023_KS4_Combined_Science_TM_data.csv",
     content = function(file) {
       write.csv(download_Combined_Science_data, file, row.names = FALSE)
     }
   )
 
   output$attainment_data_download <- downloadHandler(
-    filename = "2022_KS4_meaures_TM_data.csv",
+    filename = "2023_KS4_meaures_TM_data.csv",
     content = function(file) {
       write.csv(download_attainment_data, file, row.names = FALSE)
     }

@@ -13,7 +13,7 @@ cat("Sourcing .Rprofile.", fill = TRUE)
 
 source("renv/activate.R")
 
-# Tidy code function
+# Tidy code functiona
 tidy_code <- function() {
   source("global.r")
   tidy_code_function()

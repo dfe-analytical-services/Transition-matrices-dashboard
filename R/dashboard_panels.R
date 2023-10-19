@@ -31,7 +31,7 @@ homepage_panel <- function() {
                   p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements.")
                   # found here:"),
                   # p(actionLink("dashboard", "KS4 Transition Matrices tool")),
-                  # p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices: KS4 headline measures (Academic year 2022)")),
+                  # p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices: KS4 headline measures (Academic year 2023)")),
                   # p("You need to add an observeEvent() function to the server.R script for any link that navigates within your App.")
                 ),
                 br(),
@@ -119,13 +119,13 @@ dashboard_panel <- function() {
                   width = 12,
                   h2("Summary"),
                   p(
-                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2021/2022 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
+                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2022/2023 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
                    Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award.
 
                    All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
-                    tags$b("UPDATE: 2nd February 2023 - The KS4 Transition Matrices have been updated with revised data, in line with the revised KS4 performance release."),
+                    tags$b("UPDATE: 19th October 2023 - The KS4 Transition Matrices have been updated with 2023 provisional data, in line with the revised KS4 performance release."),
                     column(
                       width = 12,
                       div(
@@ -159,6 +159,12 @@ dashboard_panel <- function() {
                             label = "4. Select one KS2 scaled score group:",
                             choices = ""
                           )),
+                       #   column(6, selectInput(
+                        #    inputId = "LA_dropdown",
+                         #   label = "5. LA name:",
+                          #  choices= LA_dropdown$LA_name
+                        #  )),
+                          
                         ),
                       )
                     ),
@@ -189,7 +195,7 @@ dashboard_panel <- function() {
                       # ),
 
                       # column(10,
-                      #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2022"),
+                      #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2023"),
                       #      downloadButton("Combined_Science_data_download"),
                     )
                   )
@@ -222,7 +228,7 @@ dashboard_panel <- function() {
                   width = 12,
                   h2("Summary"),
                   p(
-                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2021/2022 academic year
+                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2022/2023 academic year
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
             Figures are available at national (England) level only.
             Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here:",
@@ -319,3 +325,4 @@ dashboard_panel <- function() {
     )
   )
 }
+
