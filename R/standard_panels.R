@@ -35,14 +35,15 @@ a11y_panel <- function() {
           tags$li("Some elements fail to have the appropriate aria tags"),
           tags$li("Some table header ids are not assigned correctly"),
           tags$li("Some image elements do not have an alt attributes (note that where this is the case, those images are primarily for presentation )")
-      ),
-      h2("Feedback"),
-      p(
-        "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
-        a(href = "mailto:attainment.statistics@education.gov.uk", "attainment.statistics@education.gov.uk")
+        ),
+        h2("Feedback"),
+        p(
+          "If you have any feedback on how we could further improve the accessibility of this application, please contact us at",
+          a(href = "mailto:attainment.statistics@education.gov.uk", "attainment.statistics@education.gov.uk")
+        )
       )
     )
-  ))
+  )
 }
 
 support_links <- function() {
