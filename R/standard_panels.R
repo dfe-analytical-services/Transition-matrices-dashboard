@@ -42,11 +42,6 @@ support_links <- function() {
         column(
           width = 12,
           h2("Give us feedback"),
-          #  "This tool is a new service that we are developing. If you have any feedback or suggestions for improvements, please submit them using our ",
-          # a(
-          #  href = "https://forms.office.com",
-          #   "feedback form", .noWS = c("after")
-          #  ), ".", br(),
           br(),
           "If you spot any errors or bugs while using this tool, please screenshot and email them to ",
           a(href = "mailto:attainment.statistics@education.gov.uk", "attainment.statistics@education.gov.uk", .noWS = c("after")), ".",
@@ -74,4 +69,3 @@ support_links <- function() {
     )
   )
 }
-
