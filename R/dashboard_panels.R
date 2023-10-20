@@ -29,10 +29,6 @@ homepage_panel <- function() {
                   h3("Introduction"),
                   p("This tool demonstrates the KS4 Transition Matrices data."),
                   p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements.")
-                  # found here:"),
-                  # p(actionLink("dashboard", "KS4 Transition Matrices tool")),
-                  # p(actionLink("link_to_app_content_tab", "KS4 Transition Matrices: KS4 headline measures (Academic year 2023)")),
-                  # p("You need to add an observeEvent() function to the server.R script for any link that navigates within your App.")
                 ),
                 br(),
               )
@@ -98,14 +94,6 @@ dashboard_panel <- function() {
           br(), # added
           br(), # added
         ),
-        # column(
-        # width = 12,
-        # div(
-        # class = "well",
-        # style = "min-height: 100%; height: 1000%; overflow-y: visible",
-        # h2("Dashboard") # added
-        #  )
-        # ),
 
         ####### GCSE SUBJECTS tab#######
         column(
@@ -132,10 +120,6 @@ dashboard_panel <- function() {
                         class = "well",
                         style = "min-height: 100%; height: 100%; overflow-y: visible",
                         fluidRow(
-
-
-
-                          # h3("Select one option from all categories to explore data:"),
                           column(
                             6,
                             selectInput(
@@ -159,12 +143,6 @@ dashboard_panel <- function() {
                             label = "4. Select one KS2 scaled score group:",
                             choices = ""
                           )),
-                       #   column(6, selectInput(
-                        #    inputId = "LA_dropdown",
-                         #   label = "5. LA name:",
-                          #  choices= LA_dropdown$LA_name
-                        #  )),
-                          
                         ),
                       )
                     ),
@@ -179,45 +157,11 @@ dashboard_panel <- function() {
                         12,
                         uiOutput("number_table")
                       ),
-                      # column(
-                      #  12,
-                      # br(),
-                      # tags$b("All underlying data can be found here:"),
-                      # br(),
-                      # downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
-                      #  ),
-                      # br(),
-                      #  br(),
-                      # br(),
-                      # column(
-                      # 12,
-                      # downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
-                      # ),
-
-                      # column(10,
-                      #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2023"),
-                      #      downloadButton("Combined_Science_data_download"),
                     )
                   )
                 )
               )
             ),
-
-
-
-
-            # fluidRow(
-            #  column(
-            #   width=12,
-            # h2("Outputs 1"),
-            # valueBoxOutput("boxavgRevBal", width = 6),
-            # valueBoxOutput("boxpcRevBal", width = 6),
-            # box(
-            # width=12,
-            # plotlyOutput("lineRevBal")))
-            # )
-            # ),
-
 
             ####### KS4 HEADLINE MEASURES tab#######
 
@@ -233,16 +177,6 @@ dashboard_panel <- function() {
             Figures are available at national (England) level only.
             Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices KS4 measures."),
-
-
-                    #
-                    #     column(
-                    #      width=12,
-                    #    box(
-                    #     width=12,
-                    #    plotlyOutput("colBenchmark2")
-                    # )
-                    # ),## continue here check above
                     column(
                       width = 12,
                       div(
@@ -297,32 +231,12 @@ dashboard_panel <- function() {
                       )
                     )
                   ),
-                  #  br(),
-                  # column(
-                  #  12,
-                  # br(),
-                  # tags$b("All underlying data can be found here:"),
-                  # br(),
-                  # downloadButton("attainment_data_download", label = "Download (KS4 measures)"),
-                  #  style = "color: black; border-color: #fff; padding: 5px 14px 5px 14px; margin: 5px 5px 5px 10px; "),
                 ),
               )
             )
           )
         )
-
-
-
-
-
-
-        #   ))
-        # ))
-        #     )
-        #  )
-        # add box to show user input
       )
     )
   )
 }
-
