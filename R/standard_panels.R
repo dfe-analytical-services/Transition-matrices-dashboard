@@ -42,7 +42,7 @@ a11y_panel <- function() {
         a(href = "mailto:attainment.statistics@education.gov.uk", "attainment.statistics@education.gov.uk")
       )
     )
-  )
+  ))
 }
 
 support_links <- function() {
