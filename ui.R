@@ -56,7 +56,7 @@
 
 
 ui <- function(input, output, session) {
-  fluidPage(
+  page(
     title = tags$head(
       tags$link(
         rel = "shortcut icon",

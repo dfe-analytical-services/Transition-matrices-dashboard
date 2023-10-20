@@ -24,6 +24,8 @@ shhh(library(plotly))
 shhh(library(DT))
 shhh(library(metathis))
 shhh(library(checkmate))
+shhh(library(bslib))
+
 
 
 # Functions ---------------------------------------------------------------------------------
