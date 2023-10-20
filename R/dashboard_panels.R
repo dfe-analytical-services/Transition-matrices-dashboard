@@ -12,64 +12,34 @@ homepage_panel <- function() {
 
         ## Left panel -------------------------------------------------------
 
-        column(
-          6,
-          div(
-            div(
-              class = "panel panel-info",
-              div(
-                class = "panel-heading",
-                style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-                h2("Contents")
-              ),
-              div(
-                class = "panel-body",
-                tags$div(
-                  title = "This section is useful if you want to understand how well different industries retain graduates.",
-                  h3("Introduction"),
-                  p("This tool demonstrates the KS4 Transition Matrices data."),
-                  p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements.")
-                ),
-                br(),
-              )
-            )
+        card(
+          card_header(
+            class = "bg-primary",
+            h2("Contents")
           ),
+          card_body(
+            h3("Introduction"),
+            p("This tool demonstrates the KS4 Transition Matrices data."),
+            p("Transition matrices are a useful tool to help visualise the progression of pupils from key stage 2 (KS2) to key stage 4 (KS4) based on KS2 prior attainment scores and KS4 achievements.")
+          )
         ),
 
         ## Right panel ------------------------------------------------------
-
-        column(
-          6,
-          div(
-            div(
-              class = "panel panel-info",
-              div(
-                class = "panel-heading",
-                style = "color: white;font-size: 18px;font-style: bold; background-color: #1d70b8;",
-                h2("Information")
-              ),
-              div(
-                class = "panel-body",
-                h3("Context and purpose"),
-                p("To use the KS4 Transition Matrices tool click onto the 'KS4 TM tool' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
+        card(
+          card_header(
+            class = "bg-primary",
+            h2("Information")
+          ),
+          card_body(
+            h3("Context and purpose"),
+            p("To use the KS4 Transition Matrices tool click onto the 'KS4 TM tool' tab found on the left panel, choose a category from the tab panel, then select one option from each dropdown box. Figures are presented in a table or chart.
                    "),
-                # p(" For example some useful links to your EES publication, data sources and other relevant resources."), # For example some useful links to your EES publication, data sources and other relevant resources.
-                # p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
-
-
-
-                h3("Further information"),
-                p("All supporting files from this release are listed below:"),
-                a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
-                br(),
-                a(href = "https://content.explore-education-statistics.service.gov.uk/api/releases/1c01df43-72e6-4ee4-a64e-2805f5e44d2d/files/dd9db45d-7f81-41a4-b147-08d88fd28587", "Key stage 4 GCSE Subject group composition ", .noWS = c("after")),
-                br(),
-                br(),
-                p("Access to historical data files can be found here:"),
-                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
-                br(),
-              )
-            )
+            h3("Further information"),
+            p("All supporting files from this release are listed below:"),
+            a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
+            a(href = "https://content.explore-education-statistics.service.gov.uk/api/releases/1c01df43-72e6-4ee4-a64e-2805f5e44d2d/files/dd9db45d-7f81-41a4-b147-08d88fd28587", "Key stage 4 GCSE Subject group composition ", .noWS = c("after")),
+            p("Access to historical data files can be found here:"),
+            a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised", "Key stage 4 data catalogue", .noWS = c("after")),
           )
         )
       )
@@ -111,7 +81,7 @@ dashboard_panel <- function() {
                    Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award.
 
                    All underlying data can be downloaded here:",
-                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices GCSE subjects."),
+                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
                     tags$b("UPDATE: 19th October 2023 - The KS4 Transition Matrices have been updated with 2023 provisional data, in line with the revised KS4 performance release."),
                     column(
@@ -176,7 +146,7 @@ dashboard_panel <- function() {
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
             Figures are available at national (England) level only.
             Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here:",
-                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices KS4 measures."),
+                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised", "Key stage 2 to 4 transition matrices KS4 measures."),
                     column(
                       width = 12,
                       div(
