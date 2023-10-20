@@ -94,6 +94,7 @@ ui <- function(input, output, session) {
       logo_width = 150,
       logo_height = 32
     ),
+    shinyGovstyle::cookieBanner("DfE Key Stage 4 Transition Matrices"),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
