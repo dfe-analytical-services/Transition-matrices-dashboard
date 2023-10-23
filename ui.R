@@ -86,6 +86,7 @@ ui <- function(input, output, session) {
         rating = "General",
         referrer = "no-referrer"
       ),
+    shinyGovstyle::cookieBanner("DfE Key Stage 4 Transition Matrices"),
     shinyGovstyle::header(
       main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
@@ -94,7 +95,6 @@ ui <- function(input, output, session) {
       logo_width = 150,
       logo_height = 32
     ),
-    shinyGovstyle::cookieBanner("DfE Key Stage 4 Transition Matrices"),
     shinyGovstyle::banner(
       "beta banner",
       "beta",
