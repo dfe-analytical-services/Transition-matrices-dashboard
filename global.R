@@ -55,6 +55,7 @@ site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
 ees_pub_name <- "Key stage 4 performance" # Update this with your parent publication name (e.g. the EES publication)
 ees_publication <- "https://explore-education-statistics.service.gov.uk/find-statistics/key-stage-4-performance-revised" # Update with parent publication link
+google_analytics_key <- "P760F61KNW"
 
 # -----------------------------------------------------------------------------------------------------------------------------
 # ---- Reading in the data ----
