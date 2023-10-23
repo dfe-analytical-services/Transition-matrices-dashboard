@@ -246,6 +246,7 @@ server <- function(input, output, session) {
     chart_data <- reshape2::melt(chart_data)
     subjects_chart <- ggplot(chart_data) +
       (aes(x = variable, y = value, fill = Characteristic)) +
+      theme_classic() +
       geom_bar(stat = "identity", position = "dodge") +
       scale_fill_manual(values = c("#12436D", "#28A197")) +
       xlab("GCSE Grades") +
@@ -308,6 +309,7 @@ server <- function(input, output, session) {
     num_chart_data <- reshape2::melt(num_chart_data)
 
     number_plot <- ggplot(num_chart_data, aes(x = variable, y = value, fill = Characteristic, group = Characteristic)) +
+      theme_classic() +
       geom_bar(stat = "identity", position = "dodge") +
       scale_fill_manual(values = c("#12436D", "#28A197")) +
       xlab(" ") +
@@ -353,6 +355,7 @@ server <- function(input, output, session) {
 
     perc_plot <- ggplot(perc_chart_data, aes(x = variable, y = value, fill = Characteristic)) +
       geom_bar(stat = "identity", position = "dodge") +
+      theme_classic() +
       scale_fill_manual(values = c("#12436D", "#28A197")) +
       xlab(" ") +
       # ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
