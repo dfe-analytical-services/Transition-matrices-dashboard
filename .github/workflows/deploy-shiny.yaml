@@ -35,7 +35,7 @@ jobs:
       - name: Set env vars (dev)
         if: endsWith(github.ref, '/development')
         run: |
-          echo "SHINYAPP_NAME='dev-KS4-ready-reckoners'" >> $GITHUB_ENV
+          echo "SHINYAPP_NAME='dev-KS4-transition-matrices'" >> $GITHUB_ENV
       - name: Set env vars (prod)
         if: endsWith(github.ref, '/main')
         run: |
