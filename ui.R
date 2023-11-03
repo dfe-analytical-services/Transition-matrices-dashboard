@@ -56,8 +56,7 @@
 
 
 ui <- function(input, output, session) {
-  fluidPage(
-    # use_tota11y(),
+  page(
     title = tags$head(
       tags$link(
         rel = "shortcut icon",
@@ -68,7 +67,6 @@ ui <- function(input, output, session) {
     tags$html(lang = "en"),
     shinyjs::useShinyjs(),
     customDisconnectMessage(),
-    useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -88,6 +86,7 @@ ui <- function(input, output, session) {
         rating = "General",
         referrer = "no-referrer"
       ),
+    shinyGovstyle::cookieBanner("DfE Key Stage 4 Transition Matrices"),
     shinyGovstyle::header(
       main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
@@ -100,14 +99,7 @@ ui <- function(input, output, session) {
       "beta banner",
       "beta",
       paste0(
-        "<b>We're looking for volunteers! We've developed quite a few dashboards ",
-        "in the last 12 months and we'd really like to know what you think if them. ",
-        "If you're interested in helping us improve our products, please sign up ",
-        "using our <a href='https://forms.office.com/e/ZjNxf10uuN'>user-testing volunteer form</a>.</b><br>",
-        "This Dashboard is in beta phase and we are still reviewing performance and reliability. " # ,
-        #  "In case of slowdown or connection issues due to high demand, we have produced two instances of this site which can be accessed at the following links: "#,
-        #  "<a href=", site_primary, " id='link_site_1'>Site 1</a> and ", ## check
-        # "<a href=", site_overflow, " id='link_site_2'>Site 2</a>." ##check
+        "This Dashboard is in beta phase and we are still reviewing performance and reliability. "
       )
     ),
     shiny::navlistPanel(

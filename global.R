@@ -23,6 +23,8 @@ shhh(library(plotly))
 shhh(library(DT))
 shhh(library(metathis))
 shhh(library(checkmate))
+shhh(library(bslib))
+
 
 
 # Functions ---------------------------------------------------------------------------------
@@ -53,13 +55,14 @@ site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
 ees_pub_name <- "Key stage 4 performance" # Update this with your parent publication name (e.g. the EES publication)
 ees_publication <- "https://explore-education-statistics.service.gov.uk/find-statistics/key-stage-4-performance-revised" # Update with parent publication link
+google_analytics_key <- "P760F61KNW"
 
 # -----------------------------------------------------------------------------------------------------------------------------
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
 download_GCSE_Subjects_data <- read.csv("data/2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_Combined_Science_data <- read.csv("data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" , stringsAsFactors = FALSE)
+download_Combined_Science_data <- read.csv("data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 download_attainment_data <- read.csv("data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
 
@@ -75,15 +78,9 @@ subject_dropdown <- download_GCSE_Subjects_data %>%
   add_row(subjects = "Combined Science") %>%
   arrange(subjects)
 
-
-
 characteristic_dropdown <- download_GCSE_Subjects_data %>%
   select(characteristic_type) %>%
   distinct()
-
-#LA_dropdown <- download_GCSE_Subjects_data %>%
- # select(LA_name) %>%
-  #distinct()
 
 
 num_perc_dropdown <- list(
@@ -96,15 +93,6 @@ attainment_dropdown <- c(
   "EBacc Entry", "EBacc Achievement 9-4", "EBacc Achievement 9-5",
   "English & Mathematics Achievement 9-4", "English & Mathematics Achievement 9-5"
 )
-
-
-
-
-
-# KS2_dropdown <- c('Less than 80', '80 - 89.5', '90 - 95.5', '96 - 99.5',
-# '100 - 102', '102.5 - 104.5', '105 - 107', '107.5 - 109.5',
-# '110 - 112', '112.5 - 114.5', '115 - 117', '117.5 - 120')
-
 
 KS2_dropdown_attainment <- download_attainment_data %>%
   select(KS2_Prior) %>%
@@ -137,7 +125,7 @@ subject_table <- function(subj, char, num_perc) {
   if (subj == "Combined Science") {
     table <- download_Combined_Science_data %>%
       filter(characteristic_type == char) %>%
-     # filter(LA_dropdown == LA_name) %>%
+      # filter(LA_dropdown == LA_name) %>%
       subject_col_selection(., num_perc)
   } else {
     table <- download_GCSE_Subjects_data %>%
@@ -150,8 +138,6 @@ subject_table <- function(subj, char, num_perc) {
 
   return(table)
 }
-
-# test <- subject_table('French', 'Male Pupils', 'Percent')
 
 
 # -----------------------------------------------------------------------------------------------------------------------------
@@ -205,6 +191,3 @@ attainment_table <- function(att, char) {
 
   return(table)
 }
-
-
-# test <- attainment_table('EBacc Achievement 9-4', 'Male Pupils')
