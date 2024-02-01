@@ -48,4 +48,3 @@ plotAvgRevBenchmark <- function(dfRevenueBalance, inputArea) {
       values = gss_colour_pallette
     )
 }
-

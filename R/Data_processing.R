@@ -43,7 +43,7 @@ pull_latest_data <- function() {
 
   # STEP 1
   # Import the exam data
-  SQL_Statement <- "SELECT 
+  SQL_Statement <- "SELECT
 exam.CANDNO
 ,WOLF_DISC_CODE
 ,exam.LAESTAB
@@ -62,28 +62,28 @@ AND NATRES = 1"
   Exam_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
 
   # Import the exam data
- # Exam_SQL_data <- tbl(SQL_con, ("KS4_exam_23_cohort_amended_v3"))%>% # Enter the name of your SQL database #update file name
-#    as.data.frame() %>%
+  # Exam_SQL_data <- tbl(SQL_con, ("KS4_exam_23_cohort_amended_v3"))%>% # Enter the name of your SQL database #update file name
+  #    as.data.frame() %>%
 
   # Create subject groupings based on wolf codes from the exam file
-#  Exam_SQL_data <- SQL_data %>%
-    # filter(
-    #   ptq_include == 1,
-    #   disc3B_ptq_ee == 0,
-    #   sublevno %in% c("310", "391", "395", "450", "451", "760", "954")
-    # ) %>%
-    # select(
-    #   CANDNO,
-    #   WOLF_DISC_CODE,
-    #   LAESTAB,
-    #   SUBLEVNO,
-    #   GRADE,
-    #   GNUMBER,
-    #   COVID_IMPACTED_FLAG
-    # ) %>%
-   
-  Exam_SQL_data <- Exam_SQL_data %>% 
-  mutate(subjects = case_when(
+  #  Exam_SQL_data <- SQL_data %>%
+  # filter(
+  #   ptq_include == 1,
+  #   disc3B_ptq_ee == 0,
+  #   sublevno %in% c("310", "391", "395", "450", "451", "760", "954")
+  # ) %>%
+  # select(
+  #   CANDNO,
+  #   WOLF_DISC_CODE,
+  #   LAESTAB,
+  #   SUBLEVNO,
+  #   GRADE,
+  #   GNUMBER,
+  #   COVID_IMPACTED_FLAG
+  # ) %>%
+
+  Exam_SQL_data <- Exam_SQL_data %>%
+    mutate(subjects = case_when(
       WOLF_DISC_CODE == "FK2B" ~ "English Language",
       WOLF_DISC_CODE == "FC4" ~ "English Literature",
       (WOLF_DISC_CODE == "RB1" | WOLF_DISC_CODE == "RB15" | WOLF_DISC_CODE == "RB1A" | WOLF_DISC_CODE == "RB1B" | WOLF_DISC_CODE == "RB31" | WOLF_DISC_CODE == "RB55" |
@@ -129,13 +129,13 @@ AND NATRES = 1"
       WOLF_DISC_CODE == "AK6" ~ "Accounting",
       TRUE ~ NA_character_
     )) %>%
-    mutate(GRADE = ifelse(COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")), "covid impacted", GRADE)) #%>%
-    #  mutate(GRADE = case_when(
-    #   COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")) ~"covid_impacted",
-    #  TRUE ~ NA_character_
-    # )) %>%
+    mutate(GRADE = ifelse(COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")), "covid impacted", GRADE)) # %>%
+  #  mutate(GRADE = case_when(
+  #   COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")) ~"covid_impacted",
+  #  TRUE ~ NA_character_
+  # )) %>%
 
-   # as.data.frame() # need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
+  # as.data.frame() # need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
 
 
 
@@ -161,24 +161,24 @@ AND NATRES = 1"
   # STEP 2 Define variables
 
   # Import the pupil data
-  SQL_Statement <- "SELECT 
+  SQL_Statement <- "SELECT
   pupil.CANDNO, pupil.URN, pupil.LAESTAB, pupil.NFTYPE, pupil.GENDER, pupil.LANG1ST, pupil.KS2EMSS, pupil.L2BASICS_94,
   pupil.L2BASICS_95, pupil.EBACC_94, pupil.EBACC_95, pupil.EBACC_E_PTQ_EE, pupil.ATT8, pupil.P8SCORE, pupil.FSM6CLA1A, pupil.SENF, LA_name
 
 FROM [ks4_restricted].[dbo].[KS4_pupil_23_result_amended_v1] pupil
 LEFT JOIN [ks4_restricted].[dbo].[KS4_tidy_data_pupil_23_result_amended_v1] tidydata
 ON pupil.laestab = tidydata.laestab and pupil.candno = tidydata.candno
-WHERE 
+WHERE
  pupil.ENDKS = 1
 AND pupil.NATRES = 1
 AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,50,51,52,53,55,57,58) and pupil.NORFLAGE<>3)"
-  
+
   Pupil_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
-  
+
   # Import the pupil data
   # Pupil_SQL_data <- tbl(SQL_con, ("KS4_pupil_23_cohort_amended_v3"))  %>% # Enter the name of your SQL database #update file name
-  # as.data.frame() 
-  # 
+  # as.data.frame()
+  #
   # Var_SQL_data <- Pupil_SQL_data %>%
   #   filter(
   #     endks == 1,
@@ -191,7 +191,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   #     L2BASICS_95, EBACC_94, EBACC_95, EBACC_E_PTQ_EE, ATT8, P8SCORE, FSM6CLA1A, SENF
   #   ) %>%
   #  as.data.frame() %>% # Handy to cast it as a dataframe so you can view what's happening by clicking on the table in your environment on the right
-  Pupil_SQL_data <- Pupil_SQL_data  %>% 
+  Pupil_SQL_data <- Pupil_SQL_data %>%
     mutate(Disadvantage = case_when(
       FSM6CLA1A == 0 ~ "Non Disadvantaged Pupils",
       FSM6CLA1A == 1 ~ "Disadvantaged Pupils",
@@ -315,7 +315,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   #####################################################################################
   func_counts_char <- function(data, char, char_name) {
     data %>%
-      count(GRADE, subjects, ks2em_band, ks2em,{{ char }}) %>%
+      count(GRADE, subjects, ks2em_band, ks2em, {{ char }}) %>%
       rename(characteristic_value = {{ char }}) %>%
       mutate(characteristic_type = char_name)
   }
@@ -391,8 +391,8 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       characteristic_type, # comment back for app use,
       characteristic_value, subjects, ks2em_band
     ) %>%
-    select(time_period, time_identifier, geographic_level, country_code, country_name, #LA_name,
-          version,
+    select(time_period, time_identifier, geographic_level, country_code, country_name, # LA_name,
+      version,
       characteristic_type, # comment back for app use,
       characteristic_value, subjects,
       KS2_Prior = ks2em,
@@ -414,7 +414,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   save_tidy_data_file_subjects <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
   write.table(tidy_data_subjects, save_tidy_data_file_subjects, row.names = FALSE, sep = ",")
-  
+
 
 
   #################################################################################################
@@ -430,23 +430,23 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
     filter(subjects == "Combined Science") %>%
     drop_na(ks2em)
 
-  
+
   func_counts_char <- function(data, char, char_name) {
     data %>%
       count(GRADE, subjects, ks2em_band, ks2em, {{ char }}) %>%
       rename(characteristic_value = {{ char }}) %>%
       mutate(characteristic_type = char_name)
   }
-  
+
   func_counts_all <- function(data) {
     data %>%
       count(GRADE, subjects, ks2em_band, ks2em) %>%
       mutate(characteristic_value = "All Pupils") %>%
       mutate(characteristic_type = "All Pupils")
   }
-  
- # a <- join_data_cs %>% filter(GRADE == 'covid impacted')
-  
+
+  # a <- join_data_cs %>% filter(GRADE == 'covid impacted')
+
 
   grade_counts_gender_cs <- func_counts_char(join_data_cs, Gender, "Gender")
   grade_counts_sen_cs <- func_counts_char(join_data_cs, SEN, "SEN")
@@ -458,16 +458,16 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
     grade_counts_gender_cs, grade_counts_sen_cs, grade_counts_eal_cs,
     grade_counts_disadvantage_cs, grade_counts_all_cs
   ) %>%
-   select(-subjects) 
+    select(-subjects)
 
 
   # creates the separate grade columns
   grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade columns
-    pivot_wider(names_from = GRADE, values_from = n) #%>%
-    #rename("covid_impacted" = "covid impacted") #REMOVED
+    pivot_wider(names_from = GRADE, values_from = n) # %>%
+  # rename("covid_impacted" = "covid impacted") #REMOVED
 
-   #select(-Q)
-   
+  # select(-Q)
+
 
 
   # calcs
@@ -497,17 +497,17 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       "perc_98" = "98",
       "perc_99" = "99",
       "perc_XX" = "X"
-     # "per_covid_impacted_double" = "covid_impacted"
+      # "per_covid_impacted_double" = "covid_impacted"
     )
 
   ## CS output
-    tidy_data_cs <- grade_counts_spread_cs %>%
+  tidy_data_cs <- grade_counts_spread_cs %>%
     left_join(grade_percentages_spread_cs, by = c(
       "ks2em", "ks2em_band",
       "characteristic_type", # comment back for app use,
       "characteristic_value"
     )) %>%
-      #,"LA_name"
+    # ,"LA_name"
     mutate(
       time_period = "202223",
       time_identifier = "Academic year",
@@ -515,8 +515,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       country_code = "E92000001",
       country_name = "England",
       version = "Revised",
-      all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X"
-                                 )], na.rm = TRUE)
+      all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE)
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -557,12 +556,12 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
   # STEP 6 Tidy Data for Attainment
 
-  join_data_attainment <- Pupil_SQL_data %>% #check ok
+  join_data_attainment <- Pupil_SQL_data %>% # check ok
     left_join(Exam_short,
       by = c("CANDNO", "LAESTAB")
     ) %>%
     drop_na(ks2em)
-  
+
 
   ## function for calculating attainment columns for specified characteristic,
   ## the slice makes sure only one entry per pupil is selected

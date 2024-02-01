@@ -159,12 +159,11 @@ dashboard_panel <- function() {
                             label = "4. Select one KS2 scaled score group:",
                             choices = ""
                           )),
-                       #   column(6, selectInput(
-                        #    inputId = "LA_dropdown",
-                         #   label = "5. LA name:",
+                          #   column(6, selectInput(
+                          #    inputId = "LA_dropdown",
+                          #   label = "5. LA name:",
                           #  choices= LA_dropdown$LA_name
-                        #  )),
-                          
+                          #  )),
                         ),
                       )
                     ),
@@ -325,4 +324,3 @@ dashboard_panel <- function() {
     )
   )
 }
-
