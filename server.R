@@ -45,9 +45,7 @@ server <- function(input, output, session) {
   observe({
     updateSelectInput(session, "KS2_dropdown_attainment_subject",
       choices = KS2_prior_subj()
-      
     )
-    
   })
 
 

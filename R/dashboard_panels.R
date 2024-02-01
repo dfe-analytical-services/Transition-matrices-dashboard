@@ -125,7 +125,7 @@ dashboard_panel <- function() {
                    All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
-                    tags$b("UPDATE: 19th October 2023 - The KS4 Transition Matrices have been updated with 2023 provisional data, in line with the revised KS4 performance release."),
+                    tags$b("UPDATE: 1st February 2024 - The KS4 Transition Matrices have been updated with 2023 revised data, in line with the revised KS4 performance release."),
                     column(
                       width = 12,
                       div(
@@ -159,12 +159,11 @@ dashboard_panel <- function() {
                             label = "4. Select one KS2 scaled score group:",
                             choices = ""
                           )),
-                       #   column(6, selectInput(
-                        #    inputId = "LA_dropdown",
-                         #   label = "5. LA name:",
+                          #   column(6, selectInput(
+                          #    inputId = "LA_dropdown",
+                          #   label = "5. LA name:",
                           #  choices= LA_dropdown$LA_name
-                        #  )),
-                          
+                          #  )),
                         ),
                       )
                     ),
@@ -325,4 +324,3 @@ dashboard_panel <- function() {
     )
   )
 }
-
