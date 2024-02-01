@@ -2,20 +2,15 @@
 
 
 # These are the packages needed for this code, you may already have these installed but run this section if not
-install.packages("dplyr")
-install.packages("odbc")
-install.packages("DBI")
-install.packages("janitor")
-install.packages("tidyverse")
-install.packages("purrr")
+shhh(library(dplyr))
+shhh(library(odbc))
+shhh(library(DBI))
+shhh(library(janitor))
+shhh(library(tidyverse))
+shhh(library(purrr))
 
 pull_latest_data <- function() {
   # Load libraries==from here
-  library(dplyr)
-  library(odbc)
-  library(DBI)
-  library(janitor)
-  library(tidyverse)
 
 
   # round function
@@ -795,8 +790,6 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # copying data to an Excel file
-  # save_tidy_data_file_attainment = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-  # save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-  save_tidy_data_file_attainment <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # # update year
+  save_tidy_data_file_attainment <- "data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
 }

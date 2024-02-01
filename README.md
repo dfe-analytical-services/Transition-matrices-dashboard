@@ -56,6 +56,12 @@ You should list out the software and programming skills needed, as well as any a
 
 You should clearly lay out the steps needed to run your code here - generally, they will be similar to the below for Shiny apps:
 
+### Data updates
+
+#### Pre-update tasks
+
+Around 3-7 days prior to a data update, create a new branch from main and run `renv::update()`. Then add/commit/push and create PR of that branch into main and merge in. This will make the deploy for the data update run much faster on publication day.
+
 
 ### Running the app locally
 
