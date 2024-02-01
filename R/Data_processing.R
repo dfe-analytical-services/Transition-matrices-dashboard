@@ -2,12 +2,12 @@
 
 
 # These are the packages needed for this code, you may already have these installed but run this section if not
-# install.packages("dplyr")
-# install.packages("odbc")
-# install.packages("DBI")
-# install.packages("janitor")
-# install.packages("tidyverse")
-# install.packages("purrr")
+install.packages("dplyr")
+install.packages("odbc")
+install.packages("DBI")
+install.packages("janitor")
+install.packages("tidyverse")
+install.packages("purrr")
 
 pull_latest_data <- function() {
   # Load libraries==from here
@@ -51,8 +51,8 @@ exam.CANDNO
 ,GRADE
 ,GNUMBER
 ,COVID_IMPACTED_FLAG
-FROM [ks4_restricted].[dbo].[ks4_exam_23_cohort_amended_v3] exam
-LEFT JOIN [ks4_restricted].[dbo].[ks4_pupil_23_cohort_amended_v3] pupil
+FROM [ks4_restricted].[dbo].[ks4_exam_23_result_amended_v1] exam
+LEFT JOIN [ks4_restricted].[dbo].[ks4_pupil_23_result_amended_v1] pupil
 ON exam.laestab = pupil.laestab and exam.candno = pupil.candno
 WHERE PTQ_INCLUDE = 1
 AND disc3B_ptq_ee = 0
@@ -165,8 +165,8 @@ AND NATRES = 1"
   pupil.CANDNO, pupil.URN, pupil.LAESTAB, pupil.NFTYPE, pupil.GENDER, pupil.LANG1ST, pupil.KS2EMSS, pupil.L2BASICS_94,
   pupil.L2BASICS_95, pupil.EBACC_94, pupil.EBACC_95, pupil.EBACC_E_PTQ_EE, pupil.ATT8, pupil.P8SCORE, pupil.FSM6CLA1A, pupil.SENF, LA_name
 
-FROM [ks4_restricted].[dbo].[KS4_pupil_23_cohort_amended_v3] pupil
-LEFT JOIN [ks4_restricted].[dbo].[KS4_tidy_data_pupil_22_amended_v2] tidydata
+FROM [ks4_restricted].[dbo].[KS4_pupil_23_result_amended_v1] pupil
+LEFT JOIN [ks4_restricted].[dbo].[KS4_tidy_data_pupil_23_result_amended_v1] tidydata
 ON pupil.laestab = tidydata.laestab and pupil.candno = tidydata.candno
 WHERE 
  pupil.ENDKS = 1
@@ -384,7 +384,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional",
+      version = "Revised",
       all_grades = rowSums(.[, c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid_impacted")], na.rm = TRUE)
     ) %>%
     arrange(
@@ -412,7 +412,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   # copying data to an Excel file
   # save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
-  save_tidy_data_file_subjects <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/Transition-matrices-dashboard/t2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_subjects <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
   write.table(tidy_data_subjects, save_tidy_data_file_subjects, row.names = FALSE, sep = ",")
   
 
@@ -460,12 +460,14 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   ) %>%
    select(-subjects) 
 
+
   # creates the separate grade columns
   grade_counts_spread_cs <- grade_counts_comb_cs %>% # creates the separate grade columns
-    pivot_wider(names_from = GRADE, values_from = n) %>%
+    pivot_wider(names_from = GRADE, values_from = n) #%>%
     #rename("covid_impacted" = "covid impacted") #REMOVED
 
-   select(-Q)
+   #select(-Q)
+   
 
 
   # calcs
@@ -512,7 +514,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional",
+      version = "Revised",
       all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X"
                                  )], na.rm = TRUE)
     ) %>%
@@ -543,7 +545,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
   # copying data to an Excel file
   # save_tidy_data_file_cs = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv'
-  save_tidy_data_file_cs <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_cs <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
   write.table(tidy_data_cs, save_tidy_data_file_cs, row.names = FALSE, sep = ",")
 
 
@@ -764,7 +766,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional"
+      version = "Revised"
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -796,6 +798,6 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   # copying data to an Excel file
   # save_tidy_data_file_attainment = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
   # save_tidy_data_file_attainment = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv'
-  save_tidy_data_file_attainment <- "C:/Users/tabdulla/OneDrive - Department for Education/ONE DRIVE/Transition-matrices-dashboard/2023_Tidy_Data_Output_91_Attainment_Scaled_Scores_Final.csv" # # update year
+  save_tidy_data_file_attainment <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
 }
