@@ -10,8 +10,6 @@
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
 shhh(library(ggplot2))
-shhh(library(shinydashboard))
-shhh(library(shinyWidgets))
 shhh(library(shiny))
 shhh(library(shinyjs))
 shhh(library(tools))
@@ -23,6 +21,7 @@ shhh(library(plotly))
 shhh(library(DT))
 shhh(library(metathis))
 shhh(library(checkmate))
+shhh(library(dfeshiny))
 
 
 # Functions ---------------------------------------------------------------------------------
