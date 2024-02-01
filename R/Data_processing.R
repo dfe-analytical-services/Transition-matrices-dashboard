@@ -2,20 +2,15 @@
 
 
 # These are the packages needed for this code, you may already have these installed but run this section if not
-install.packages("dplyr")
-install.packages("odbc")
-install.packages("DBI")
-install.packages("janitor")
-install.packages("tidyverse")
-install.packages("purrr")
+library(dplyr)
+library(odbc)
+library(DBI)
+library(janitor)
+library(tidyverse)
+library(purrr)
 
 pull_latest_data <- function() {
   # Load libraries==from here
-  library(dplyr)
-  library(odbc)
-  library(DBI)
-  library(janitor)
-  library(tidyverse)
 
 
   # round function
