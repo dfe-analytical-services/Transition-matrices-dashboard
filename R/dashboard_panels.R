@@ -125,98 +125,49 @@ dashboard_panel <- function() {
                    All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
-                    tags$b("UPDATE: 1st February 2024 - The KS4 Transition Matrices have been updated with 2023 revised data, in line with the revised KS4 performance release."),
-                    column(
-                      width = 12,
-                      div(
-                        class = "well",
-                        style = "min-height: 100%; height: 100%; overflow-y: visible",
-                        fluidRow(
-
-
-
-                          # h3("Select one option from all categories to explore data:"),
-                          column(
-                            6,
-                            selectInput(
-                              inputId = "num_perc_select",
-                              label = "1. Select one format:", # for both the chart and table(s)
-                              choices = num_perc_dropdown
-                            )
-                          ),
-                          column(6, selectInput(
-                            inputId = "characteristic_select",
-                            label = "2. Select one pupil characteristics:",
-                            choices = characteristic_dropdown$characteristic_type
-                          )),
-                          column(6, selectInput(
-                            inputId = "subjects_select",
-                            label = "3. Select one GCSE Subject:",
-                            choices = subject_dropdown$subject
-                          )),
-                          column(6, selectInput(
-                            inputId = "KS2_dropdown_attainment_subject",
-                            label = "4. Select one KS2 scaled score group:",
-                            choices = ""
-                          )),
-                          #   column(6, selectInput(
-                          #    inputId = "LA_dropdown",
-                          #   label = "5. LA name:",
-                          #  choices= LA_dropdown$LA_name
-                          #  )),
+                    tags$b("UPDATE: 1st February 2024 - The KS4 Transition Matrices have been updated with 2023 revised data, in line with the revised KS4 performance release.")
+                  ),
+                  column(
+                    width = 12,
+                    div(
+                      class = "well",
+                      style = "min-height: 100%; height: 100%; overflow-y: visible",
+                      fluidRow(
+                        column(
+                          6,
+                          selectInput(
+                            inputId = "num_perc_select",
+                            label = "1. Select one format:", # for both the chart and table(s)
+                            choices = num_perc_dropdown
+                          )
                         ),
-                      )
-                    ),
-                    column(
-                      width = 12,
-                      box(
-                        width = 12,
-                        htmlOutput("subjects_chart_title"),
-                        plotlyOutput("subjects_chart")
+                        column(6, selectInput(
+                          inputId = "characteristic_select",
+                          label = "2. Select one pupil characteristics:",
+                          choices = characteristic_dropdown$characteristic_type
+                        )),
+                        column(6, selectInput(
+                          inputId = "subjects_select",
+                          label = "3. Select one GCSE Subject:",
+                          choices = subject_dropdown$subject
+                        )),
+                        column(6, selectInput(
+                          inputId = "KS2_dropdown_attainment_subject",
+                          label = "4. Select one KS2 scaled score group:",
+                          choices = ""
+                        )),
                       ),
-                      column(
-                        12,
-                        uiOutput("number_table")
-                      ),
-                      # column(
-                      #  12,
-                      # br(),
-                      # tags$b("All underlying data can be found here:"),
-                      # br(),
-                      # downloadButton("GCSE_Subjects_data_download", label = "Download (KS4 GCSE subjects)"),
-                      #  ),
-                      # br(),
-                      #  br(),
-                      # br(),
-                      # column(
-                      # 12,
-                      # downloadButton("Combined_Science_data_download", label = "Download (KS4 GCSE Combined Science)"),
-                      # ),
-
-                      # column(10,
-                      #       #tags$b("KS2-KS4 Transistion Matrices: KS4 measures 2023"),
-                      #      downloadButton("Combined_Science_data_download"),
                     )
+                  ),
+                  column(
+                    width = 12,
+                    htmlOutput("subjects_chart_title"),
+                    plotlyOutput("subjects_chart"),
+                    uiOutput("number_table")
                   )
                 )
               )
             ),
-
-
-
-
-            # fluidRow(
-            #  column(
-            #   width=12,
-            # h2("Outputs 1"),
-            # valueBoxOutput("boxavgRevBal", width = 6),
-            # valueBoxOutput("boxpcRevBal", width = 6),
-            # box(
-            # width=12,
-            # plotlyOutput("lineRevBal")))
-            # )
-            # ),
-
 
             ####### KS4 HEADLINE MEASURES tab#######
 
@@ -233,14 +184,6 @@ dashboard_panel <- function() {
             Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices KS4 measures."),
 
-
-                    #
-                    #     column(
-                    #      width=12,
-                    #    box(
-                    #     width=12,
-                    #    plotlyOutput("colBenchmark2")
-                    # )
                     # ),## continue here check above
                     column(
                       width = 12,
@@ -277,23 +220,20 @@ dashboard_panel <- function() {
                     ),
                     column(
                       width = 12,
-                      box(
-                        width = 12,
-                        htmlOutput("attainment_chart_title"),
-                        # p("Key stage 2 to Key stage 4 pupil progress in KS4 measures", style = "font-size:20px;"),
-                        conditionalPanel(
-                          "input.num_perc == 'Number'",
-                          plotlyOutput("attainment_chart_num")
-                        ),
-                        conditionalPanel(
-                          "input.num_perc == 'Percentage'",
-                          plotlyOutput("attainment_chart_perc")
-                        ),
+                      htmlOutput("attainment_chart_title"),
+                      # p("Key stage 2 to Key stage 4 pupil progress in KS4 measures", style = "font-size:20px;"),
+                      conditionalPanel(
+                        "input.num_perc == 'Number'",
+                        plotlyOutput("attainment_chart_num")
                       ),
-                      column(
-                        12,
-                        uiOutput("attainment_table"),
-                      )
+                      conditionalPanel(
+                        "input.num_perc == 'Percentage'",
+                        plotlyOutput("attainment_chart_perc")
+                      ),
+                    ),
+                    column(
+                      12,
+                      uiOutput("attainment_table"),
                     )
                   ),
                   #  br(),

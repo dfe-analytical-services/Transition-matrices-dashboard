@@ -68,7 +68,6 @@ ui <- function(input, output, session) {
     tags$html(lang = "en"),
     shinyjs::useShinyjs(),
     customDisconnectMessage(),
-    useShinydashboard(),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -88,6 +87,8 @@ ui <- function(input, output, session) {
         rating = "General",
         referrer = "no-referrer"
       ),
+    dfe_cookie_script(),
+    cookie_banner_ui("cookies", name = "Key Stage 4 Transition Matrices"),
     shinyGovstyle::header(
       main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
@@ -118,7 +119,12 @@ ui <- function(input, output, session) {
       homepage_panel(),
       dashboard_panel(),
       a11y_panel(),
-      support_links()
+      dfeshiny::support_panel(
+        team_email = "attainment.statistics@education.gov.uk",
+        repo_name = "https://github.com/dfe-analytical-services/Transition-matrices-dashboard",
+        publication_name = ees_pub_name,
+        publication_slug = "key-stage-4-performance-revised"
+      )
     ),
     footer(full = TRUE)
   )

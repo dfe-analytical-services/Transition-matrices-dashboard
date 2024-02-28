@@ -70,7 +70,7 @@ jobs:
       - name: Run tests
         shell: Rscript {0}
         run: |
-          shiny::runTests(".", assert = TRUE)
+          shinytest2::test_app()
       - name: Upload test results
         if: failure()
         uses: actions/upload-artifact@master
