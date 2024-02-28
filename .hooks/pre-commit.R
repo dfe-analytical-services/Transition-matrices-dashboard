@@ -69,7 +69,7 @@ if (error_flag) {
   quit(save = "no", status = 1, runLast = FALSE)
 }
 
-tidy_output <- tidy_code()
+tidy_output <- dfeshiny::tidy_code()
 if(any(tidy_output)){
   error_flag <- TRUE
 }

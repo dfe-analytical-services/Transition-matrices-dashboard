@@ -33,22 +33,6 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(purrr))
 
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("R scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("R/", filetype = "r")$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, test_scripts)
-  return(script_changes)
-}
-
-
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
