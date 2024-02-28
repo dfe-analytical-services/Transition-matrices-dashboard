@@ -18,16 +18,21 @@ test_that("{shinytest2} recording: Transition-matrices-dashboard", {
     name = "Transition-matrices-dashboard",
     height = 1072, width = 1176
   )
+  # Test 1 - accept cookies and switch to dashboard page
   app$click("cookies-cookie_accept")
   app$set_inputs(navlistPanel = "dashboard")
   app$expect_values(input = inputs, output = outputs)
+  # Test 2 - select percentage of pupils as metric
   app$set_inputs(num_perc_select = "Percentage of pupils")
   app$expect_values(input = inputs, output = outputs)
+  # Test 3 - select Chemistry as subject
   app$set_inputs(subjects_select = "Chemistry")
   app$expect_values(input = inputs, output = outputs)
+  # Test 4 - select attainment range
   app$set_inputs(KS2_dropdown_attainment_subject = "102.5 - 104.5")
   app$expect_values(input = inputs, output = outputs)
-  app$set_inputs(characteristic_select = "EAL")
+  # Test 4 - select a characteristic
+  app$set_inputs(characteristic_select = "EAL", KS2_dropdown_attainment_subject = "Less than 80")
   app$expect_values(input = inputs, output = outputs)
   app$set_inputs(tabsetpanels = "Pupil progress in KS4 measures")
   app$expect_values(input = inputs, output = outputs)
