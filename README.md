@@ -84,7 +84,7 @@ UI tests have been created using shinytest that test the app loads, that content
 
 GitHub Actions provide CI by running the automated tests and checks for code styling. The yaml files for these workflows can be found in the .github/workflows folder.
 
-The function run_tests_locally() is created in the Rprofile script and is available in the RStudio console at all times to run both the unit and ui tests.
+The tests can be run locally within RStudio by running the command `shinytest2::test_app()`.
 
 ### Deployment
 
@@ -96,8 +96,7 @@ In general all .r files will have a usable outline, so make use of that for navi
 
 ### Code styling 
 
-The function tidy_code() is created in the Rprofile script and therefore is always available in the RStudio console to tidy code according to tidyverse styling using the styler package. This function also helps to test the running of the code and for basic syntax errors such as missing commas and brackets.
-
+The function `dfeshiny::tidy_code()` can be used from the RStudio console to tidy code according to tidyverse styling using the styler package. This function also helps to test the running of the code and for basic syntax errors such as missing commas and brackets.
 
 ---
 

@@ -22,6 +22,14 @@ server <- function(input, output, session) {
   # ---- Reactive KS2 attainment level from subject, numperc, and characteristic drop-down selections ----
   # -----------------------------------------------------------------------------------------------------------------------------
 
+  output$cookie_status <- dfeshiny::cookie_banner_server(
+    "cookies",
+    input_cookies = reactive(input$cookies),
+    input_clear = reactive(input$cookie_consent_clear),
+    parent_session = session,
+    google_analytics_key = google_analytics_key
+  )
+
   KS2_prior_subj <- reactive({
     if (input$subjects_select == "Combined Science") {
       download_Combined_Science_data %>%

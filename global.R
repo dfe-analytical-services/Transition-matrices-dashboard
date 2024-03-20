@@ -10,19 +10,20 @@
 # Library calls ---------------------------------------------------------------------------------
 shhh <- suppressPackageStartupMessages # It's a library, so shhh!
 shhh(library(ggplot2))
-shhh(library(shinydashboard))
-shhh(library(shinyWidgets))
 shhh(library(shiny))
 shhh(library(shinyjs))
 shhh(library(tools))
 shhh(library(testthat))
-shhh(library(shinytest))
+shhh(library(shinytest2))
+shhh(library(diffviewer))
+shhh(library(shinyvalidate))
 shhh(library(shinyGovstyle))
 shhh(library(dplyr))
 shhh(library(plotly))
 shhh(library(DT))
 shhh(library(metathis))
 shhh(library(checkmate))
+shhh(library(dfeshiny))
 
 
 # Functions ---------------------------------------------------------------------------------
@@ -32,27 +33,13 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(purrr))
 
-tidy_code_function <- function() {
-  message("----------------------------------------")
-  message("App scripts")
-  message("----------------------------------------")
-  app_scripts <- eval(styler::style_dir(recursive = FALSE)$changed)
-  message("R scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("R/", filetype = "r")$changed)
-  message("Test scripts")
-  message("----------------------------------------")
-  test_scripts <- eval(styler::style_dir("tests/", filetype = "r")$changed)
-  script_changes <- c(app_scripts, test_scripts)
-  return(script_changes)
-}
-
-
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
 ees_pub_name <- "Key stage 4 performance" # Update this with your parent publication name (e.g. the EES publication)
 ees_publication <- "https://explore-education-statistics.service.gov.uk/find-statistics/key-stage-4-performance-revised" # Update with parent publication link
+google_analytics_key <- "P760F61KNW"
+
 
 # -----------------------------------------------------------------------------------------------------------------------------
 # ---- Reading in the data ----
