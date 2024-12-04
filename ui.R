@@ -63,11 +63,16 @@ ui <- function(input, output, session) {
         rel = "shortcut icon",
         href = "dfefavicon.png"
       ),
-      tags$title("KS4 Transition Matrices")
+      tags$title(site_title)
     ),
     tags$html(lang = "en"),
     shinyjs::useShinyjs(),
-    customDisconnectMessage(),
+    dfeshiny::custom_disconnect_message(
+      dashboard_title = site_title,
+      links = site_primary,
+      publication_name = ees_pub_name,
+      publication_link = ees_publication,
+    ),
     tags$head(includeHTML(("google-analytics.html"))),
     tags$head(
       tags$link(
@@ -87,8 +92,8 @@ ui <- function(input, output, session) {
         rating = "General",
         referrer = "no-referrer"
       ),
-    dfe_cookie_script(),
-    cookie_banner_ui("cookies", name = "Key Stage 4 Transition Matrices"),
+    dfe_cookies_script(),
+    cookies_banner_ui(name = site_title),
     shinyGovstyle::header(
       main_text = "",
       main_link = "https://www.gov.uk/government/organisations/department-for-education",
@@ -118,13 +123,23 @@ ui <- function(input, output, session) {
       well = FALSE,
       homepage_panel(),
       dashboard_panel(),
-      a11y_panel(),
-      dfeshiny::support_panel(
-        team_email = "attainment.statistics@education.gov.uk",
-        repo_name = "https://github.com/dfe-analytical-services/Transition-matrices-dashboard",
-        publication_name = ees_pub_name,
-        publication_slug = "key-stage-4-performance-revised"
-      )
+      tabPanel(
+        value = "support_panel",
+        "Support and feedback",
+        gov_main_layout(
+          gov_row(
+            column(
+              dfeshiny::support_panel(
+                team_email = "attainment.statistics@education.gov.uk",
+                repo_name = "https://github.com/dfe-analytical-services/Transition-matrices-dashboard",
+                publication_name = ees_pub_name,
+                publication_slug = "key-stage-4-performance-revised"
+              )
+            )
+          )
+        )
+      ),
+      a11y_panel()
     ),
     footer(full = TRUE)
   )
