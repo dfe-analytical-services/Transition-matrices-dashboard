@@ -129,6 +129,7 @@ ui <- function(input, output, session) {
         gov_main_layout(
           gov_row(
             column(
+              12,
               dfeshiny::support_panel(
                 team_email = "attainment.statistics@education.gov.uk",
                 repo_name = "https://github.com/dfe-analytical-services/Transition-matrices-dashboard",
