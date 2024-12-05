@@ -2,24 +2,24 @@ library(shinytest2)
 
 inputs <- c(
   "KS2_att_select", "KS2_dropdown_attainment_subject", "attainment_select",
-  "characteristic_att_select", "characteristic_select", "cookies-cookie_accept",
-  "cookies-cookie_reject", "navlistPanel", "num_perc", "num_perc_select",
+  "characteristic_att_select", "characteristic_select",
+  "navlistPanel", "num_perc", "num_perc_select",
   "subjects_select", "tabsetpanels"
 )
 
 outputs <- c(
   "attainment_chart_num", "attainment_chart_perc", "attainment_chart_title",
-  "cookie_status", "subjects_chart",
+  "subjects_chart",
   "subjects_chart_title"
 )
 
 test_that("{shinytest2} recording: Transition-matrices-dashboard", {
   app <- AppDriver$new(
     name = "Transition-matrices-dashboard",
-    height = 1072, width = 1176
+    height = 1072, width = 1176,
+    load_timeout = 96000
   )
-  # Test 1 - accept cookies and switch to dashboard page
-  app$click("cookies-cookie_accept")
+  # Test 1 -switch to dashboard page
   app$set_inputs(navlistPanel = "dashboard")
   app$expect_values(input = inputs, output = outputs)
   # Test 2 - select percentage of pupils as metric

@@ -33,6 +33,7 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(purrr))
 
+site_title <- "KS4 Transition Matrices"
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
@@ -45,9 +46,9 @@ google_analytics_key <- "P760F61KNW"
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-download_GCSE_Subjects_data <- read.csv("data/2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_Combined_Science_data <- read.csv("data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_attainment_data <- read.csv("data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_GCSE_Subjects_data <- read.csv("data/2024_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_Combined_Science_data <- read.csv("data/2024_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
+download_attainment_data <- read.csv("data/2024_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
 
 
 

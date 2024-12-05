@@ -25,6 +25,7 @@ pull_latest_data <- function() {
 
 
 
+
   # Connect to the SQL server
   SQL_con <- dbConnect(odbc(),
     Driver = "SQL Server",
@@ -46,8 +47,8 @@ exam.CANDNO
 ,GRADE
 ,GNUMBER
 ,COVID_IMPACTED_FLAG
-FROM [ks4_restricted].[dbo].[ks4_exam_23_result_amended_v1] exam
-LEFT JOIN [ks4_restricted].[dbo].[ks4_pupil_23_result_amended_v1] pupil
+FROM [ks4_restricted].[dbo].[ks4_exam_24_cohort_amended_v2] exam
+LEFT JOIN [ks4_restricted].[dbo].[ks4_pupil_24_cohort_amended_v2] pupil
 ON exam.laestab = pupil.laestab and exam.candno = pupil.candno
 WHERE PTQ_INCLUDE = 1
 AND disc3B_ptq_ee = 0
@@ -157,16 +158,16 @@ AND NATRES = 1"
 
   # Import the pupil data
   SQL_Statement <- "SELECT
-  pupil.CANDNO, pupil.URN, pupil.LAESTAB, pupil.NFTYPE, pupil.GENDER, pupil.LANG1ST, pupil.KS2EMSS, pupil.L2BASICS_94,
-  pupil.L2BASICS_95, pupil.EBACC_94, pupil.EBACC_95, pupil.EBACC_E_PTQ_EE, pupil.ATT8, pupil.P8SCORE, pupil.FSM6CLA1A, pupil.SENF, LA_name
+  CANDNO, URN, LAESTAB, NFTYPE, SEX, EAL, KS2EMSS, L2BASICS_94,
+  L2BASICS_95, EBACC_94, EBACC_95, EBACC_E_PTQ_EE, ATT8, P8SCORE, disadvantage, sen_description, LA_name
 
-FROM [ks4_restricted].[dbo].[KS4_pupil_23_result_amended_v1] pupil
-LEFT JOIN [ks4_restricted].[dbo].[KS4_tidy_data_pupil_23_result_amended_v1] tidydata
-ON pupil.laestab = tidydata.laestab and pupil.candno = tidydata.candno
+FROM [ks4_restricted].[dbo].[KS4_tidy_data_pupil_24_cohort_amended_v2]
 WHERE
- pupil.ENDKS = 1
-AND pupil.NATRES = 1
-AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,50,51,52,53,55,57,58) and pupil.NORFLAGE<>3)"
+ ENDKS = 1
+ AND natmtdres = 1
+AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
+
+
 
   Pupil_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
 
@@ -182,28 +183,31 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   #       norflage != 3)
   #   ) %>% # you can use norflage !=3 instead here :)
   #   select(
-  #     CANDNO, URN, LAESTAB, NFTYPE, GENDER, LANG1ST, KS2EMSS, L2BASICS_94,
+  #     CANDNO, URN, LAESTAB, NFTYPE, Sex, LANG1ST, KS2EMSS, L2BASICS_94,
   #     L2BASICS_95, EBACC_94, EBACC_95, EBACC_E_PTQ_EE, ATT8, P8SCORE, FSM6CLA1A, SENF
   #   ) %>%
   #  as.data.frame() %>% # Handy to cast it as a dataframe so you can view what's happening by clicking on the table in your environment on the right
+
   Pupil_SQL_data <- Pupil_SQL_data %>%
     mutate(Disadvantage = case_when(
-      FSM6CLA1A == 0 ~ "Non Disadvantaged Pupils",
-      FSM6CLA1A == 1 ~ "Disadvantaged Pupils",
+      disadvantage == "Disadvantaged all other" ~ "Non Disadvantaged Pupils",
+      disadvantage == "Disadvantaged" ~ "Disadvantaged Pupils",
       TRUE ~ NA_character_
     )) %>%
-    mutate(Gender = case_when(
-      GENDER == "F" ~ "Female Pupils",
-      GENDER == "M" ~ "Male Pupils",
+    mutate(Sex = case_when(
+      SEX == "Girls" ~ "Female Pupils",
+      SEX == "Boys" ~ "Male Pupils",
       TRUE ~ NA_character_
     )) %>%
     mutate(SEN = case_when(
-      SENF %in% c("S", "E", "A", "P", "K") ~ "SEN Pupils",
-      TRUE ~ "Non SEN Pupils"
+      sen_description == "Any SEN" ~ "SEN Pupils",
+      sen_description == "No identified SEN" ~ "Non SEN Pupils",
+      TRUE ~ NA_character_
     )) %>%
     mutate(EAL = case_when(
-      LANG1ST %in% c("OTB", "OTH") ~ "EAL Pupils", #
-      TRUE ~ "Non EAL Pupils"
+      EAL == "Other than English" ~ "EAL Pupils", #
+      EAL == "English" ~ "Non EAL Pupils",
+      TRUE ~ NA_character_
     )) %>%
     mutate(ks2em = case_when(
       KS2EMSS >= 59 & KS2EMSS < 80 ~ "Less than 80",
@@ -236,34 +240,34 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
 
-  # CHECKS
-  Var_SQL_data %>%
-    count(LANG1ST) %>%
-    arrange(LANG1ST)
-
-  Pupil_SQL_data %>%
-    count(Disadvantage) %>%
-    arrange(Disadvantage)
-
-  Pupil_SQL_data %>%
-    count(EAL) %>%
-    arrange(EAL)
-
-  Pupil_SQL_data %>%
-    count(SEN) %>%
-    arrange(SEN)
-
-  Pupil_SQL_data %>%
-    count(Gender) %>%
-    arrange(Gender)
-
-  Pupil_SQL_data %>%
-    count(Gender, Disadvantage, EAL, SEN) %>%
-    group_by(ks2em)
-
-  Pupil_SQL_data %>%
-    group_by(ks2em) %>%
-    count(Gender, Disadvantage, EAL, SEN)
+  # # CHECKS
+  # Var_SQL_data %>%
+  #   count(LANG1ST) %>%
+  #   arrange(LANG1ST)
+  #
+  # Pupil_SQL_data %>%
+  #   count(Disadvantage) %>%
+  #   arrange(Disadvantage)
+  #
+  # Pupil_SQL_data %>%
+  #   count(EAL) %>%
+  #   arrange(EAL)
+  #
+  # Pupil_SQL_data %>%
+  #   count(SEN) %>%
+  #   arrange(SEN)
+  #
+  # Pupil_SQL_data %>%
+  #   count(Sex) %>%
+  #   arrange(Sex)
+  #
+  # Pupil_SQL_data %>%
+  #   count(Sex, Disadvantage, EAL, SEN) %>%
+  #   group_by(ks2em)
+  #
+  # Pupil_SQL_data %>%
+  #   group_by(ks2em) %>%
+  #   count(Sex, Disadvantage, EAL, SEN)
 
 
 
@@ -324,7 +328,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # This section counts the number of grades in each breakdown and All Pupils
-  grade_counts_gender <- func_counts_char(join_data, Gender, "Gender")
+  grade_counts_Sex <- func_counts_char(join_data, Sex, "Sex")
   grade_counts_sen <- func_counts_char(join_data, SEN, "SEN")
   grade_counts_eal <- func_counts_char(join_data, EAL, "EAL")
   grade_counts_disadvantage <- func_counts_char(join_data, Disadvantage, "Disadvantage")
@@ -333,7 +337,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
   # This combines the count dataframes
   grade_counts_comb <- rbind(
-    grade_counts_gender, grade_counts_sen, grade_counts_eal,
+    grade_counts_Sex, grade_counts_sen, grade_counts_eal,
     grade_counts_disadvantage, grade_counts_all
   )
 
@@ -374,12 +378,12 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
       "characteristic_value"
     )) %>%
     mutate(
-      time_period = 202223,
+      time_period = 202324,
       time_identifier = "Academic year",
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Revised",
+      version = "Provisional",
       all_grades = rowSums(.[, c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid_impacted")], na.rm = TRUE)
     ) %>%
     arrange(
@@ -407,7 +411,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   # copying data to an Excel file
   # save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
-  save_tidy_data_file_subjects <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_91_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_subjects <- "C:/Users/MPARMAR/OneDrive - Department for Education/Documents/2024_publication/R/TM/Transition-matrices-dashboard/data/2024_Tidy_Data_Output_91_Scaled_Scores_Final_v2.csv" # update year
   write.table(tidy_data_subjects, save_tidy_data_file_subjects, row.names = FALSE, sep = ",")
 
 
@@ -443,14 +447,14 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   # a <- join_data_cs %>% filter(GRADE == 'covid impacted')
 
 
-  grade_counts_gender_cs <- func_counts_char(join_data_cs, Gender, "Gender")
+  grade_counts_Sex_cs <- func_counts_char(join_data_cs, Sex, "Sex")
   grade_counts_sen_cs <- func_counts_char(join_data_cs, SEN, "SEN")
   grade_counts_eal_cs <- func_counts_char(join_data_cs, EAL, "EAL")
   grade_counts_disadvantage_cs <- func_counts_char(join_data_cs, Disadvantage, "Disadvantage")
   grade_counts_all_cs <- func_counts_all(join_data_cs)
 
   grade_counts_comb_cs <- rbind(
-    grade_counts_gender_cs, grade_counts_sen_cs, grade_counts_eal_cs,
+    grade_counts_Sex_cs, grade_counts_sen_cs, grade_counts_eal_cs,
     grade_counts_disadvantage_cs, grade_counts_all_cs
   ) %>%
     select(-subjects)
@@ -504,12 +508,12 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
     )) %>%
     # ,"LA_name"
     mutate(
-      time_period = "202223",
+      time_period = "202324",
       time_identifier = "Academic year",
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Revised",
+      version = "Provisional",
       all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE)
     ) %>%
     arrange(
@@ -539,7 +543,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
   # copying data to an Excel file
   # save_tidy_data_file_cs = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv'
-  save_tidy_data_file_cs <- "C:/Users/MPARMAR/repos/Transition-matrices-dashboard/data/2023_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv" # update year
+  save_tidy_data_file_cs <- "C:/Users/MPARMAR/OneDrive - Department for Education/Documents/2024_publication/R/TM/Transition-matrices-dashboard/data/2024_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final_v2.csv" # update year
   write.table(tidy_data_cs, save_tidy_data_file_cs, row.names = FALSE, sep = ",")
 
 
@@ -585,8 +589,8 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # Calculating pupils entered for EBacc
-  EBACC_entered_gender <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 1, Gender, "Gender")
-  EBACC_notentered_gender <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 0, Gender, "Gender")
+  EBACC_entered_Sex <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 1, Sex, "Sex")
+  EBACC_notentered_Sex <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 0, Sex, "Sex")
   EBACC_entered_sen <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 1, SEN, "SEN")
   EBACC_notentered_sen <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 0, SEN, "SEN")
   EBACC_entered_eal <- func_attainment_char(join_data_attainment, EBACC_E_PTQ_EE, 1, EAL, "EAL")
@@ -597,7 +601,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   EBACC_all <- rbind(
-    EBACC_entered_gender, EBACC_notentered_gender, EBACC_entered_sen, EBACC_notentered_sen,
+    EBACC_entered_Sex, EBACC_notentered_Sex, EBACC_entered_sen, EBACC_notentered_sen,
     EBACC_entered_eal, EBACC_notentered_eal, EBACC_entered_disadvantage,
     EBACC_notentered_disadvantage, EBACC_all_pupils
   ) %>%
@@ -619,8 +623,8 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # Calculating 9-4 grade achievement in EBacc
-  EBACC94_achieved_gender <- func_attainment_char(join_data_attainment, EBACC_94, 1, Gender, "Gender")
-  EBACC94_notachieved_gender <- func_attainment_char(join_data_attainment, EBACC_94, 0, Gender, "Gender")
+  EBACC94_achieved_Sex <- func_attainment_char(join_data_attainment, EBACC_94, 1, Sex, "Sex")
+  EBACC94_notachieved_Sex <- func_attainment_char(join_data_attainment, EBACC_94, 0, Sex, "Sex")
   EBACC94_achieved_sen <- func_attainment_char(join_data_attainment, EBACC_94, 1, SEN, "SEN")
   EBACC94_notachieved_sen <- func_attainment_char(join_data_attainment, EBACC_94, 0, SEN, "SEN")
   EBACC94_achieved_eal <- func_attainment_char(join_data_attainment, EBACC_94, 1, EAL, "EAL")
@@ -630,7 +634,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   EBACC94_all_pupils <- func_attainment_allgen(join_data_attainment, EBACC_94)
 
   EBACC94_all <- rbind(
-    EBACC94_achieved_gender, EBACC94_notachieved_gender, EBACC94_achieved_sen, EBACC94_notachieved_sen,
+    EBACC94_achieved_Sex, EBACC94_notachieved_Sex, EBACC94_achieved_sen, EBACC94_notachieved_sen,
     EBACC94_achieved_eal, EBACC94_notachieved_eal, EBACC94_achieved_disadvantage,
     EBACC94_notachieved_disadvantage, EBACC94_all_pupils
   ) %>%
@@ -651,8 +655,8 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # Calculating 9-5 grade achievement in EBacc
-  EBACC95_achieved_gender <- func_attainment_char(join_data_attainment, EBACC_95, 1, Gender, "Gender")
-  EBACC95_notachieved_gender <- func_attainment_char(join_data_attainment, EBACC_95, 0, Gender, "Gender")
+  EBACC95_achieved_Sex <- func_attainment_char(join_data_attainment, EBACC_95, 1, Sex, "Sex")
+  EBACC95_notachieved_Sex <- func_attainment_char(join_data_attainment, EBACC_95, 0, Sex, "Sex")
   EBACC95_achieved_sen <- func_attainment_char(join_data_attainment, EBACC_95, 1, SEN, "SEN")
   EBACC95_notachieved_sen <- func_attainment_char(join_data_attainment, EBACC_95, 0, SEN, "SEN")
   EBACC95_achieved_eal <- func_attainment_char(join_data_attainment, EBACC_95, 1, EAL, "EAL")
@@ -662,7 +666,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   EBACC95_all_pupils <- func_attainment_allgen(join_data_attainment, EBACC_95)
 
   EBACC95_all <- rbind(
-    EBACC95_achieved_gender, EBACC95_notachieved_gender, EBACC95_achieved_sen, EBACC95_notachieved_sen,
+    EBACC95_achieved_Sex, EBACC95_notachieved_Sex, EBACC95_achieved_sen, EBACC95_notachieved_sen,
     EBACC95_achieved_eal, EBACC95_notachieved_eal, EBACC95_achieved_disadvantage,
     EBACC95_notachieved_disadvantage, EBACC95_all_pupils
   ) %>%
@@ -681,8 +685,8 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # Calculating 9-4 grade achievement in English and Maths
-  L2B94_achieved_gender <- func_attainment_char(join_data_attainment, L2BASICS_94, 1, Gender, "Gender")
-  L2B94_notachieved_gender <- func_attainment_char(join_data_attainment, L2BASICS_94, 0, Gender, "Gender")
+  L2B94_achieved_Sex <- func_attainment_char(join_data_attainment, L2BASICS_94, 1, Sex, "Sex")
+  L2B94_notachieved_Sex <- func_attainment_char(join_data_attainment, L2BASICS_94, 0, Sex, "Sex")
   L2B94_achieved_sen <- func_attainment_char(join_data_attainment, L2BASICS_94, 1, SEN, "SEN")
   L2B94_notachieved_sen <- func_attainment_char(join_data_attainment, L2BASICS_94, 0, SEN, "SEN")
   L2B94_achieved_eal <- func_attainment_char(join_data_attainment, L2BASICS_94, 1, EAL, "EAL")
@@ -692,7 +696,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   L2B94_all_pupils <- func_attainment_allgen(join_data_attainment, L2BASICS_94)
 
   L2B94_all <- rbind(
-    L2B94_achieved_gender, L2B94_notachieved_gender, L2B94_achieved_sen, L2B94_notachieved_sen,
+    L2B94_achieved_Sex, L2B94_notachieved_Sex, L2B94_achieved_sen, L2B94_notachieved_sen,
     L2B94_achieved_eal, L2B94_notachieved_eal, L2B94_achieved_disadvantage,
     L2B94_notachieved_disadvantage, L2B94_all_pupils
   ) %>%
@@ -712,8 +716,8 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # Calculating 9-5 grade achievement in English and Maths
-  L2B95_achieved_gender <- func_attainment_char(join_data_attainment, L2BASICS_95, 1, Gender, "Gender")
-  L2B95_notachieved_gender <- func_attainment_char(join_data_attainment, L2BASICS_95, 0, Gender, "Gender")
+  L2B95_achieved_Sex <- func_attainment_char(join_data_attainment, L2BASICS_95, 1, Sex, "Sex")
+  L2B95_notachieved_Sex <- func_attainment_char(join_data_attainment, L2BASICS_95, 0, Sex, "Sex")
   L2B95_achieved_sen <- func_attainment_char(join_data_attainment, L2BASICS_95, 1, SEN, "SEN")
   L2B95_notachieved_sen <- func_attainment_char(join_data_attainment, L2BASICS_95, 0, SEN, "SEN")
   L2B95_achieved_eal <- func_attainment_char(join_data_attainment, L2BASICS_95, 1, EAL, "EAL")
@@ -723,7 +727,7 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   L2B95_all_pupils <- func_attainment_allgen(join_data_attainment, L2BASICS_95)
 
   L2B95_all <- rbind(
-    L2B95_achieved_gender, L2B95_notachieved_gender, L2B95_achieved_sen, L2B95_notachieved_sen,
+    L2B95_achieved_Sex, L2B95_notachieved_Sex, L2B95_achieved_sen, L2B95_notachieved_sen,
     L2B95_achieved_eal, L2B95_notachieved_eal, L2B95_achieved_disadvantage,
     L2B95_notachieved_disadvantage, L2B95_all_pupils
   ) %>%
@@ -755,12 +759,12 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
   # create the final tidy data file from the attainment_TM table
   attainment_tidy_data <- attainment_TM %>%
     mutate(
-      time_period = "202223",
+      time_period = "202324",
       time_identifier = "Academic year",
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Revised"
+      version = "Provisional"
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,
@@ -790,6 +794,6 @@ AND (pupil.NFTYPE in (32,33) or pupil.NFTYPE in (20,21,22,23,24,25,26,27,28,31,5
 
 
   # copying data to an Excel file
-  save_tidy_data_file_attainment <- "data/2023_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv" # # update year
+  save_tidy_data_file_attainment <- "data/2024_Tidy_Data_Output_Attainment_Scaled_Scores_Final_v2.csv" # # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
 }
