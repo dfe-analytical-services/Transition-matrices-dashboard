@@ -33,6 +33,7 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(purrr))
 
+site_title <- "KS4 Transition Matrices"
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
