@@ -60,31 +60,31 @@
               12
             ],
             "y": [
-              6,
-              1,
               0,
-              0,
-              0,
-              1,
+              2,
               0,
               0,
               0,
               0,
-              1,
+              0,
+              0,
+              0,
+              0,
+              0,
               0
             ],
             "text": [
-              "variable: U<br />value: 6<br />Characteristic: All Pupils",
-              "variable: 1<br />value: 1<br />Characteristic: All Pupils",
+              "variable: U<br />value: 0<br />Characteristic: All Pupils",
+              "variable: 1<br />value: 2<br />Characteristic: All Pupils",
               "variable: 2<br />value: 0<br />Characteristic: All Pupils",
               "variable: 3<br />value: 0<br />Characteristic: All Pupils",
               "variable: 4<br />value: 0<br />Characteristic: All Pupils",
-              "variable: 5<br />value: 1<br />Characteristic: All Pupils",
+              "variable: 5<br />value: 0<br />Characteristic: All Pupils",
               "variable: 6<br />value: 0<br />Characteristic: All Pupils",
               "variable: 7<br />value: 0<br />Characteristic: All Pupils",
               "variable: 8<br />value: 0<br />Characteristic: All Pupils",
               "variable: 9<br />value: 0<br />Characteristic: All Pupils",
-              "variable: X<br />value: 1<br />Characteristic: All Pupils",
+              "variable: X<br />value: 0<br />Characteristic: All Pupils",
               "variable: Covid impacted<br />value: 0<br />Characteristic: All Pupils"
             ],
             "type": "bar",
@@ -216,27 +216,27 @@
             "autorange": false,
             "range": [
               0,
-              7.7000000000000011
+              3.3000000000000003
             ],
             "tickmode": "array",
             "ticktext": [
               "0",
+              "1",
               "2",
-              "4",
-              "6"
+              "3"
             ],
             "tickvals": [
               0,
-              2,
-              4,
-              6
+              0.99999999999999989,
+              1.9999999999999998,
+              3
             ],
             "categoryorder": "array",
             "categoryarray": [
               "0",
+              "1",
               "2",
-              "4",
-              "6"
+              "3"
             ],
             "nticks": null,
             "ticks": "outside",

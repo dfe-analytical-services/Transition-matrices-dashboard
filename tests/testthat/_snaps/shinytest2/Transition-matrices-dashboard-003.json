@@ -57,30 +57,30 @@
               11
             ],
             "y": [
-              27.399999999999999,
-              22.899999999999999,
-              10.300000000000001,
-              8.5999999999999996,
-              6.2999999999999998,
-              6.2999999999999998,
-              6.2999999999999998,
-              1.7,
-              1.1000000000000001,
-              4.5999999999999996,
-              4.5999999999999996
+              25.300000000000001,
+              14.800000000000001,
+              14.300000000000001,
+              8.8000000000000007,
+              7.0999999999999996,
+              4.9000000000000004,
+              7.7000000000000002,
+              7.7000000000000002,
+              1.6000000000000001,
+              6.5999999999999996,
+              1.1000000000000001
             ],
             "text": [
-              "variable: % 1<br />value: 27.4<br />Characteristic: All Pupils",
-              "variable: % 2<br />value: 22.9<br />Characteristic: All Pupils",
-              "variable: % 3<br />value: 10.3<br />Characteristic: All Pupils",
-              "variable: % 4<br />value:  8.6<br />Characteristic: All Pupils",
-              "variable: % 5<br />value:  6.3<br />Characteristic: All Pupils",
-              "variable: % 6<br />value:  6.3<br />Characteristic: All Pupils",
-              "variable: % 7<br />value:  6.3<br />Characteristic: All Pupils",
-              "variable: % 8<br />value:  1.7<br />Characteristic: All Pupils",
-              "variable: % 9<br />value:  1.1<br />Characteristic: All Pupils",
-              "variable: % U<br />value:  4.6<br />Characteristic: All Pupils",
-              "variable: % X<br />value:  4.6<br />Characteristic: All Pupils"
+              "variable: % 1<br />value: 25.3<br />Characteristic: All Pupils",
+              "variable: % 2<br />value: 14.8<br />Characteristic: All Pupils",
+              "variable: % 3<br />value: 14.3<br />Characteristic: All Pupils",
+              "variable: % 4<br />value:  8.8<br />Characteristic: All Pupils",
+              "variable: % 5<br />value:  7.1<br />Characteristic: All Pupils",
+              "variable: % 6<br />value:  4.9<br />Characteristic: All Pupils",
+              "variable: % 7<br />value:  7.7<br />Characteristic: All Pupils",
+              "variable: % 8<br />value:  7.7<br />Characteristic: All Pupils",
+              "variable: % 9<br />value:  1.6<br />Characteristic: All Pupils",
+              "variable: % U<br />value:  6.6<br />Characteristic: All Pupils",
+              "variable: % X<br />value:  1.1<br />Characteristic: All Pupils"
             ],
             "type": "bar",
             "textposition": "none",
@@ -208,27 +208,33 @@
             "autorange": false,
             "range": [
               0,
-              31.240000000000002
+              28.930000000000003
             ],
             "tickmode": "array",
             "ticktext": [
               "0",
+              "5",
               "10",
+              "15",
               "20",
-              "30"
+              "25"
             ],
             "tickvals": [
               0,
+              5,
               10,
+              15.000000000000002,
               20,
-              30
+              25
             ],
             "categoryorder": "array",
             "categoryarray": [
               "0",
+              "5",
               "10",
+              "15",
               "20",
-              "30"
+              "25"
             ],
             "nticks": null,
             "ticks": "outside",

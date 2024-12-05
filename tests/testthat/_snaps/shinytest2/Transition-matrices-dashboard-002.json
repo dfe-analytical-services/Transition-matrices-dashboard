@@ -57,30 +57,30 @@
               11
             ],
             "y": [
-              11.1,
-              0,
-              0,
-              0,
-              11.1,
+              100,
               0,
               0,
               0,
               0,
-              66.700000000000003,
-              11.1
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
             ],
             "text": [
-              "variable: % 1<br />value: 11.1<br />Characteristic: All Pupils",
-              "variable: % 2<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % 3<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % 4<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % 5<br />value: 11.1<br />Characteristic: All Pupils",
-              "variable: % 6<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % 7<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % 8<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % 9<br />value:  0.0<br />Characteristic: All Pupils",
-              "variable: % U<br />value: 66.7<br />Characteristic: All Pupils",
-              "variable: % X<br />value: 11.1<br />Characteristic: All Pupils"
+              "variable: % 1<br />value: 100<br />Characteristic: All Pupils",
+              "variable: % 2<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 3<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 4<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 5<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 6<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 7<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 8<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % 9<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % U<br />value:   0<br />Characteristic: All Pupils",
+              "variable: % X<br />value:   0<br />Characteristic: All Pupils"
             ],
             "type": "bar",
             "textposition": "none",
@@ -106,7 +106,7 @@
             "t": 25.74124809741248,
             "r": 7.3059360730593621,
             "b": 39.69558599695587,
-            "l": 37.260273972602747
+            "l": 43.105022831050235
           },
           "plot_bgcolor": "rgba(235,235,235,1)",
           "paper_bgcolor": "rgba(255,255,255,1)",
@@ -208,27 +208,33 @@
             "autorange": false,
             "range": [
               0,
-              74.470000000000013
+              111.10000000000001
             ],
             "tickmode": "array",
             "ticktext": [
               "0",
               "20",
               "40",
-              "60"
+              "60",
+              "80",
+              "100"
             ],
             "tickvals": [
               0,
               20,
               40,
-              60
+              60.000000000000007,
+              80,
+              100
             ],
             "categoryorder": "array",
             "categoryarray": [
               "0",
               "20",
               "40",
-              "60"
+              "60",
+              "80",
+              "100"
             ],
             "nticks": null,
             "ticks": "outside",
