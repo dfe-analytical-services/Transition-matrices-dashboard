@@ -1,0 +1,437 @@
+{
+  "input": {
+    "KS2_att_select": "Less than 80",
+    "KS2_dropdown_attainment_subject": "Less than 80",
+    "attainment_select": "EBacc Entry",
+    "characteristic_att_select": "All Pupils",
+    "characteristic_select": "All Pupils",
+    "navlistPanel": "dashboard",
+    "num_perc": "Number",
+    "num_perc_select": "Percentage of pupils",
+    "subjects_select": "Chemistry",
+    "tabsetpanels": "Pupil progress in GCSE subjects"
+  },
+  "output": {
+    "subjects_chart": {
+      "x": {
+        "data": [
+          {
+            "orientation": "v",
+            "width": [
+              0.89999999999999991,
+              0.90000000000000013,
+              0.90000000000000036,
+              0.90000000000000036,
+              0.90000000000000036,
+              0.90000000000000036,
+              0.90000000000000036,
+              0.89999999999999947,
+              0.89999999999999858,
+              0.89999999999999858,
+              0.89999999999999858
+            ],
+            "base": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "y": [
+              25.300000000000001,
+              14.800000000000001,
+              14.300000000000001,
+              8.8000000000000007,
+              7.0999999999999996,
+              4.9000000000000004,
+              7.7000000000000002,
+              7.7000000000000002,
+              1.6000000000000001,
+              6.5999999999999996,
+              1.1000000000000001
+            ],
+            "text": [
+              "variable: % 1<br />value: 25.3<br />Characteristic: All Pupils",
+              "variable: % 2<br />value: 14.8<br />Characteristic: All Pupils",
+              "variable: % 3<br />value: 14.3<br />Characteristic: All Pupils",
+              "variable: % 4<br />value:  8.8<br />Characteristic: All Pupils",
+              "variable: % 5<br />value:  7.1<br />Characteristic: All Pupils",
+              "variable: % 6<br />value:  4.9<br />Characteristic: All Pupils",
+              "variable: % 7<br />value:  7.7<br />Characteristic: All Pupils",
+              "variable: % 8<br />value:  7.7<br />Characteristic: All Pupils",
+              "variable: % 9<br />value:  1.6<br />Characteristic: All Pupils",
+              "variable: % U<br />value:  6.6<br />Characteristic: All Pupils",
+              "variable: % X<br />value:  1.1<br />Characteristic: All Pupils"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(18,67,109,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "All Pupils",
+            "legendgroup": "All Pupils",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          }
+        ],
+        "layout": {
+          "margin": {
+            "t": 25.74124809741248,
+            "r": 7.3059360730593621,
+            "b": 39.69558599695587,
+            "l": 37.260273972602747
+          },
+          "plot_bgcolor": "rgba(235,235,235,1)",
+          "paper_bgcolor": "rgba(255,255,255,1)",
+          "font": {
+            "color": "rgba(0,0,0,1)",
+            "family": "",
+            "size": 14.611872146118724
+          },
+          "xaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0.40000000000000002,
+              11.6
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "% 1",
+              "% 2",
+              "% 3",
+              "% 4",
+              "% 5",
+              "% 6",
+              "% 7",
+              "% 8",
+              "% 9",
+              "% U",
+              "% X"
+            ],
+            "tickvals": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "% 1",
+              "% 2",
+              "% 3",
+              "% 4",
+              "% 5",
+              "% 6",
+              "% 7",
+              "% 8",
+              "% 9",
+              "% U",
+              "% X"
+            ],
+            "nticks": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
+            "ticklen": 3.6529680365296811,
+            "tickwidth": 0.66417600664176002,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "",
+              "size": 11.68949771689498
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176002,
+            "zeroline": false,
+            "anchor": "y",
+            "title": {
+              "text": "GCSE Grades",
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "",
+                "size": 14.611872146118724
+              }
+            },
+            "hoverformat": ".2f"
+          },
+          "yaxis": {
+            "domain": [
+              0,
+              1
+            ],
+            "automargin": true,
+            "type": "linear",
+            "autorange": false,
+            "range": [
+              0,
+              28.930000000000003
+            ],
+            "tickmode": "array",
+            "ticktext": [
+              "0",
+              "5",
+              "10",
+              "15",
+              "20",
+              "25"
+            ],
+            "tickvals": [
+              0,
+              5,
+              10,
+              15.000000000000002,
+              20,
+              25
+            ],
+            "categoryorder": "array",
+            "categoryarray": [
+              "0",
+              "5",
+              "10",
+              "15",
+              "20",
+              "25"
+            ],
+            "nticks": null,
+            "ticks": "outside",
+            "tickcolor": "rgba(51,51,51,1)",
+            "ticklen": 3.6529680365296811,
+            "tickwidth": 0.66417600664176002,
+            "showticklabels": true,
+            "tickfont": {
+              "color": "rgba(77,77,77,1)",
+              "family": "",
+              "size": 11.68949771689498
+            },
+            "tickangle": 0,
+            "showline": false,
+            "linecolor": null,
+            "linewidth": 0,
+            "showgrid": true,
+            "gridcolor": "rgba(255,255,255,1)",
+            "gridwidth": 0.66417600664176002,
+            "zeroline": false,
+            "anchor": "x",
+            "title": {
+              "text": "Percentage of pupils",
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "",
+                "size": 14.611872146118724
+              }
+            },
+            "hoverformat": ".2f"
+          },
+          "shapes": [
+            {
+              "type": "rect",
+              "fillcolor": null,
+              "line": {
+                "color": null,
+                "width": 0,
+                "linetype": [
+
+                ]
+              },
+              "yref": "paper",
+              "xref": "paper",
+              "x0": 0,
+              "x1": 1,
+              "y0": 0,
+              "y1": 1
+            }
+          ],
+          "showlegend": true,
+          "legend": {
+            "bgcolor": "rgba(255,255,255,1)",
+            "bordercolor": "transparent",
+            "borderwidth": 1.8897637795275593,
+            "font": {
+              "color": "rgba(0,0,0,1)",
+              "family": "",
+              "size": 11.68949771689498
+            },
+            "title": {
+              "text": "Characteristic",
+              "font": {
+                "color": "rgba(0,0,0,1)",
+                "family": "",
+                "size": 14.611872146118724
+              }
+            },
+            "orientation": "h",
+            "y": -0.10000000000000001
+          },
+          "hovermode": "closest",
+          "barmode": "relative"
+        },
+        "config": {
+          "doubleClick": "reset",
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
+          "showSendToCloud": false,
+          "displayModeBar": false
+        },
+        "source": "A",
+        "highlight": {
+          "on": "plotly_click",
+          "persistent": false,
+          "dynamic": false,
+          "selectize": false,
+          "opacityDim": 0.20000000000000001,
+          "selected": {
+            "opacity": 1
+          },
+          "debounce": 0
+        },
+        "shinyEvents": [
+          "plotly_hover",
+          "plotly_click",
+          "plotly_selected",
+          "plotly_relayout",
+          "plotly_brushed",
+          "plotly_brushing",
+          "plotly_clickannotation",
+          "plotly_doubleclick",
+          "plotly_deselect",
+          "plotly_afterplot",
+          "plotly_sunburstclick"
+        ],
+        "base_url": "https://plot.ly"
+      },
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "setprototypeof",
+          "version": "0.1",
+          "src": {
+            "href": "setprototypeof-0.1"
+          },
+          "meta": null,
+          "script": "setprototypeof.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "typedarray",
+          "version": "0.1",
+          "src": {
+            "href": "typedarray-0.1"
+          },
+          "meta": null,
+          "script": "typedarray.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.1",
+          "src": {
+            "href": "crosstalk-1.2.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "plotly-htmlwidgets-css",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-htmlwidgets-css-2.11.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "plotly-htmlwidgets.css",
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "plotly-main",
+          "version": "2.11.1",
+          "src": {
+            "href": "plotly-main-2.11.1"
+          },
+          "meta": null,
+          "script": "plotly-latest.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        }
+      ]
+    },
+    "subjects_chart_title": "<h4> KS2-KS4 pupil progress in GCSE Chemistry, with Less than 80 KS2 scaled score <\/43>"
+  }
+}

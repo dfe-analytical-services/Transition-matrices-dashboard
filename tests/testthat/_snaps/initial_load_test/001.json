@@ -1,0 +1,17 @@
+{
+  "input": {
+    "KS2_att_select": "Less than 80",
+    "KS2_dropdown_attainment_subject": "Less than 80",
+    "attainment_select": "EBacc Entry",
+    "characteristic_att_select": "All Pupils",
+    "characteristic_select": "All Pupils",
+    "navlistPanel": "Homepage",
+    "num_perc": "Number",
+    "num_perc_select": "Number of pupils",
+    "subjects_select": "Ancient History",
+    "tabsetpanels": "Pupil progress in GCSE subjects"
+  },
+  "output": {
+
+  }
+}
