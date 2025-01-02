@@ -110,7 +110,7 @@ KS2_dropdown_attainment <- download_attainment_data %>%
 subject_col_selection <- function(data, num_perc) {
   if (num_perc == "Number of pupils") {
     data %>%
-      select(KS2_Prior, characteristic_value, starts_with("num_"), "All Grades" = "all_grades", "Covid impacted" = "num_covid_impacted") %>%
+      select(KS2_Prior, characteristic_value, starts_with("num_"), "All Grades" = "all_grades", "Covid impacted" = "num_covid_impacted", ) %>%
       rename_at(vars(starts_with("num_")), list(~ sub("num_", "", .)))
   } else {
     data %>%

@@ -408,6 +408,11 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     mutate_all(~ replace(., is.na(.), 0))
 
 
+  # Remove zero values from the characteristic_value column
+  tidy_data_subjects <- tidy_data_subjects %>%
+    filter(characteristic_value != 0)
+
+
   # copying data to an Excel file
   # save_tidy_data_file = 'Y:/Pre-16 development/Routine products/Transition Matrices/TM Dev/8.TM_in_R/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
@@ -539,6 +544,15 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
       "perc_77", "perc_87", "perc_88", "perc_98", "perc_99", "perc_XX"
     ) %>% ## comment back for app
     mutate_all(~ replace(., is.na(.), 0))
+
+
+  # Remove zero values from the characteristic_value column
+  tidy_data_cs <- tidy_data_cs %>%
+    filter(characteristic_value != 0)
+
+  # add num_covid_impacted column
+  tidy_data_cs <- tidy_data_cs %>%
+    mutate(num_covid_impacted = 0)
 
 
   # copying data to an Excel file
@@ -792,6 +806,10 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     ) %>%
     mutate_all(~ replace(., is.na(.), 0))
 
+
+  # Remove zero values from the characteristic_value column
+  attainment_tidy_data <- attainment_tidy_data %>%
+    filter(characteristic_value != 0)
 
   # copying data to an Excel file
   save_tidy_data_file_attainment <- "data/2024_Tidy_Data_Output_Attainment_Scaled_Scores_Final_v2.csv" # # update year
