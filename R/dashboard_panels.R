@@ -70,7 +70,7 @@ homepage_panel <- function() {
                 br(),
                 br(),
                 p("Access to historical data files can be found here:"),
-                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "Key stage 4 data catalogue", .noWS = c("after")),
+                a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/", "Key stage 4 data catalogue", .noWS = c("after")),
                 br(),
               )
             )
@@ -119,13 +119,13 @@ dashboard_panel <- function() {
                   width = 12,
                   h2("Summary"),
                   p(
-                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2022/2023 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
-                   Figures are available at national (England) level only. Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. Note: Combined Science GCSE is a Double Award.
+                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering a GCSE subjects’ grades 9-1 and KS2 scaled scores achieved, for the 2023/24 academic year. It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
+                   Figures are available at national (England) level only and includes pupils in state-funded schools. Note: Combined Science GCSE is a Double Award.
 
                    All underlying data can be downloaded here:",
-                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices GCSE subjects."),
+                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
-                    tags$b("UPDATE: 1st February 2024 - The KS4 Transition Matrices have been updated with 2023 revised data, in line with the revised KS4 performance release.")
+                    tags$b("UPDATE: 5th December 2024 - The KS4 Transition Matrices have been updated with 2023/24 provisional data, in line with the provisional KS4 performance release.")
                   ),
                   column(
                     width = 12,
@@ -178,11 +178,10 @@ dashboard_panel <- function() {
                   width = 12,
                   h2("Summary"),
                   p(
-                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2022/2023 academic year
+                    "The following data explores pupil progress from KS2-KS4 based on number of pupils entering EBacc entry, EBacc achievement (9-4), EBacc achievement (9-5), English and maths (9-4), English and maths (9-5) and KS2 scaled scores achieved, for the 2023/24 academic year
             It has been broken down by pupil characteristics; disadvantage, English as an additional language (EAL), free school meal eligibility (FSM), special educational needs (SEN).
-            Figures are available at national (England) level only.
-            Includes pupils in state-funded mainstream and special schools, hospital schools and non-maintained special schools. All underlying data can be downloaded here:",
-                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2021-22", "Key stage 2 to 4 transition matrices KS4 measures."),
+            Figures are available at national (England) level only and includes pupils in state-funded schools. All underlying data can be downloaded here:",
+                    tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/", "Key stage 2 to 4 transition matrices KS4 measures."),
 
                     # ),## continue here check above
                     column(
