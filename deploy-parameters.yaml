@@ -1,2 +1,6 @@
 dashboard_name: "ks4-transition-matrices"
 deploy_target: "shinyapps"
+install_terra_dependencies: true
+install_unit_dependencies: true
+extra_packages:
+  - sf
