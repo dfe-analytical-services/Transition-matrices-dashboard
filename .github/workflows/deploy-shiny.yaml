@@ -6,7 +6,7 @@ on:
       - development
 jobs:
   deploy:
-    uses: dfe-analytical-services/dfeshiny/.github/workflows/dashboard_deploy_template.yaml@docker-deploy-test
+    uses: dfe-analytical-services/dfeshiny/.github/workflows/dashboard_deploy_template.yaml@17-Deployment-yaml-template
     with:
       parameter_file: deploy-parameters.yaml
     secrets:
