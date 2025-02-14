@@ -97,7 +97,7 @@ ui <- function(input, output, session) {
     dfeshiny::header(site_title),
     shinyGovstyle::banner(
       "beta banner",
-      "beta",
+      "Beta",
       "This Dashboard is in beta phase and we are still reviewing performance and reliability."
     ),
     shiny::navlistPanel(
@@ -110,22 +110,23 @@ ui <- function(input, output, session) {
       tabPanel(
         value = "support_panel",
         "Support and feedback",
-        gov_main_layout(
-          gov_row(
-            column(
-              12,
-              dfeshiny::support_panel(
-                team_email = "attainment.statistics@education.gov.uk",
-                repo_name = "https://github.com/dfe-analytical-services/Transition-matrices-dashboard",
-                publication_name = ees_pub_name,
-                publication_slug = "key-stage-4-performance-revised"
-              )
-            )
-          )
+        dfeshiny::support_panel(
+          team_email = "attainment.statistics@education.gov.uk",
+          repo_name = "https://github.com/dfe-analytical-services/Transition-matrices-dashboard",
+          publication_name = ees_pub_name,
+          publication_slug = "key-stage-4-performance-revised"
         )
       ),
-      a11y_panel()
+      a11y_panel(),
+      shiny::tabPanel(
+        value = "cookies_panel_ui",
+        "Cookies",
+        cookies_panel_ui(google_analytics_key = google_analytics_key)
+      )
     ),
-    footer(full = TRUE)
+    footer(
+      full = TRUE,
+      links = c("Accessibility statement", "Use of cookies", "Support and feedback", "Privacy notice")
+    )
   )
 }

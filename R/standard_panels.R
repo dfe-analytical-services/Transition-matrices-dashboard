@@ -1,5 +1,6 @@
 a11y_panel <- function() {
   tabPanel(
+    value = "a11y_panel",
     "Accessibility",
     gov_main_layout(
       gov_row(

@@ -19,12 +19,11 @@ shhh(library(diffviewer))
 shhh(library(shinyvalidate))
 shhh(library(shinyGovstyle))
 shhh(library(dplyr))
-shhh(library(plotly))
+shhh(library(ggiraph))
 shhh(library(DT))
 shhh(library(metathis))
 shhh(library(checkmate))
 shhh(library(dfeshiny))
-
 
 # Functions ---------------------------------------------------------------------------------
 

@@ -28,6 +28,33 @@ server <- function(input, output, session) {
     google_analytics_key = google_analytics_key
   )
 
+  cookies_panel_server(
+    input_cookies = reactive(input$cookies),
+    google_analytics_key = google_analytics_key
+  )
+
+  # footer links -----------------------
+  shiny::observeEvent(input$accessibility_statement, {
+    shiny::updateTabsetPanel(session, "navlistPanel", selected = "a11y_panel")
+  })
+
+  shiny::observeEvent(input$use_of_cookies, {
+    shiny::updateTabsetPanel(session, "navlistPanel", selected = "cookies_panel_ui")
+  })
+
+  shiny::observeEvent(input$support_and_feedback, {
+    shiny::updateTabsetPanel(session, "navlistPanel", selected = "support_panel")
+  })
+
+  shiny::observeEvent(input$privacy_notice, {
+    # regular link to open in same window
+    shinyjs::runjs(paste0(
+      'window.top.location.href =
+                          "https://www.gov.uk/government/organisations/department-for-education/about/',
+      'personal-information-charter";'
+    ))
+  })
+
   KS2_prior_subj <- reactive({
     if (input$subjects_select == "Combined Science") {
       download_Combined_Science_data %>%
@@ -167,7 +194,7 @@ server <- function(input, output, session) {
   )
 
 
-  output$subjects_chart <- renderPlotly(
+  output$subjects_chart <- renderGirafe(
     {
       chart_data <- numbers_data() %>%
         filter(KS2_Prior == input$KS2_dropdown_attainment_subject) %>%
@@ -179,59 +206,35 @@ server <- function(input, output, session) {
           select(-"All Grades")
       }
 
-
       chart_data <- reshape2::melt(chart_data)
-      subjects_chart <- ggplot(chart_data) +
-        (aes(x = variable, y = value, fill = Characteristic)) +
-        geom_bar(stat = "identity", position = "dodge") +
-        scale_fill_manual(values = c("#12436D", "#28A197")) +
-        xlab("GCSE Grades") +
-
-        # ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
-        scale_y_continuous(
-          name = paste(input$num_perc_select),
-          expand = c(0, 0),
-          breaks = function(x) {
-            unique(floor(pretty(seq(0, max(x) + 1) * 1.1)))
-          },
-          limits = function(x) {
-            c(0, (max(x) + 1) * 1.1)
-          }
-        ) +
-        # scale_x_discrete(labels =  c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid impacted \n"))
-        #  scale_x_discrete(labels = c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X", "covid_impacted"))
-
-
-
-        scale_x_discrete(labels = function(x) {
-          stringr::str_wrap(x, width = 10)
-        })
-
-
-
-      # scale_x_discrete(labels = c(chart_data$variable[1:length(chart_data$variable)-1],"Covid\nimpacted")) +
-      # scale_x_discrete(labels = str_wrap(labels, 10))
-      theme(
-        # set size and spacing of axis tick labels
-        axis.text.x = element_text(size = 12, vjust = 0.5),
-        axis.text.y = element_text(size = 12, vjust = 0.5),
-        # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size = 12, vjust = -0.5),
-        axis.title.y = element_text(size = 12, vjust = 2.0),
-        # sorting out the background colour, grid lines, and axis lines
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = "White"),
-        plot.background = element_rect(fill = "White", color = NA),
-        axis.line = element_line(colour = "black"),
-        legend.position = "top"
+      ggiraph::girafe(
+        ggobj = ggplot(chart_data) +
+          (aes(x = variable, y = value, fill = Characteristic)) +
+          geom_bar(stat = "identity", position = "dodge") +
+          scale_fill_manual(values = c("#12436D", "#28A197")) +
+          xlab("GCSE Grades") +
+          # ggtitle("Key stage 2 to Key stage 4 pupil progress in GCSE subjects")+
+          scale_y_continuous(
+            name = str_wrap(paste(input$num_perc_select), 12),
+            expand = c(0, 0),
+            breaks = function(x) {
+              unique(floor(pretty(seq(0, max(x) + 1) * 1.1)))
+            },
+            limits = function(x) {
+              c(0, (max(x) + 1) * 1.1)
+            }
+          ) +
+          scale_x_discrete(labels = function(x) {
+            stringr::str_wrap(x, width = 10)
+          }) +
+          afcharts::theme_af(base_size = 10) +
+          theme(
+            axis.line = element_line(colour = "black"),
+            legend.position = "top",
+          ),
+        width_svg = 6,
+        height_svg = 3.6
       )
-
-
-
-      ggplotly(subjects_chart) %>%
-        config(displayModeBar = F) %>%
-        layout(legend = list(orientation = "h", y = -0.1))
     } # ,
     # bg = 'transparent'
   )
@@ -246,7 +249,7 @@ server <- function(input, output, session) {
   )
 
 
-  output$attainment_chart_num <- renderPlotly({
+  output$attainment_chart_num <- renderGirafe({
     num_chart_data <- attainment_data() %>%
       filter(`KS2 Prior` == input$KS2_att_select) %>%
       select(-starts_with("% ")) %>%
@@ -255,43 +258,33 @@ server <- function(input, output, session) {
 
     num_chart_data <- reshape2::melt(num_chart_data)
 
-    number_plot <- ggplot(num_chart_data, aes(x = variable, y = value, fill = Characteristic, group = Characteristic)) +
-      geom_bar(stat = "identity", position = "dodge") +
-      scale_fill_manual(values = c("#12436D", "#28A197")) +
-      xlab(" ") +
-      # ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
-      scale_y_continuous(
-        name = paste(input$num_perc, "of pupils"),
-        expand = c(0, 0),
-        breaks = function(x) {
-          unique(floor(pretty(seq(0, max(x) + 1) * 1.1)))
-        },
-        limits = function(x) {
-          c(0, (max(x) + 1) * 1.1)
-        }
-      ) +
-      theme(
-        # set size and spacing of axis tick labels
-        axis.text.x = element_text(size = 12, vjust = 0.5),
-        axis.text.y = element_text(size = 12, vjust = 0.5),
-        # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size = 12, vjust = -0.5),
-        axis.title.y = element_text(size = 12, vjust = 2.0),
-        # sorting out the background colour, grid lines, and axis lines
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = "White"),
-        plot.background = element_rect(fill = "White", color = NA),
-        axis.line = element_line(colour = "black"),
-        legend.position = "top"
-      )
-
-    ggplotly(number_plot) %>%
-      config(displayModeBar = F) %>%
-      layout(legend = list(orientation = "h", y = -0.1))
+    ggiraph::girafe(
+      ggobj = ggplot(num_chart_data, aes(x = variable, y = value, fill = Characteristic, group = Characteristic)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        scale_fill_manual(values = c("#12436D", "#28A197")) +
+        xlab(" ") +
+        # ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+        scale_y_continuous(
+          name = str_wrap(paste(input$num_perc, "of pupils"), 12),
+          expand = c(0, 0),
+          breaks = function(x) {
+            unique(floor(pretty(seq(0, max(x) + 1) * 1.1)))
+          },
+          limits = function(x) {
+            c(0, (max(x) + 1) * 1.1)
+          }
+        ) +
+        afcharts::theme_af(base_size = 10) +
+        theme(
+          axis.line = element_line(colour = "black"),
+          legend.position = "top"
+        ),
+      width_svg = 6,
+      height_svg = 3.2
+    )
   })
 
-  output$attainment_chart_perc <- renderPlotly({
+  output$attainment_chart_perc <- renderGirafe({
     perc_chart_data <- attainment_data() %>%
       filter(`KS2 Prior` == input$KS2_att_select) %>%
       select(`KS2 Prior`, characteristic_value, starts_with("% ")) %>%
@@ -299,40 +292,30 @@ server <- function(input, output, session) {
 
     perc_chart_data <- reshape2::melt(perc_chart_data)
 
-    perc_plot <- ggplot(perc_chart_data, aes(x = variable, y = value, fill = Characteristic)) +
-      geom_bar(stat = "identity", position = "dodge") +
-      scale_fill_manual(values = c("#12436D", "#28A197")) +
-      xlab(" ") +
-      # ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
-      scale_y_continuous(
-        name = paste(input$num_perc, "of pupils"),
-        expand = c(0, 0),
-        breaks = function(x) {
-          unique(floor(pretty(seq(0, max(x) + 1) * 1.1)))
-        },
-        limits = function(x) {
-          c(0, (max(x) + 1) * 1.1)
-        }
-      ) +
-      theme(
-        # set size and spacing of axis tick labels
-        axis.text.x = element_text(size = 12, vjust = 0.5),
-        axis.text.y = element_text(size = 12, vjust = 0.5),
-        # set size, colour and spacing of axis labels
-        axis.title.x = element_text(size = 12, vjust = -0.5),
-        axis.title.y = element_text(size = 12, vjust = 2.0),
-        # sorting out the background colour, grid lines, and axis lines
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = "White"),
-        plot.background = element_rect(fill = "White", color = NA),
-        axis.line = element_line(colour = "black"),
-        legend.position = "top"
-      )
-
-    ggplotly(perc_plot) %>%
-      config(displayModeBar = F) %>%
-      layout(legend = list(orientation = "h", y = -0.1))
+    ggiraph::girafe(
+      ggobj = ggplot(perc_chart_data, aes(x = variable, y = value, fill = Characteristic)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        scale_fill_manual(values = c("#12436D", "#28A197")) +
+        xlab(" ") +
+        # ggtitle("Key stage 2 to Key stage 4 pupil progress in KS4 headline measures")+
+        scale_y_continuous(
+          name = str_wrap(paste(input$num_perc, "of pupils"), 12),
+          expand = c(0, 0),
+          breaks = function(x) {
+            unique(floor(pretty(seq(0, max(x) + 1) * 1.1)))
+          },
+          limits = function(x) {
+            c(0, (max(x) + 1) * 1.1)
+          }
+        ) +
+        afcharts::theme_af(base_size = 10) +
+        theme(
+          axis.line = element_line(colour = "black"),
+          legend.position = "top"
+        ),
+      width_svg = 6,
+      height_svg = 3.2
+    )
   })
 
   # -----------------------------------------------------------------------------------------------------------------------------

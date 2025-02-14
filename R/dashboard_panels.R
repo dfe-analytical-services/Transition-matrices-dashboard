@@ -162,7 +162,7 @@ dashboard_panel <- function() {
                   column(
                     width = 12,
                     htmlOutput("subjects_chart_title"),
-                    plotlyOutput("subjects_chart"),
+                    girafeOutput("subjects_chart"),
                     uiOutput("number_table")
                   )
                 )
@@ -223,11 +223,11 @@ dashboard_panel <- function() {
                       # p("Key stage 2 to Key stage 4 pupil progress in KS4 measures", style = "font-size:20px;"),
                       conditionalPanel(
                         "input.num_perc == 'Number'",
-                        plotlyOutput("attainment_chart_num")
+                        girafeOutput("attainment_chart_num")
                       ),
                       conditionalPanel(
                         "input.num_perc == 'Percentage'",
-                        plotlyOutput("attainment_chart_perc")
+                        girafeOutput("attainment_chart_perc")
                       ),
                     ),
                     column(

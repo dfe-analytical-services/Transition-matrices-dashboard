@@ -8,8 +8,7 @@ inputs <- c(
 )
 
 outputs <- c(
-  "attainment_chart_num", "attainment_chart_perc", "attainment_chart_title",
-  "subjects_chart",
+  "attainment_chart_title",
   "subjects_chart_title"
 )
 
@@ -44,7 +43,7 @@ test_that("{shinytest2} recording: Transition-matrices-dashboard", {
   app$expect_values(input = inputs, output = outputs)
   app$set_inputs(KS2_att_select = "105 - 107")
   app$expect_values(input = inputs, output = outputs)
-  app$set_inputs(navlistPanel = "Accessibility")
+  app$set_inputs(navlistPanel = "a11y_panel")
   app$expect_values(input = inputs, output = outputs)
   app$set_inputs(navlistPanel = "support_panel")
   app$expect_values(input = inputs, output = outputs)
