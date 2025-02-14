@@ -84,8 +84,8 @@ ui <- function(input, output, session) {
     # meta description for search engines
     meta() %>%
       meta_general(
-        application_name = "Key stage 4 Transition Matrices",
-        description = "Key stage 4 Transition Matrices",
+        application_name = site_title,
+        description = site_title,
         robots = "index,follow",
         generator = "R-Shiny",
         subject = "Key stage 4",
@@ -94,14 +94,7 @@ ui <- function(input, output, session) {
       ),
     dfe_cookies_script(),
     cookies_banner_ui(name = site_title),
-    shinyGovstyle::header(
-      main_text = "",
-      main_link = "https://www.gov.uk/government/organisations/department-for-education",
-      secondary_text = "Key stage 4 Transition Matrices",
-      logo = "images/DfE_logo_landscape.png",
-      logo_width = 150,
-      logo_height = 32
-    ),
+    dfeshiny::header(site_title),
     shinyGovstyle::banner(
       "beta banner",
       "beta",

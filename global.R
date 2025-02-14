@@ -33,7 +33,7 @@ shhh(library(dplyr))
 shhh(library(ggplot2))
 shhh(library(purrr))
 
-site_title <- "KS4 Transition Matrices"
+site_title <- "Key stage 4 Transition Matrices"
 site_primary <- "https://department-for-education.shinyapps.io/dfe-shiny-template/"
 site_overflow <- NA
 sites_list <- c(site_primary) # We can add further mirrors where necessary. Each one can generally handle about 2,500 users simultaneously
@@ -63,44 +63,25 @@ subject_dropdown <- download_GCSE_Subjects_data %>%
   add_row(subjects = "Combined Science") %>%
   arrange(subjects)
 
-
-
 characteristic_dropdown <- download_GCSE_Subjects_data %>%
   select(characteristic_type) %>%
   distinct()
-
-# LA_dropdown <- download_GCSE_Subjects_data %>%
-# select(LA_name) %>%
-# distinct()
-
 
 num_perc_dropdown <- list(
   "Number" = "Number of pupils",
   "Percentage" = "Percentage of pupils"
 )
 
-
 attainment_dropdown <- c(
   "EBacc Entry", "EBacc Achievement 9-4", "EBacc Achievement 9-5",
   "English & Mathematics Achievement 9-4", "English & Mathematics Achievement 9-5"
 )
-
-
-
-
-
-# KS2_dropdown <- c('Less than 80', '80 - 89.5', '90 - 95.5', '96 - 99.5',
-# '100 - 102', '102.5 - 104.5', '105 - 107', '107.5 - 109.5',
-# '110 - 112', '112.5 - 114.5', '115 - 117', '117.5 - 120')
-
 
 KS2_dropdown_attainment <- download_attainment_data %>%
   select(KS2_Prior) %>%
   distinct() %>%
   # arrange(KS2_Prior)%>%
   unlist(use.names = FALSE)
-
-
 
 # -----------------------------------------------------------------------------------------------------------------------------
 # ---- Subjects Table created from the tidy data csv file ----
@@ -118,7 +99,6 @@ subject_col_selection <- function(data, num_perc) {
       rename_at(vars(starts_with("perc_")), list(~ sub("perc_", "% ", .)))
   }
 }
-
 
 # # Returns a table from the 9-1 subjects tidy data CSV
 subject_table <- function(subj, char, num_perc) {
