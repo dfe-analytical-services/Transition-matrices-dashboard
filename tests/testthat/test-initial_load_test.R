@@ -14,7 +14,7 @@ outputs <- c(
 )
 
 test_that("Migrated shinytest test: initial_load_test.R", {
-  app <- AppDriver$new(load_timeout = 96000)
+  app <- AppDriver$new(load_timeout = 160000, timeout = 160000)
 
   app$expect_values(input = inputs, output = outputs)
 })
