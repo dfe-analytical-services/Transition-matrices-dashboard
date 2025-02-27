@@ -1,10 +1,10 @@
 {
   "input": {
-    "KS2_att_select": "Less than 80",
-    "KS2_dropdown_attainment_subject": "Less than 80",
+    "KS2_att_select": "Total",
+    "KS2_dropdown_attainment_subject": "Total",
     "attainment_select": "EBacc Entry",
-    "characteristic_att_select": "All Pupils",
-    "characteristic_select": "All Pupils",
+    "characteristic_att_select": "Disadvantage",
+    "characteristic_select": "Disadvantage",
     "navlistPanel": "dashboard",
     "num_perc": "Number",
     "num_perc_select": "Percentage of pupils",
@@ -18,19 +18,21 @@
           {
             "orientation": "v",
             "width": [
-              0.89999999999999991,
-              0.90000000000000013,
-              0.90000000000000036,
-              0.90000000000000036,
-              0.90000000000000036,
-              0.90000000000000036,
-              0.90000000000000036,
-              0.89999999999999947,
-              0.89999999999999858,
-              0.89999999999999858,
-              0.89999999999999858
+              0.44999999999999996,
+              0.45000000000000018,
+              0.45000000000000018,
+              0.45000000000000018,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929
             ],
             "base": [
+              0,
               0,
               0,
               0,
@@ -44,43 +46,46 @@
               0
             ],
             "x": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
+              0.77500000000000002,
+              1.7749999999999999,
+              2.7749999999999999,
+              3.7749999999999999,
+              4.7750000000000004,
+              5.7750000000000004,
+              6.7750000000000004,
+              7.7750000000000004,
+              8.7750000000000004,
+              9.7750000000000004,
+              10.775,
+              11.775
             ],
             "y": [
-              100,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
+              11.199999999999999,
+              15,
+              12.1,
+              12.6,
+              10.699999999999999,
+              8.6999999999999993,
+              9.1999999999999993,
+              4.4000000000000004,
+              1,
+              13.6,
+              1.5,
               0
             ],
             "text": [
-              "variable: % 1<br />value: 100<br />Characteristic: All Pupils",
-              "variable: % 2<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 3<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 4<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 5<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 6<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 7<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 8<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % 9<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % U<br />value:   0<br />Characteristic: All Pupils",
-              "variable: % X<br />value:   0<br />Characteristic: All Pupils"
+              "variable: % 1<br />value: 11.2<br />Characteristic: Disadvantaged",
+              "variable: % 2<br />value: 15.0<br />Characteristic: Disadvantaged",
+              "variable: % 3<br />value: 12.1<br />Characteristic: Disadvantaged",
+              "variable: % 4<br />value: 12.6<br />Characteristic: Disadvantaged",
+              "variable: % 5<br />value: 10.7<br />Characteristic: Disadvantaged",
+              "variable: % 6<br />value:  8.7<br />Characteristic: Disadvantaged",
+              "variable: % 7<br />value:  9.2<br />Characteristic: Disadvantaged",
+              "variable: % 8<br />value:  4.4<br />Characteristic: Disadvantaged",
+              "variable: % 9<br />value:  1.0<br />Characteristic: Disadvantaged",
+              "variable: % u<br />value: 13.6<br />Characteristic: Disadvantaged",
+              "variable: % x<br />value:  1.5<br />Characteristic: Disadvantaged",
+              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Disadvantaged"
             ],
             "type": "bar",
             "textposition": "none",
@@ -92,8 +97,98 @@
                 "color": "transparent"
               }
             },
-            "name": "All Pupils",
-            "legendgroup": "All Pupils",
+            "name": "Disadvantaged",
+            "legendgroup": "Disadvantaged",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "v",
+            "width": [
+              0.45000000000000018,
+              0.45000000000000018,
+              0.45000000000000018,
+              0.44999999999999973,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929,
+              0.44999999999999929
+            ],
+            "base": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1.2250000000000001,
+              2.2250000000000001,
+              3.2250000000000001,
+              4.2249999999999996,
+              5.2249999999999996,
+              6.2249999999999996,
+              7.2249999999999996,
+              8.2249999999999996,
+              9.2249999999999996,
+              10.225,
+              11.225,
+              12.225
+            ],
+            "y": [
+              5,
+              6.5,
+              9.0999999999999996,
+              9.0999999999999996,
+              13.1,
+              15,
+              15,
+              10.9,
+              8.9000000000000004,
+              6.2000000000000002,
+              1.1000000000000001,
+              0
+            ],
+            "text": [
+              "variable: % 1<br />value:  5.0<br />Characteristic: Disadvantaged all other",
+              "variable: % 2<br />value:  6.5<br />Characteristic: Disadvantaged all other",
+              "variable: % 3<br />value:  9.1<br />Characteristic: Disadvantaged all other",
+              "variable: % 4<br />value:  9.1<br />Characteristic: Disadvantaged all other",
+              "variable: % 5<br />value: 13.1<br />Characteristic: Disadvantaged all other",
+              "variable: % 6<br />value: 15.0<br />Characteristic: Disadvantaged all other",
+              "variable: % 7<br />value: 15.0<br />Characteristic: Disadvantaged all other",
+              "variable: % 8<br />value: 10.9<br />Characteristic: Disadvantaged all other",
+              "variable: % 9<br />value:  8.9<br />Characteristic: Disadvantaged all other",
+              "variable: % u<br />value:  6.2<br />Characteristic: Disadvantaged all other",
+              "variable: % x<br />value:  1.1<br />Characteristic: Disadvantaged all other",
+              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Disadvantaged all other"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Disadvantaged all other",
+            "legendgroup": "Disadvantaged all other",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -106,7 +201,7 @@
             "t": 25.74124809741248,
             "r": 7.3059360730593621,
             "b": 39.69558599695587,
-            "l": 43.105022831050235
+            "l": 37.260273972602747
           },
           "plot_bgcolor": "rgba(235,235,235,1)",
           "paper_bgcolor": "rgba(255,255,255,1)",
@@ -125,7 +220,7 @@
             "autorange": false,
             "range": [
               0.40000000000000002,
-              11.6
+              12.6
             ],
             "tickmode": "array",
             "ticktext": [
@@ -138,21 +233,23 @@
               "% 7",
               "% 8",
               "% 9",
-              "% U",
-              "% X"
+              "% u",
+              "% x",
+              "%<br />covid_impacted"
             ],
             "tickvals": [
               1,
               2,
               3,
-              4,
+              4.0000000000000009,
               5,
               6,
-              7,
+              7.0000000000000009,
               8,
               9,
               10,
-              11
+              11,
+              12
             ],
             "categoryorder": "array",
             "categoryarray": [
@@ -165,8 +262,9 @@
               "% 7",
               "% 8",
               "% 9",
-              "% U",
-              "% X"
+              "% u",
+              "% x",
+              "%<br />covid_impacted"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -208,33 +306,27 @@
             "autorange": false,
             "range": [
               0,
-              111.10000000000001
+              17.600000000000001
             ],
             "tickmode": "array",
             "ticktext": [
               "0",
-              "20",
-              "40",
-              "60",
-              "80",
-              "100"
+              "5",
+              "10",
+              "15"
             ],
             "tickvals": [
               0,
-              20,
-              40,
-              60.000000000000007,
-              80,
-              100
+              5,
+              10,
+              15
             ],
             "categoryorder": "array",
             "categoryarray": [
               "0",
-              "20",
-              "40",
-              "60",
-              "80",
-              "100"
+              "5",
+              "10",
+              "15"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -432,6 +524,6 @@
         }
       ]
     },
-    "subjects_chart_title": "<h4> KS2-KS4 pupil progress in GCSE Ancient History, with Less than 80 KS2 scaled score <\/43>"
+    "subjects_chart_title": "<h4> KS2-KS4 pupil progress in GCSE Ancient History, with Total KS2 scaled score <\/43>"
   }
 }

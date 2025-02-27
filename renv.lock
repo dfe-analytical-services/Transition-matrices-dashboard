@@ -2168,16 +2168,8 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.49",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "grDevices",
-        "stats",
-        "tools"
-      ],
-      "Hash": "8687398773806cfff9401a2feca96298"
+      "Version": "0.51",
+      "Source": "Repository"
     },
     "xml2": {
       "Package": "xml2",

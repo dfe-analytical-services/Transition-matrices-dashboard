@@ -3,8 +3,8 @@
     "KS2_att_select": "105 - 107",
     "KS2_dropdown_attainment_subject": "Less than 80",
     "attainment_select": "English & Mathematics Achievement 9-4",
-    "characteristic_att_select": "All Pupils",
-    "characteristic_select": "EAL",
+    "characteristic_att_select": "Disadvantage",
+    "characteristic_select": "Disadvantage",
     "navlistPanel": "dashboard",
     "num_perc": "Percentage",
     "num_perc_select": "Percentage of pupils",
@@ -18,24 +18,24 @@
           {
             "orientation": "v",
             "width": [
-              0.89999999999999991,
-              0.90000000000000013
+              0.44999999999999996,
+              0.45000000000000018
             ],
             "base": [
               0,
               0
             ],
             "x": [
-              1,
-              2
+              0.77500000000000002,
+              1.7749999999999999
             ],
             "y": [
-              554,
-              12684
+              47637,
+              118835
             ],
             "text": [
-              "variable: Entered<br />value:   554<br />Characteristic: All Pupils<br />Characteristic: All Pupils",
-              "variable: Not Entered<br />value: 12684<br />Characteristic: All Pupils<br />Characteristic: All Pupils"
+              "variable: Entered<br />value:  47637<br />Characteristic: Disadvantaged<br />Characteristic: Disadvantaged",
+              "variable: Not Entered<br />value: 118835<br />Characteristic: Disadvantaged<br />Characteristic: Disadvantaged"
             ],
             "type": "bar",
             "textposition": "none",
@@ -47,8 +47,48 @@
                 "color": "transparent"
               }
             },
-            "name": "All Pupils",
-            "legendgroup": "All Pupils",
+            "name": "Disadvantaged",
+            "legendgroup": "Disadvantaged",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "v",
+            "width": [
+              0.45000000000000018,
+              0.45000000000000018
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              1.2250000000000001,
+              2.2250000000000001
+            ],
+            "y": [
+              206706,
+              256029
+            ],
+            "text": [
+              "variable: Entered<br />value: 206706<br />Characteristic: Disadvantaged all other<br />Characteristic: Disadvantaged all other",
+              "variable: Not Entered<br />value: 256029<br />Characteristic: Disadvantaged all other<br />Characteristic: Disadvantaged all other"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Disadvantaged all other",
+            "legendgroup": "Disadvantaged all other",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -61,7 +101,7 @@
             "t": 25.74124809741248,
             "r": 7.3059360730593621,
             "b": 45.274664452746649,
-            "l": 66.749688667496898
+            "l": 74.719800747198022
           },
           "plot_bgcolor": "rgba(255,255,255,1)",
           "paper_bgcolor": "rgba(255,255,255,1)",
@@ -136,24 +176,33 @@
             "autorange": false,
             "range": [
               0,
-              13953.500000000002
+              281633
             ],
             "tickmode": "array",
             "ticktext": [
               "0",
-              "5000",
-              "10000"
+              "50000",
+              "100000",
+              "150000",
+              "200000",
+              "250000"
             ],
             "tickvals": [
               0,
-              5000,
-              10000
+              50000,
+              100000,
+              150000,
+              200000,
+              250000
             ],
             "categoryorder": "array",
             "categoryarray": [
               "0",
-              "5000",
-              "10000"
+              "50000",
+              "100000",
+              "150000",
+              "200000",
+              "250000"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -357,24 +406,24 @@
           {
             "orientation": "v",
             "width": [
-              0.89999999999999991,
-              0.90000000000000013
+              0.44999999999999996,
+              0.45000000000000018
             ],
             "base": [
               0,
               0
             ],
             "x": [
-              1,
-              2
+              0.77500000000000002,
+              1.7749999999999999
             ],
             "y": [
-              77.700000000000003,
-              22.300000000000001
+              62.899999999999999,
+              37.100000000000001
             ],
             "text": [
-              "variable: % Achieved<br />value: 77.7<br />Characteristic: All Pupils",
-              "variable: % Not Achieved<br />value: 22.3<br />Characteristic: All Pupils"
+              "variable: % Achieved<br />value: 62.9<br />Characteristic: Disadvantaged",
+              "variable: % Not Achieved<br />value: 37.1<br />Characteristic: Disadvantaged"
             ],
             "type": "bar",
             "textposition": "none",
@@ -386,8 +435,48 @@
                 "color": "transparent"
               }
             },
-            "name": "All Pupils",
-            "legendgroup": "All Pupils",
+            "name": "Disadvantaged",
+            "legendgroup": "Disadvantaged",
+            "showlegend": true,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "orientation": "v",
+            "width": [
+              0.45000000000000018,
+              0.45000000000000018
+            ],
+            "base": [
+              0,
+              0
+            ],
+            "x": [
+              1.2250000000000001,
+              2.2250000000000001
+            ],
+            "y": [
+              82.5,
+              17.5
+            ],
+            "text": [
+              "variable: % Achieved<br />value: 82.5<br />Characteristic: Disadvantaged all other",
+              "variable: % Not Achieved<br />value: 17.5<br />Characteristic: Disadvantaged all other"
+            ],
+            "type": "bar",
+            "textposition": "none",
+            "marker": {
+              "autocolorscale": false,
+              "color": "rgba(40,161,151,1)",
+              "line": {
+                "width": 1.8897637795275593,
+                "color": "transparent"
+              }
+            },
+            "name": "Disadvantaged all other",
+            "legendgroup": "Disadvantaged all other",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -475,7 +564,7 @@
             "autorange": false,
             "range": [
               0,
-              86.570000000000007
+              91.850000000000009
             ],
             "tickmode": "array",
             "ticktext": [
@@ -713,9 +802,11 @@
               0.44999999999999929,
               0.44999999999999929,
               0.44999999999999929,
+              0.44999999999999929,
               0.44999999999999929
             ],
             "base": [
+              0,
               0,
               0,
               0,
@@ -739,33 +830,36 @@
               7.7750000000000004,
               8.7750000000000004,
               9.7750000000000004,
-              10.775
+              10.775,
+              11.775
             ],
             "y": [
-              15.5,
-              13.4,
-              7.2000000000000002,
-              10.300000000000001,
-              7.2000000000000002,
-              9.3000000000000007,
-              13.4,
-              14.4,
-              2.1000000000000001,
-              6.2000000000000002,
-              1
+              24.100000000000001,
+              13.800000000000001,
+              11.5,
+              12.6,
+              5.7000000000000002,
+              6.9000000000000004,
+              3.3999999999999999,
+              5.7000000000000002,
+              1.1000000000000001,
+              13.800000000000001,
+              1.1000000000000001,
+              0
             ],
             "text": [
-              "variable: % 1<br />value: 15.5<br />Characteristic: EAL Pupils",
-              "variable: % 2<br />value: 13.4<br />Characteristic: EAL Pupils",
-              "variable: % 3<br />value:  7.2<br />Characteristic: EAL Pupils",
-              "variable: % 4<br />value: 10.3<br />Characteristic: EAL Pupils",
-              "variable: % 5<br />value:  7.2<br />Characteristic: EAL Pupils",
-              "variable: % 6<br />value:  9.3<br />Characteristic: EAL Pupils",
-              "variable: % 7<br />value: 13.4<br />Characteristic: EAL Pupils",
-              "variable: % 8<br />value: 14.4<br />Characteristic: EAL Pupils",
-              "variable: % 9<br />value:  2.1<br />Characteristic: EAL Pupils",
-              "variable: % U<br />value:  6.2<br />Characteristic: EAL Pupils",
-              "variable: % X<br />value:  1.0<br />Characteristic: EAL Pupils"
+              "variable: % 1<br />value: 24.1<br />Characteristic: Disadvantaged",
+              "variable: % 2<br />value: 13.8<br />Characteristic: Disadvantaged",
+              "variable: % 3<br />value: 11.5<br />Characteristic: Disadvantaged",
+              "variable: % 4<br />value: 12.6<br />Characteristic: Disadvantaged",
+              "variable: % 5<br />value:  5.7<br />Characteristic: Disadvantaged",
+              "variable: % 6<br />value:  6.9<br />Characteristic: Disadvantaged",
+              "variable: % 7<br />value:  3.4<br />Characteristic: Disadvantaged",
+              "variable: % 8<br />value:  5.7<br />Characteristic: Disadvantaged",
+              "variable: % 9<br />value:  1.1<br />Characteristic: Disadvantaged",
+              "variable: % u<br />value: 13.8<br />Characteristic: Disadvantaged",
+              "variable: % x<br />value:  1.1<br />Characteristic: Disadvantaged",
+              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Disadvantaged"
             ],
             "type": "bar",
             "textposition": "none",
@@ -777,8 +871,8 @@
                 "color": "transparent"
               }
             },
-            "name": "EAL Pupils",
-            "legendgroup": "EAL Pupils",
+            "name": "Disadvantaged",
+            "legendgroup": "Disadvantaged",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -798,9 +892,11 @@
               0.44999999999999929,
               0.44999999999999929,
               0.44999999999999929,
+              0.44999999999999929,
               0.44999999999999929
             ],
             "base": [
+              0,
               0,
               0,
               0,
@@ -824,33 +920,36 @@
               8.2249999999999996,
               9.2249999999999996,
               10.225,
-              11.225
+              11.225,
+              12.225
             ],
             "y": [
-              36.5,
-              16.5,
-              22.399999999999999,
-              7.0999999999999996,
-              7.0999999999999996,
+              26.300000000000001,
+              15.800000000000001,
+              16.800000000000001,
+              5.2999999999999998,
+              8.4000000000000004,
+              3.2000000000000002,
+              11.6,
+              9.5,
+              2.1000000000000001,
               0,
-              1.2,
-              0,
-              1.2,
-              7.0999999999999996,
-              1.2
+              1.1000000000000001,
+              0
             ],
             "text": [
-              "variable: % 1<br />value: 36.5<br />Characteristic: Non EAL Pupils",
-              "variable: % 2<br />value: 16.5<br />Characteristic: Non EAL Pupils",
-              "variable: % 3<br />value: 22.4<br />Characteristic: Non EAL Pupils",
-              "variable: % 4<br />value:  7.1<br />Characteristic: Non EAL Pupils",
-              "variable: % 5<br />value:  7.1<br />Characteristic: Non EAL Pupils",
-              "variable: % 6<br />value:  0.0<br />Characteristic: Non EAL Pupils",
-              "variable: % 7<br />value:  1.2<br />Characteristic: Non EAL Pupils",
-              "variable: % 8<br />value:  0.0<br />Characteristic: Non EAL Pupils",
-              "variable: % 9<br />value:  1.2<br />Characteristic: Non EAL Pupils",
-              "variable: % U<br />value:  7.1<br />Characteristic: Non EAL Pupils",
-              "variable: % X<br />value:  1.2<br />Characteristic: Non EAL Pupils"
+              "variable: % 1<br />value: 26.3<br />Characteristic: Disadvantaged all other",
+              "variable: % 2<br />value: 15.8<br />Characteristic: Disadvantaged all other",
+              "variable: % 3<br />value: 16.8<br />Characteristic: Disadvantaged all other",
+              "variable: % 4<br />value:  5.3<br />Characteristic: Disadvantaged all other",
+              "variable: % 5<br />value:  8.4<br />Characteristic: Disadvantaged all other",
+              "variable: % 6<br />value:  3.2<br />Characteristic: Disadvantaged all other",
+              "variable: % 7<br />value: 11.6<br />Characteristic: Disadvantaged all other",
+              "variable: % 8<br />value:  9.5<br />Characteristic: Disadvantaged all other",
+              "variable: % 9<br />value:  2.1<br />Characteristic: Disadvantaged all other",
+              "variable: % u<br />value:  0.0<br />Characteristic: Disadvantaged all other",
+              "variable: % x<br />value:  1.1<br />Characteristic: Disadvantaged all other",
+              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Disadvantaged all other"
             ],
             "type": "bar",
             "textposition": "none",
@@ -862,8 +961,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Non EAL Pupils",
-            "legendgroup": "Non EAL Pupils",
+            "name": "Disadvantaged all other",
+            "legendgroup": "Disadvantaged all other",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -895,7 +994,7 @@
             "autorange": false,
             "range": [
               0.40000000000000002,
-              11.6
+              12.6
             ],
             "tickmode": "array",
             "ticktext": [
@@ -908,21 +1007,23 @@
               "% 7",
               "% 8",
               "% 9",
-              "% U",
-              "% X"
+              "% u",
+              "% x",
+              "%<br />covid_impacted"
             ],
             "tickvals": [
               1,
               2,
               3,
-              4,
+              4.0000000000000009,
               5,
               6,
-              7,
+              7.0000000000000009,
               8,
               9,
               10,
-              11
+              11,
+              12
             ],
             "categoryorder": "array",
             "categoryarray": [
@@ -935,8 +1036,9 @@
               "% 7",
               "% 8",
               "% 9",
-              "% U",
-              "% X"
+              "% u",
+              "% x",
+              "%<br />covid_impacted"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -978,30 +1080,36 @@
             "autorange": false,
             "range": [
               0,
-              41.25
+              30.030000000000005
             ],
             "tickmode": "array",
             "ticktext": [
               "0",
+              "5",
               "10",
+              "15",
               "20",
-              "30",
-              "40"
+              "25",
+              "30"
             ],
             "tickvals": [
               0,
+              5,
               10,
+              15,
               20,
-              30,
-              40
+              25,
+              30
             ],
             "categoryorder": "array",
             "categoryarray": [
               "0",
+              "5",
               "10",
+              "15",
               "20",
-              "30",
-              "40"
+              "25",
+              "30"
             ],
             "nticks": null,
             "ticks": "outside",
