@@ -46,10 +46,36 @@ google_analytics_key <- "P760F61KNW"
 # ---- Reading in the data ----
 # -----------------------------------------------------------------------------------------------------------------------------
 
-download_GCSE_Subjects_data <- read.csv("data/2024_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_Combined_Science_data <- read.csv("data/2024_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-download_attainment_data <- read.csv("data/2024_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE)
-
+download_GCSE_Subjects_data <- read.csv("data/2024_Tidy_Data_Output_91_Scaled_Scores_Final.csv", stringsAsFactors = FALSE) %>%
+  rename(
+    characteristic_type = breakdown_topic,
+    characteristic_value = breakdown,
+    KS2_Prior = ks2_scaled_score_group,
+    subjects = subject
+  )
+download_Combined_Science_data <- read.csv("data/2024_Tidy_Data_Output_Comb_Science_Scaled_Scores_Final.csv", stringsAsFactors = FALSE) %>%
+  rename(
+    characteristic_type = breakdown_topic,
+    characteristic_value = breakdown,
+    KS2_Prior = ks2_scaled_score_group,
+    subjects = subject
+  )
+download_attainment_data <- read.csv("data/2024_Tidy_Data_Output_Attainment_Scaled_Scores_Final.csv", stringsAsFactors = FALSE) %>%
+  rename(
+    characteristic_type = breakdown_topic, characteristic_value = breakdown, KS2_Prior = ks2_scaled_score_group,
+    EBacc_all_perc_Entered = X._Entered_for_EBacc,
+    EBacc_all_perc_Not_Entered = X._Not_Entered,
+    EBacc_all_Entered = Entered_for_EBacc,
+    EBacc_all_Not_Entered = Not_Entered,
+    EBacc_9.4_perc_Achieved = X._EBacc_9.4_Achieved,
+    EBacc_9.4_perc_Not_Achieved = X._EBacc_9.4_Not_Achieved,
+    EBacc_9.5_perc_Achieved = X._EBacc_9.5_Achieved,
+    EBacc_9.5_perc_Not_Achieved = X._EBacc_9.5_Not_Achieved,
+    Basics_9.4_perc_Achieved = X._Basics_9.4_Achieved,
+    Basics_9.4_perc_Not_Achieved = X._Basics_9.4_Not_Achieved,
+    Basics_9.5_perc_Achieved = X._Basics_9.5_Achieved,
+    Basics_9.5_perc_Not_Achieved = X._Basics_9.5_Not_Achieved
+  )
 
 
 
