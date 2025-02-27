@@ -1,0 +1,17 @@
+{
+  "input": {
+    "KS2_att_select": "Total",
+    "KS2_dropdown_attainment_subject": "Total",
+    "attainment_select": "EBacc Entry",
+    "characteristic_att_select": "Disadvantage",
+    "characteristic_select": "Disadvantage",
+    "navlistPanel": "Homepage",
+    "num_perc": "Number",
+    "num_perc_select": "Number of pupils",
+    "subjects_select": "Ancient History",
+    "tabsetpanels": "Pupil progress in GCSE subjects"
+  },
+  "output": {
+
+  }
+}
