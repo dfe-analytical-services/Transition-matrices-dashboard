@@ -32,7 +32,7 @@ test_that("{shinytest2} recording: Transition-matrices-dashboard", {
   app$set_inputs(KS2_dropdown_attainment_subject = "102.5 - 104.5")
   app$expect_values(input = inputs, output = outputs)
   # Test 4 - select a characteristic
-  app$set_inputs(characteristic_select = "EAL", KS2_dropdown_attainment_subject = "Less than 80")
+  app$set_inputs(characteristic_select = "First language", KS2_dropdown_attainment_subject = "Less than 80")
   app$expect_values(input = inputs, output = outputs)
   app$set_inputs(tabsetpanels = "Pupil progress in KS4 measures")
   app$expect_values(input = inputs, output = outputs)

@@ -1,10 +1,10 @@
 {
   "input": {
     "KS2_att_select": "Total",
-    "KS2_dropdown_attainment_subject": "Less than 80",
+    "KS2_dropdown_attainment_subject": "Total",
     "attainment_select": "EBacc Entry",
     "characteristic_att_select": "Disadvantage",
-    "characteristic_select": "Disadvantage",
+    "characteristic_select": "First language",
     "navlistPanel": "dashboard",
     "num_perc": "Number",
     "num_perc_select": "Percentage of pupils",
@@ -60,32 +60,32 @@
               11.775
             ],
             "y": [
-              24.100000000000001,
-              13.800000000000001,
-              11.5,
-              12.6,
-              5.7000000000000002,
-              6.9000000000000004,
-              3.3999999999999999,
-              5.7000000000000002,
               1.1000000000000001,
+              2.5,
+              6.2000000000000002,
+              11.9,
+              17.699999999999999,
+              18.5,
+              15.4,
               13.800000000000001,
-              1.1000000000000001,
+              12.1,
+              0.5,
+              0.29999999999999999,
               0
             ],
             "text": [
-              "variable: % 1<br />value: 24.1<br />Characteristic: Disadvantaged",
-              "variable: % 2<br />value: 13.8<br />Characteristic: Disadvantaged",
-              "variable: % 3<br />value: 11.5<br />Characteristic: Disadvantaged",
-              "variable: % 4<br />value: 12.6<br />Characteristic: Disadvantaged",
-              "variable: % 5<br />value:  5.7<br />Characteristic: Disadvantaged",
-              "variable: % 6<br />value:  6.9<br />Characteristic: Disadvantaged",
-              "variable: % 7<br />value:  3.4<br />Characteristic: Disadvantaged",
-              "variable: % 8<br />value:  5.7<br />Characteristic: Disadvantaged",
-              "variable: % 9<br />value:  1.1<br />Characteristic: Disadvantaged",
-              "variable: % u<br />value: 13.8<br />Characteristic: Disadvantaged",
-              "variable: % x<br />value:  1.1<br />Characteristic: Disadvantaged",
-              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Disadvantaged"
+              "variable: % 1<br />value:  1.1<br />Characteristic: English",
+              "variable: % 2<br />value:  2.5<br />Characteristic: English",
+              "variable: % 3<br />value:  6.2<br />Characteristic: English",
+              "variable: % 4<br />value: 11.9<br />Characteristic: English",
+              "variable: % 5<br />value: 17.7<br />Characteristic: English",
+              "variable: % 6<br />value: 18.5<br />Characteristic: English",
+              "variable: % 7<br />value: 15.4<br />Characteristic: English",
+              "variable: % 8<br />value: 13.8<br />Characteristic: English",
+              "variable: % 9<br />value: 12.1<br />Characteristic: English",
+              "variable: % u<br />value:  0.5<br />Characteristic: English",
+              "variable: % x<br />value:  0.3<br />Characteristic: English",
+              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: English"
             ],
             "type": "bar",
             "textposition": "none",
@@ -97,8 +97,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Disadvantaged",
-            "legendgroup": "Disadvantaged",
+            "name": "English",
+            "legendgroup": "English",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -150,32 +150,32 @@
               12.225
             ],
             "y": [
-              26.300000000000001,
-              15.800000000000001,
-              16.800000000000001,
-              5.2999999999999998,
+              0.80000000000000004,
+              1.6000000000000001,
+              4.5,
               8.4000000000000004,
-              3.2000000000000002,
-              11.6,
-              9.5,
-              2.1000000000000001,
-              0,
-              1.1000000000000001,
+              14,
+              18,
+              16.899999999999999,
+              17.699999999999999,
+              17.399999999999999,
+              0.5,
+              0.10000000000000001,
               0
             ],
             "text": [
-              "variable: % 1<br />value: 26.3<br />Characteristic: Disadvantaged all other",
-              "variable: % 2<br />value: 15.8<br />Characteristic: Disadvantaged all other",
-              "variable: % 3<br />value: 16.8<br />Characteristic: Disadvantaged all other",
-              "variable: % 4<br />value:  5.3<br />Characteristic: Disadvantaged all other",
-              "variable: % 5<br />value:  8.4<br />Characteristic: Disadvantaged all other",
-              "variable: % 6<br />value:  3.2<br />Characteristic: Disadvantaged all other",
-              "variable: % 7<br />value: 11.6<br />Characteristic: Disadvantaged all other",
-              "variable: % 8<br />value:  9.5<br />Characteristic: Disadvantaged all other",
-              "variable: % 9<br />value:  2.1<br />Characteristic: Disadvantaged all other",
-              "variable: % u<br />value:  0.0<br />Characteristic: Disadvantaged all other",
-              "variable: % x<br />value:  1.1<br />Characteristic: Disadvantaged all other",
-              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Disadvantaged all other"
+              "variable: % 1<br />value:  0.8<br />Characteristic: Other than English",
+              "variable: % 2<br />value:  1.6<br />Characteristic: Other than English",
+              "variable: % 3<br />value:  4.5<br />Characteristic: Other than English",
+              "variable: % 4<br />value:  8.4<br />Characteristic: Other than English",
+              "variable: % 5<br />value: 14.0<br />Characteristic: Other than English",
+              "variable: % 6<br />value: 18.0<br />Characteristic: Other than English",
+              "variable: % 7<br />value: 16.9<br />Characteristic: Other than English",
+              "variable: % 8<br />value: 17.7<br />Characteristic: Other than English",
+              "variable: % 9<br />value: 17.4<br />Characteristic: Other than English",
+              "variable: % u<br />value:  0.5<br />Characteristic: Other than English",
+              "variable: % x<br />value:  0.1<br />Characteristic: Other than English",
+              "variable: % covid_impacted<br />value:  0.0<br />Characteristic: Other than English"
             ],
             "type": "bar",
             "textposition": "none",
@@ -187,8 +187,8 @@
                 "color": "transparent"
               }
             },
-            "name": "Disadvantaged all other",
-            "legendgroup": "Disadvantaged all other",
+            "name": "Other than English",
+            "legendgroup": "Other than English",
             "showlegend": true,
             "xaxis": "x",
             "yaxis": "y",
@@ -306,7 +306,7 @@
             "autorange": false,
             "range": [
               0,
-              30.030000000000005
+              21.450000000000003
             ],
             "tickmode": "array",
             "ticktext": [
@@ -314,18 +314,14 @@
               "5",
               "10",
               "15",
-              "20",
-              "25",
-              "30"
+              "20"
             ],
             "tickvals": [
               0,
               5,
               10,
-              15,
-              20,
-              25,
-              30
+              14.999999999999998,
+              20
             ],
             "categoryorder": "array",
             "categoryarray": [
@@ -333,9 +329,7 @@
               "5",
               "10",
               "15",
-              "20",
-              "25",
-              "30"
+              "20"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -533,6 +527,6 @@
         }
       ]
     },
-    "subjects_chart_title": "<h4> KS2-KS4 pupil progress in GCSE Chemistry, with Less than 80 KS2 scaled score <\/43>"
+    "subjects_chart_title": "<h4> KS2-KS4 pupil progress in GCSE Chemistry, with Total KS2 scaled score <\/43>"
   }
 }
