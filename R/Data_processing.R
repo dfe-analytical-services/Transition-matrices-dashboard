@@ -383,7 +383,7 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional",
+      version = "Revised",
       all_grades = rowSums(.[, c("U", "1", "2", "3", "4", "5", "6", "7", "8", "9", "X", "covid_impacted")], na.rm = TRUE)
     ) %>%
     arrange(
@@ -518,7 +518,7 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional",
+      version = "Revised",
       all_grades = rowSums(.[, c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X")], na.rm = TRUE)
     ) %>%
     arrange(
@@ -778,7 +778,7 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
       geographic_level = "National",
       country_code = "E92000001",
       country_name = "England",
-      version = "Provisional"
+      version = "Revised"
     ) %>%
     arrange(
       characteristic_type, # comment back for app use,

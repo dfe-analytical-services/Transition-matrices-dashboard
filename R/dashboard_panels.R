@@ -125,7 +125,7 @@ dashboard_panel <- function() {
                    All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
-                    tags$b("UPDATE: 5th December 2024 - The KS4 Transition Matrices have been updated with 2023/24 provisional data, in line with the provisional KS4 performance release.")
+                    tags$b("UPDATE: 27th February 2025 - The KS4 Transition Matrices have been updated with 2023/24 revised data, in line with the revised KS4 performance release.")
                   ),
                   column(
                     width = 12,
