@@ -69,7 +69,7 @@ Around 3-7 days prior to a data update, create a new branch from main and run `r
 
 2. Open the R project in R Studio.
 
-3. Run `renv::restore()` to install dependencies.
+3. Run `Y` to install dependencies.
 
 4. Run `shiny::runApp()` to run the app locally.
 
