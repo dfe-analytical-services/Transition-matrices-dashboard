@@ -59,55 +59,55 @@ FROM [ks4_restricted].[dbo].[ks4_exam_24_result_amended_v2]
 WHERE PTQ_INCLUDE = 1
 AND disc3B_ptq_ee = 0
 AND sublevno in ('310', '391', '395', '450', '451', '760', '954')"
-# AND ENDKS = 1
-# AND NATRES = 1"
+  # AND ENDKS = 1
+  # AND NATRES = 1"
   Exam_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
 
 
   Exam_SQL_data <- Exam_SQL_data %>%
     mutate(subjects = case_when(
-      WOLF_DISC_CODE == 'FK2B' & !SUBLEVNO %in% c(121, 150, 225) ~ 'English Language',
-      WOLF_DISC_CODE == 'FC4'  & !SUBLEVNO %in% c(121, 150, 225) ~ 'English Literature',
-      WOLF_DISC_CODE %in% c('RB1','RB15','RB1A','RB1B','RB31','RB55','RB56','RB71','RB7B','RB7E') & 
-        !GNUMBER %in% c('10034912','10060054','10060091','10060133','10060170','10060212','1006025X','10050395', '60310844', '60311770') & 
-        !SUBLEVNO %in% c(121, 150, 225) ~ 'Mathematics',
-      WOLF_DISC_CODE == 'RA1E' ~ 'Combined Science',
-      WOLF_DISC_CODE == 'RC1' ~ 'Physics',
-      WOLF_DISC_CODE == 'RD1' ~ 'Chemistry',
-      WOLF_DISC_CODE == 'RH3' ~ 'Biology',
-      WOLF_DISC_CODE == 'CK1' ~ 'Computer Science',
-      WOLF_DISC_CODE %in% c('RE1','RF2','RC52','QA3') ~ 'Other Sciences',
-      WOLF_DISC_CODE == 'VF1' ~ 'Design & Technology',
-      WOLF_DISC_CODE == 'XA5A' ~ 'D & T: Textiles Technology',
-      WOLF_DISC_CODE %in% c('VF2', 'VF3') ~ 'Other Design and Technology',
-      WOLF_DISC_CODE == 'XA1' ~ 'Engineering',
-      WOLF_DISC_CODE == 'AA3' ~ 'Business',
-      WOLF_DISC_CODE == 'NH6' ~ 'Food Preparation & Nutrition',
-      WOLF_DISC_CODE == 'RF4' ~ 'Geography',
-      WOLF_DISC_CODE == 'DB' ~ 'History',
-      WOLF_DISC_CODE == 'DB21' ~ 'Ancient History',
-      WOLF_DISC_CODE == 'EB' ~ 'Economics',
-      WOLF_DISC_CODE %in% c('EE2', 'PK1', 'EE31', 'DE1', 'EA') ~ 'Social Studies',
-      WOLF_DISC_CODE == 'FKF' ~ 'French',
-      WOLF_DISC_CODE == 'FKG' ~ 'German',
-      WOLF_DISC_CODE == 'FKS' ~ 'Spanish',
-      WOLF_DISC_CODE %in% c('FKO','FKQ','F1H','FKB','F1P','FKP','FKI','FKJ','FKM','FKK','FKU','FKX','FKC','FKR','FKT') ~ 'Other Modern Languages',
-      WOLF_DISC_CODE == 'F1L' ~ 'Latin',
-      WOLF_DISC_CODE == 'DB2B' ~ 'Classical Civilisation',
-      WOLF_DISC_CODE == 'F1K' ~ 'Classical Greek',
-      WOLF_DISC_CODE == 'F1Z' ~ 'Biblical Hebrew',
-      WOLF_DISC_CODE %in% c('JA2','KJ1') & !GNUMBER %in% c('60308448','60329646','60330739','6030845X','60047811') ~ 'Art and Design',
-      WOLF_DISC_CODE == 'KA2' & !GNUMBER %in% c('60311150','60311502','60319434','60320692','60321052','60322469') ~ 'Film Studies',
-      WOLF_DISC_CODE == 'LB1' & !GNUMBER %in% c('60304066') ~ 'Dance',
-      WOLF_DISC_CODE == 'LC11' & !GNUMBER %in% c('60176799','60176805','60304066','60305083','60329609') ~ 'Drama',
-      WOLF_DISC_CODE == 'PA1' & !GNUMBER %in% c('60303955','6004780X','60332943') ~ 'Health and Social Care',
-      WOLF_DISC_CODE == 'KA2' & !GNUMBER %in% c('10042799','50022465','50025995','50030188','60055029','60308898','60309702','60309714','60309726') ~ 'Media/Film/TV',
-      WOLF_DISC_CODE %in% c('LF1','LJ9') & !GNUMBER %in% c('6006657X','60066520','60066532','60066568','60068188','60167749','60167774','60329737','60333066','60333042') ~ 'Music',
-      WOLF_DISC_CODE == 'MA1' & !GNUMBER %in% c('6014662X','60047793','60051218','60051231','60145341','60176787','60326505','60327054','6030473X') ~ 'Physical Education',
-      WOLF_DISC_CODE == 'DD1' ~ 'Religious Studies',
-      WOLF_DISC_CODE == 'RB71' & !GNUMBER %in% c('60322615') ~ 'Statistics',
-      WOLF_DISC_CODE == 'AK6' ~ 'Accounting',
-      TRUE ~ NA_character_  # Default case
+      WOLF_DISC_CODE == "FK2B" & !SUBLEVNO %in% c(121, 150, 225) ~ "English Language",
+      WOLF_DISC_CODE == "FC4" & !SUBLEVNO %in% c(121, 150, 225) ~ "English Literature",
+      WOLF_DISC_CODE %in% c("RB1", "RB15", "RB1A", "RB1B", "RB31", "RB55", "RB56", "RB71", "RB7B", "RB7E") &
+        !GNUMBER %in% c("10034912", "10060054", "10060091", "10060133", "10060170", "10060212", "1006025X", "10050395", "60310844", "60311770") &
+        !SUBLEVNO %in% c(121, 150, 225) ~ "Mathematics",
+      WOLF_DISC_CODE == "RA1E" ~ "Combined Science",
+      WOLF_DISC_CODE == "RC1" ~ "Physics",
+      WOLF_DISC_CODE == "RD1" ~ "Chemistry",
+      WOLF_DISC_CODE == "RH3" ~ "Biology",
+      WOLF_DISC_CODE == "CK1" ~ "Computer Science",
+      WOLF_DISC_CODE %in% c("RE1", "RF2", "RC52", "QA3") ~ "Other Sciences",
+      WOLF_DISC_CODE == "VF1" ~ "Design & Technology",
+      WOLF_DISC_CODE == "XA5A" ~ "D & T: Textiles Technology",
+      WOLF_DISC_CODE %in% c("VF2", "VF3") ~ "Other Design and Technology",
+      WOLF_DISC_CODE == "XA1" ~ "Engineering",
+      WOLF_DISC_CODE == "AA3" ~ "Business",
+      WOLF_DISC_CODE == "NH6" ~ "Food Preparation & Nutrition",
+      WOLF_DISC_CODE == "RF4" ~ "Geography",
+      WOLF_DISC_CODE == "DB" ~ "History",
+      WOLF_DISC_CODE == "DB21" ~ "Ancient History",
+      WOLF_DISC_CODE == "EB" ~ "Economics",
+      WOLF_DISC_CODE %in% c("EE2", "PK1", "EE31", "DE1", "EA") ~ "Social Studies",
+      WOLF_DISC_CODE == "FKF" ~ "French",
+      WOLF_DISC_CODE == "FKG" ~ "German",
+      WOLF_DISC_CODE == "FKS" ~ "Spanish",
+      WOLF_DISC_CODE %in% c("FKO", "FKQ", "F1H", "FKB", "F1P", "FKP", "FKI", "FKJ", "FKM", "FKK", "FKU", "FKX", "FKC", "FKR", "FKT") ~ "Other Modern Languages",
+      WOLF_DISC_CODE == "F1L" ~ "Latin",
+      WOLF_DISC_CODE == "DB2B" ~ "Classical Civilisation",
+      WOLF_DISC_CODE == "F1K" ~ "Classical Greek",
+      WOLF_DISC_CODE == "F1Z" ~ "Biblical Hebrew",
+      WOLF_DISC_CODE %in% c("JA2", "KJ1") & !GNUMBER %in% c("60308448", "60329646", "60330739", "6030845X", "60047811") ~ "Art and Design",
+      WOLF_DISC_CODE == "KA2" & !GNUMBER %in% c("60311150", "60311502", "60319434", "60320692", "60321052", "60322469") ~ "Film Studies",
+      WOLF_DISC_CODE == "LB1" & !GNUMBER %in% c("60304066") ~ "Dance",
+      WOLF_DISC_CODE == "LC11" & !GNUMBER %in% c("60176799", "60176805", "60304066", "60305083", "60329609") ~ "Drama",
+      WOLF_DISC_CODE == "PA1" & !GNUMBER %in% c("60303955", "6004780X", "60332943") ~ "Health and Social Care",
+      WOLF_DISC_CODE == "KA2" & !GNUMBER %in% c("10042799", "50022465", "50025995", "50030188", "60055029", "60308898", "60309702", "60309714", "60309726") ~ "Media/Film/TV",
+      WOLF_DISC_CODE %in% c("LF1", "LJ9") & !GNUMBER %in% c("6006657X", "60066520", "60066532", "60066568", "60068188", "60167749", "60167774", "60329737", "60333066", "60333042") ~ "Music",
+      WOLF_DISC_CODE == "MA1" & !GNUMBER %in% c("6014662X", "60047793", "60051218", "60051231", "60145341", "60176787", "60326505", "60327054", "6030473X") ~ "Physical Education",
+      WOLF_DISC_CODE == "DD1" ~ "Religious Studies",
+      WOLF_DISC_CODE == "RB71" & !GNUMBER %in% c("60322615") ~ "Statistics",
+      WOLF_DISC_CODE == "AK6" ~ "Accounting",
+      TRUE ~ NA_character_ # Default case
     )) %>%
     mutate(GRADE = ifelse(COVID_IMPACTED_FLAG == "1" & !(GRADE %in% c("Q")), "covid impacted", GRADE)) # %>%
   #  mutate(GRADE = case_when(
@@ -205,7 +205,7 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
       KS2EMSS >= 110 & KS2EMSS <= 113 ~ "110 - 113",
       KS2EMSS >= 113.5 & KS2EMSS <= 116.5 ~ "113.5 - 116.5",
       KS2EMSS >= 117 & KS2EMSS <= 120 ~ "117 - 120",
-      is.na(KS2EMSS) ~ "No scaled score",  # Handling missing values
+      is.na(KS2EMSS) ~ "No scaled score", # Handling missing values
       TRUE ~ NA_character_
     )) %>%
     mutate(ks2em_band = case_when(
@@ -220,9 +220,9 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
       KS2EMSS >= 110 & KS2EMSS <= 113 ~ "09",
       KS2EMSS >= 113.5 & KS2EMSS <= 116.5 ~ "10",
       KS2EMSS >= 117 & KS2EMSS <= 120 ~ "11",
-      is.na(KS2EMSS)  ~ "12",
+      is.na(KS2EMSS) ~ "12",
       TRUE ~ NA_character_
-    )) 
+    ))
 
 
 
@@ -298,53 +298,53 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
 
 
   #####################################################################################
-  
- 
+
+
   func_counts_char <- function(data, char, char_name) {
     grouped_data <- data %>%
       count(GRADE, subjects, ks2em_band, ks2em, {{ char }}) %>%
       rename(breakdown = {{ char }}) %>%
       mutate(breakdown_topic = char_name)
-    
+
     # Create total row by summarizing counts, setting ks2em = "Total"
     total_row <- grouped_data %>%
       group_by(GRADE, subjects, breakdown) %>%
       summarise(n = sum(n), .groups = "drop") %>%
       mutate(ks2em = "Total", ks2em_band = "13", breakdown_topic = char_name)
-    
+
     # Combine original and total row
     bind_rows(grouped_data, total_row)
   }
-  
+
 
   func_counts_all <- function(data) {
     grouped_data <- data %>%
       count(GRADE, subjects, ks2em_band, ks2em) %>%
       mutate(breakdown = "Total", breakdown_topic = "Total")
-    
+
     # Create total row by summarizing counts, setting ks2em = "Total"
     total_row <- grouped_data %>%
       group_by(GRADE, subjects) %>%
       summarise(n = sum(n), .groups = "drop") %>%
       mutate(ks2em = "Total", ks2em_band = NA, breakdown = "Total", breakdown_topic = "Total")
-    
+
     # Combine original and total row
     bind_rows(grouped_data, total_row)
   }
-  
 
-# This section counts the number of grades in each breakdown and All Pupils
-grade_counts_Sex <- func_counts_char(join_data, Sex, "Sex")
-grade_counts_sen <- func_counts_char(join_data, `SEN status`, "SEN status")
-grade_counts_eal <- func_counts_char(join_data, `First language`, "First language")
-grade_counts_disadvantage <- func_counts_char(join_data, Disadvantage, "Disadvantage")
-grade_counts_all <- func_counts_all(join_data)
 
-# This combines the count dataframes
-grade_counts_comb <- rbind(
-  grade_counts_Sex, grade_counts_sen, grade_counts_eal,
-  grade_counts_disadvantage, grade_counts_all
-)
+  # This section counts the number of grades in each breakdown and All Pupils
+  grade_counts_Sex <- func_counts_char(join_data, Sex, "Sex")
+  grade_counts_sen <- func_counts_char(join_data, `SEN status`, "SEN status")
+  grade_counts_eal <- func_counts_char(join_data, `First language`, "First language")
+  grade_counts_disadvantage <- func_counts_char(join_data, Disadvantage, "Disadvantage")
+  grade_counts_all <- func_counts_all(join_data)
+
+  # This combines the count dataframes
+  grade_counts_comb <- rbind(
+    grade_counts_Sex, grade_counts_sen, grade_counts_eal,
+    grade_counts_disadvantage, grade_counts_all
+  )
 
   # group_bys <- c( "GRADE","subjects", "ks2em","ks2em_band", "Sex","SEN status", "First language", "Disadvantage")
   # set_lists = list(c("GRADE","subjects", "ks2em","ks2em_band",  "Sex")
@@ -375,7 +375,7 @@ grade_counts_comb <- rbind(
   #   mutate(n=as.numeric(n))%>%
   #   arrange(GRADE)%>%
   #   as.data.frame()
-  # 
+  #
 
 
 
@@ -386,15 +386,15 @@ grade_counts_comb <- rbind(
   #   select(-Q) %>%
   #   mutate(across(where(is.list), ~ unlist(.x)))%>%
   #   rename("covid_impacted" = "covid impacted")
-  
+
   grade_counts_spread <- grade_counts_comb %>%
     pivot_wider(names_from = GRADE, values_from = n) %>%
-    mutate(X = coalesce(X, 0) + coalesce(Q, 0)) %>%  # Combine Q into X
-    select(-Q) %>%  # Remove Q after merging
+    mutate(X = coalesce(X, 0) + coalesce(Q, 0)) %>% # Combine Q into X
+    select(-Q) %>% # Remove Q after merging
     mutate(across(where(is.list), ~ unlist(.x))) %>%
     rename("covid_impacted" = "covid impacted")
-  
-    
+
+
   # Calculates the percentages
   grade_percentages_spread <- grade_counts_spread %>%
     # select(-X) %>% # removes X from the % calculation
@@ -437,13 +437,13 @@ grade_counts_comb <- rbind(
     ) %>%
     arrange(
       breakdown_topic, # comment back for app use,
-      breakdown, subjects, 
+      breakdown, subjects,
       ks2em_band
     ) %>%
     select(time_period, time_identifier, geographic_level, country_code, country_name, # LA_name,
       version, establishment_type_group,
       breakdown_topic, # comment back for app use,
-      breakdown, 
+      breakdown,
       ks2_scaled_score_group = ks2em,
       subject = subjects,
       qualification_type,
@@ -492,33 +492,33 @@ grade_counts_comb <- rbind(
       count(GRADE, subjects, ks2em_band, ks2em, {{ char }}) %>%
       rename(breakdown = {{ char }}) %>%
       mutate(breakdown_topic = char_name)
-    
+
     # Create total row by summarizing counts, setting ks2em = "Total"
     total_row <- grouped_data %>%
       group_by(GRADE, subjects, breakdown) %>%
       summarise(n = sum(n), .groups = "drop") %>%
       mutate(ks2em = "Total", ks2em_band = "13", breakdown_topic = char_name)
-    
+
     # Combine original and total row
     bind_rows(grouped_data, total_row)
   }
-  
-  
+
+
   func_counts_all <- function(data) {
     grouped_data <- data %>%
       count(GRADE, subjects, ks2em_band, ks2em) %>%
       mutate(breakdown = "Total", breakdown_topic = "Total")
-    
+
     # Create total row by summarizing counts, setting ks2em = "Total"
     total_row <- grouped_data %>%
       group_by(GRADE, subjects) %>%
       summarise(n = sum(n), .groups = "drop") %>%
       mutate(ks2em = "Total", ks2em_band = NA, breakdown = "Total", breakdown_topic = "Total")
-    
+
     # Combine original and total row
     bind_rows(grouped_data, total_row)
   }
-  
+
   # a <- join_data_cs %>% filter(GRADE == 'covid impacted')
   # This section counts the number of grades in each breakdown and All Pupils
   grade_counts_Sex_cs <- func_counts_char(join_data_cs, Sex, "Sex")
@@ -535,17 +535,17 @@ grade_counts_comb <- rbind(
 
 
   # creates the separate grade columns
-  grade_counts_spread_cs <- grade_counts_comb_cs %>% 
+  grade_counts_spread_cs <- grade_counts_comb_cs %>%
     pivot_wider(names_from = GRADE, values_from = n) %>%
     mutate(
-      X = coalesce(X, 0) + coalesce(Q, 0),  # Combine Q into X
-      `covid impacted` = 0  # Add the "covid impacted" column with all values as 0
+      X = coalesce(X, 0) + coalesce(Q, 0), # Combine Q into X
+      `covid impacted` = 0 # Add the "covid impacted" column with all values as 0
     ) %>%
-    select(-Q) %>%  # Remove Q after merging
+    select(-Q) %>% # Remove Q after merging
     mutate(across(where(is.list), ~ unlist(.x))) %>%
-    rename("covid_impacted" = "covid impacted")  # Rename after ensuring the column exists
-    
-    
+    rename("covid_impacted" = "covid impacted") # Rename after ensuring the column exists
+
+
   # calcs
   grade_percentages_spread_cs <- grade_counts_spread_cs %>%
     # select(-X) %>% # removes X from the % calculation, we are including X in the percentage calc
@@ -597,17 +597,17 @@ grade_counts_comb <- rbind(
     ) %>%
     arrange(
       breakdown_topic, # comment back for app use,
-      breakdown, 
+      breakdown,
       ks2em_band
     ) %>%
     select(time_period, time_identifier, geographic_level, country_code, country_name, version,
-           establishment_type_group,
-           breakdown_topic, # comment back for app use,
-           breakdown, 
-           ks2_scaled_score_group = ks2em,
-           subject,
-           qualification_type,
-           
+      establishment_type_group,
+      breakdown_topic, # comment back for app use,
+      breakdown,
+      ks2_scaled_score_group = ks2em,
+      subject,
+      qualification_type,
+
 
       ## the grades below produce data files output when running app this need to be commented out and the section 2 commented back in.
       ## 'U' = 'U',
@@ -619,8 +619,8 @@ grade_counts_comb <- rbind(
 
       "num_11" = "11", "num_21" = "21", "num_22" = "22", "num_32" = "32", "num_33" = "33", "num_43" = "43", "num_44" = "44", "num_54" = "54", "num_55" = "55", "num_65" = "65", "num_66" = "66", "num_76" = "76",
       "num_77" = "77", "num_87" = "87", "num_88" = "88", "num_98" = "98", "num_99" = "99", "num_UU" = "U", "num_XX" = "X", "num_covid_impacted" = "covid_impacted", "all_grades",
-       "perc_11", "perc_21", "perc_22", "perc_32", "perc_33", "perc_43", "perc_44", "perc_54", "perc_55", "perc_65", "perc_66", "perc_76",
-      "perc_77", "perc_87", "perc_88", "perc_98", "perc_99","perc_UU", "perc_XX","perc_covid_impacted"
+      "perc_11", "perc_21", "perc_22", "perc_32", "perc_33", "perc_43", "perc_44", "perc_54", "perc_55", "perc_65", "perc_66", "perc_76",
+      "perc_77", "perc_87", "perc_88", "perc_98", "perc_99", "perc_UU", "perc_XX", "perc_covid_impacted"
     ) %>% ## comment back for app
     mutate_all(~ replace(., is.na(.), 0))
 
@@ -643,22 +643,22 @@ grade_counts_comb <- rbind(
   # Ensure 'time_period' is character in both
   tidy_data_cs <- tidy_data_cs %>%
     mutate(time_period = as.character(time_period))
-  
+
   tidy_data_subjects <- tidy_data_subjects %>%
     mutate(time_period = as.character(time_period))
-  
+
   # Combine by row, keeping all columns
   combined_data <- bind_rows(tidy_data_subjects, tidy_data_cs)
-  
+
   # Replace all NA values with "z"
   combined_data <- combined_data %>%
-    mutate(across(everything(), ~replace(., is.na(.), "z")))
-  
-  
+    mutate(across(everything(), ~ replace(., is.na(.), "z")))
+
+
   # Save combined_data as a CSV
   save_tidy_data_file_TM_combined <- "C:/Users/MPARMAR/OneDrive - Department for Education/Documents/Repo/Transition-matrices-dashboard_SQL_integration/data/2024_Key stage 2 to 4 transition matrices GCSE subjects.csv"
   write.csv(combined_data, save_tidy_data_file_TM_combined, row.names = FALSE)
-  
+
 
   #################################################################################################
   ##################                 Attainment tidy data                         #################
@@ -684,19 +684,19 @@ grade_counts_comb <- rbind(
       count({{ attainment }}, ks2em_band, ks2em, {{ char }}) %>%
       rename(breakdown = {{ char }}) %>%
       mutate(breakdown_topic = char_name)
-    
+
     # Create total row for each breakdown category (Disadvantaged, Non-Disadvantaged, etc.)
     total_row <- grouped_data %>%
       group_by({{ attainment }}, breakdown_topic, breakdown) %>%
       summarise(n = sum(n), .groups = "drop") %>%
       mutate(ks2em = "Total", ks2em_band = "13")
-    
+
     # Combine original and total row
     final_data <- bind_rows(grouped_data, total_row)
-    
+
     return(final_data)
   }
-  
+
 
 
   ## function for calculating all pupil attainment columns
@@ -709,20 +709,20 @@ grade_counts_comb <- rbind(
       count({{ attainment }}, ks2em_band, ks2em) %>%
       mutate(breakdown = "Total") %>%
       mutate(breakdown_topic = "Total")
-    
+
     # Create total row by summarizing counts, setting ks2em = "Total"
     total_row <- grouped_data %>%
       group_by({{ attainment }}, breakdown_topic, breakdown) %>%
       summarise(n = sum(n), .groups = "drop") %>%
       mutate(ks2em = "Total", ks2em_band = "13")
-  
-    
+
+
     # Combine original and total row
     final_data <- bind_rows(grouped_data, total_row)
-    
+
     return(final_data)
   }
-  
+
 
 
   # Calculating pupils entered for EBacc
@@ -903,21 +903,20 @@ grade_counts_comb <- rbind(
       country_name = "England",
       version = "Revised",
       establishment_type_group = "All state-funded"
-      
     ) %>%
     arrange(
       breakdown_topic, # comment back for app use,
-      breakdown, 
+      breakdown,
       ks2em_band
     ) %>%
     select(time_period, time_identifier, geographic_level, country_code, country_name, version, establishment_type_group,
       breakdown_topic, # comment back for app use,
       breakdown,
-      ks2_scaled_score_group = ks2em, 
-      "Entered_for_EBacc", "Not_Entered", "%_Entered_for_EBacc", "%_Not_Entered", 
-      "EBacc_9-4_Achieved", "EBacc_9-4_Not_Achieved","%_EBacc_9-4_Achieved", "%_EBacc_9-4_Not_Achieved", 
-      "EBacc_9-5_Achieved", "EBacc_9-5_Not_Achieved","%_EBacc_9-5_Achieved", "%_EBacc_9-5_Not_Achieved", 
-      "Basics_9-4_Achieved", "Basics_9-4_Not_Achieved", "%_Basics_9-4_Achieved", "%_Basics_9-4_Not_Achieved", 
+      ks2_scaled_score_group = ks2em,
+      "Entered_for_EBacc", "Not_Entered", "%_Entered_for_EBacc", "%_Not_Entered",
+      "EBacc_9-4_Achieved", "EBacc_9-4_Not_Achieved", "%_EBacc_9-4_Achieved", "%_EBacc_9-4_Not_Achieved",
+      "EBacc_9-5_Achieved", "EBacc_9-5_Not_Achieved", "%_EBacc_9-5_Achieved", "%_EBacc_9-5_Not_Achieved",
+      "Basics_9-4_Achieved", "Basics_9-4_Not_Achieved", "%_Basics_9-4_Achieved", "%_Basics_9-4_Not_Achieved",
       "Basics_9-5_Achieved", "Basics_9-5_Not_Achieved", "%_Basics_9-5_Achieved", "%_Basics_9-5_Not_Achieved"
     ) %>%
     mutate_all(~ replace(., is.na(.), 0))
@@ -930,9 +929,8 @@ grade_counts_comb <- rbind(
   # copying data to an Excel file
   save_tidy_data_file_attainment <- "data/2024_Tidy_Data_Output_Attainment_Scaled_Scores_Final_v2.csv" # # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
-  
+
   # copying data to an Excel file for EES
   save_tidy_data_file_attainment <- "data/2024_Key stage 2 to 4 transition matrices KS4 measures.csv" # # update year
   write.table(attainment_tidy_data, save_tidy_data_file_attainment, row.names = FALSE, sep = ",")
-  
 }
