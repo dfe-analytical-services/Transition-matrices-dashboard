@@ -61,7 +61,6 @@ homepage_panel <- function() {
                 # p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
 
 
-
                 h3("Further information"),
                 p("All supporting files from this release are listed below:"),
                 a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
@@ -190,7 +189,6 @@ dashboard_panel <- function() {
                         class = "well",
                         style = "min-height: 100%; height: 100%; overflow-y: visible",
                         fluidRow(
-
                           #  h3("Select one option from all categories to explore data:"),
                           column(
                             6,
@@ -248,10 +246,6 @@ dashboard_panel <- function() {
             )
           )
         )
-
-
-
-
 
 
         #   ))

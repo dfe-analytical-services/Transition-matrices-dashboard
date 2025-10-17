@@ -16,7 +16,6 @@ shhh(library(purrr))
 # ))
 
 
-
 pull_latest_data <- function() {
   # Load libraries==from here
 
@@ -32,8 +31,6 @@ pull_latest_data <- function() {
   }
 
 
-
-
   # Connect to the SQL server
   SQL_con <- dbConnect(odbc(),
     Driver = "SQL Server",
@@ -41,8 +38,6 @@ pull_latest_data <- function() {
     Database = "KS4_RESTRICTED", # Enter the folder containing your SQL data
     Trusted_Connection = "True"
   )
-
-
 
 
   # STEP 1
@@ -118,7 +113,6 @@ AND sublevno in ('310', '391', '395', '450', '451', '760', '954')"
   # as.data.frame() # need to make it a dataframe so you can do the join lower down in step 4. You can then view it too in your environment on the right
 
 
-
   # count the number of times each subject is in the data
   Exam_SQL_data %>%
     count(subjects) %>%
@@ -136,8 +130,6 @@ AND sublevno in ('310', '391', '395', '450', '451', '760', '954')"
     arrange(subjects)
 
 
-
-
   # STEP 2 Define variables
 
   # Import the pupil data
@@ -150,7 +142,6 @@ WHERE
  ENDKS = 1
  AND natmtdres = 1
 AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
-
 
 
   Pupil_SQL_data <- dbGetQuery(SQL_con, SQL_Statement)
@@ -225,7 +216,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     ))
 
 
-
   # # CHECKS
   # Var_SQL_data %>%
   #   count(LANG1ST) %>%
@@ -254,7 +244,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
   # Pupil_SQL_data %>%
   #   group_by(ks2em) %>%
   #   count(Sex, Disadvantage, EAL, SEN)
-
 
 
   # STEP 3 Join the exam and pupil data
@@ -378,8 +367,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
   #
 
 
-
-
   # creates the separate grade columns
   # grade_counts_spread <- grade_counts_comb %>%
   #   pivot_wider(names_from = GRADE, values_from = n) %>%
@@ -470,7 +457,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
   # save_tidy_data_file = 'C:/Users/SMANCHESTER.AD/OneDrive - Department for Education/Documents/R Projects/KS4_TM_Scaled_Scores/2021_Tidy_Data_Output_Scaled_Scores_Final.csv'
   save_tidy_data_file_subjects <- "C:/Users/MPARMAR/OneDrive - Department for Education/Documents/Repo/Transition-matrices-dashboard_SQL_integration/data/2024_Tidy_Data_Output_91_Scaled_Scores_Final_v2.csv" # update year
   write.table(tidy_data_subjects, save_tidy_data_file_subjects, row.names = FALSE, sep = ",")
-
 
 
   #################################################################################################
@@ -673,7 +659,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     drop_na(ks2em)
 
 
-
   func_attainment_char <- function(data, attainment, achieved, char, char_name) {
     # Group data and count per relevant category
     grouped_data <- data %>%
@@ -696,7 +681,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
 
     return(final_data)
   }
-
 
 
   ## function for calculating all pupil attainment columns
@@ -722,7 +706,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
 
     return(final_data)
   }
-
 
 
   # Calculating pupils entered for EBacc
@@ -757,8 +740,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     rename("%_Not_Entered" = "Not_Entered.y")
 
 
-
-
   # Calculating 9-4 grade achievement in EBacc
   EBACC94_achieved_Sex <- func_attainment_char(join_data_attainment, EBACC_94, 1, Sex, "Sex")
   EBACC94_notachieved_Sex <- func_attainment_char(join_data_attainment, EBACC_94, 0, Sex, "Sex")
@@ -787,8 +768,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     rename("EBacc_9-4_Not_Achieved" = "EBacc_9-4_Not_Achieved.x") %>%
     rename("%_EBacc_9-4_Achieved" = "Achieved_EBacc_9-4.y") %>%
     rename("%_EBacc_9-4_Not_Achieved" = "EBacc_9-4_Not_Achieved.y")
-
-
 
 
   # Calculating 9-5 grade achievement in EBacc
@@ -851,7 +830,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     rename("%_Basics_9-4_Not_Achieved" = "Basics_9-4_Not_Achieved.y")
 
 
-
   # Calculating 9-5 grade achievement in English and Maths
   L2B95_achieved_Sex <- func_attainment_char(join_data_attainment, L2BASICS_95, 1, Sex, "Sex")
   L2B95_notachieved_Sex <- func_attainment_char(join_data_attainment, L2BASICS_95, 0, Sex, "Sex")
@@ -882,7 +860,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     rename("%_Basics_9-5_Not_Achieved" = "Basics_9-5_Not_Achieved.y")
 
 
-
   # create a single table to join all 5 headline measures together
   attainment_TM <- EBACC_all_perc %>%
     left_join(EBACC94_all_perc, by = c("ks2em_band", "ks2em", "breakdown_topic", "breakdown")) %>%
@@ -890,7 +867,6 @@ AND NFTYPE in (20,21,22,23,24,25,26,27,31,50,51,52,53,55,57,58)"
     left_join(L2B94_all_perc, by = c("ks2em_band", "ks2em", "breakdown_topic", "breakdown")) %>%
     left_join(L2B95_all_perc, by = c("ks2em_band", "ks2em", "breakdown_topic", "breakdown")) %>%
     mutate_at(vars(contains("%")), ~ (round2(. * 100, 1)))
-
 
 
   # create the final tidy data file from the attainment_TM table
