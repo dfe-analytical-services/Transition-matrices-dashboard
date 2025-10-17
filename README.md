@@ -84,7 +84,7 @@ UI tests have been created using shinytest that test the app loads, that content
 
 GitHub Actions provide CI by running the automated tests and checks for code styling. The yaml files for these workflows can be found in the .github/workflows folder.
 
-The tests can be run locally within RStudio by running the command `shinytest2::test_app()`.
+The tests can be run locally within RStudio by running the command ``shinytest2::test_app()``.
 
 ### Deployment
 
