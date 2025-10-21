@@ -61,7 +61,6 @@ homepage_panel <- function() {
                 # p(actionLink("https://explore-education-statistics.service.gov.uk/data-catalogue/key-stage-4-performance-revised/2020-21", "KS4 Transition Matrices")),
 
 
-
                 h3("Further information"),
                 p("All supporting files from this release are listed below:"),
                 a(href = "https://www.gov.uk/government/publications/key-stage-4-qualifications-discount-codes-and-point-scores", "Key stage 4 discounting and early entry guidance", .noWS = c("after")),
@@ -125,7 +124,7 @@ dashboard_panel <- function() {
                    All underlying data can be downloaded here:",
                     tags$a(href = "https://explore-education-statistics.service.gov.uk/data-catalogue/", "Key stage 2 to 4 transition matrices GCSE subjects."),
                     br(),
-                    tags$b("UPDATE: 27th February 2025 - The KS4 Transition Matrices have been updated with 2023/24 revised data, in line with the revised KS4 performance release.")
+                    tags$b("UPDATE: 16th October 2025 - Progress measures will not be published for the 2024/25 academic year as the KS4 pupils in these years did not have KS2 assessments due to the COVID-19 pandemic. Therefore all the data on the Transition Matrices are still based on the 2023/24 academic year.")
                   ),
                   column(
                     width = 12,
@@ -190,7 +189,6 @@ dashboard_panel <- function() {
                         class = "well",
                         style = "min-height: 100%; height: 100%; overflow-y: visible",
                         fluidRow(
-
                           #  h3("Select one option from all categories to explore data:"),
                           column(
                             6,
@@ -248,10 +246,6 @@ dashboard_panel <- function() {
             )
           )
         )
-
-
-
-
 
 
         #   ))

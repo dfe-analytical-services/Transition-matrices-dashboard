@@ -78,7 +78,6 @@ download_attainment_data <- read.csv("data/2024_Tidy_Data_Output_Attainment_Scal
   )
 
 
-
 # -----------------------------------------------------------------------------------------------------------------------------
 # ---- Creating drop down lists ----
 # -----------------------------------------------------------------------------------------------------------------------------
@@ -88,7 +87,6 @@ subject_dropdown <- download_GCSE_Subjects_data %>%
   distinct() %>%
   add_row(subjects = "Combined Science") %>%
   arrange(subjects)
-
 
 
 characteristic_dropdown <- download_GCSE_Subjects_data %>%
@@ -112,9 +110,6 @@ attainment_dropdown <- c(
 )
 
 
-
-
-
 # KS2_dropdown <- c('Less than 80', '80 - 89.5', '90 - 95.5', '96 - 99.5',
 # '100 - 102', '102.5 - 104.5', '105 - 107', '107.5 - 109.5',
 # '110 - 112', '112.5 - 114.5', '115 - 117', '117.5 - 120')
@@ -125,7 +120,6 @@ KS2_dropdown_attainment <- download_attainment_data %>%
   distinct() %>%
   # arrange(KS2_Prior)%>%
   unlist(use.names = FALSE)
-
 
 
 # -----------------------------------------------------------------------------------------------------------------------------

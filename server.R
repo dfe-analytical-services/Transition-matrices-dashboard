@@ -73,8 +73,6 @@ server <- function(input, output, session) {
   })
 
 
-
-
   # -----------------------------------------------------------------------------------------------------------------------------
   # ---- Split on characteristics type ----
   # -----------------------------------------------------------------------------------------------------------------------------
@@ -85,11 +83,9 @@ server <- function(input, output, session) {
   })
 
 
-
   attainment_data_split <- reactive({
     split(attainment_data(), attainment_data()$characteristic_value)
   })
-
 
 
   # -----------------------------------------------------------------------------------------------------------------------------
@@ -132,8 +128,6 @@ server <- function(input, output, session) {
       })
     })
   })
-
-
 
 
   # create example tables
@@ -202,11 +196,9 @@ server <- function(input, output, session) {
         #  scale_x_discrete(labels = c("U", "11", "21", "22", "32", "33", "43", "44", "54", "55", "65", "66", "76", "77", "87", "88", "98", "99", "X", "covid_impacted"))
 
 
-
         scale_x_discrete(labels = function(x) {
           stringr::str_wrap(x, width = 10)
         })
-
 
 
       # scale_x_discrete(labels = c(chart_data$variable[1:length(chart_data$variable)-1],"Covid\nimpacted")) +
@@ -226,7 +218,6 @@ server <- function(input, output, session) {
         axis.line = element_line(colour = "black"),
         legend.position = "top"
       )
-
 
 
       ggplotly(subjects_chart) %>%
@@ -340,7 +331,6 @@ server <- function(input, output, session) {
   # -----------------------------------------------------------------------------------------------------------------------------
 
 
-
   output$GCSE_Subjects_data_download <- downloadHandler(
     filename = "2023_KS4_GCSE_Subjects_TM_data.csv",
     content = function(file) {
@@ -361,7 +351,6 @@ server <- function(input, output, session) {
       write.csv(download_attainment_data, file, row.names = FALSE)
     }
   )
-
 
 
   #  output$download_user_subject_table <- downloadHandler(
